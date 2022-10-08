@@ -1,4 +1,2 @@
-import {sum} from './modules/sum';
-
-const root = document.querySelector('#root');
-root.textContent = sum(6, -1).toString(); 
+import "./layouts/main/main.scss"
+import "../nullstyle.scss"

@@ -1,0 +1,28 @@
+extends ../../layouts/main/main.pug
+include ../../components/generalButton/generalButton.pug
+include ../../components/authForm/authForm.pug
+
+block script
+    script(src="./registration.js" type="module")
+
+block main
+    +authForm()
+        h1 Registration 
+        label email
+            input(type="email" name="email" )
+        label login    
+            input(type="text" name="login")
+        label name    
+            input(type="text" name="first_name")
+        label surname    
+            input(type="text" name="second_name")
+        label phone number 
+            input(type="tel" name="phone")
+        label password
+          input(type="password" name="password")
+        label repeat password
+            input(type="password" name="repeat-password")
+
+        +generalButton("Create account")
+        p or
+        +generalButton("Enter")
