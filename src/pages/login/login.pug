@@ -1,6 +1,7 @@
 extends ../../layouts/main/main.pug
 include ../../components/generalButton/generalButton.pug
 include ../../components/authForm/authForm.pug
+include ../../components/generalInput/generalInput.pug
 
 block script
     script(src="./login.js" type="module")
@@ -8,10 +9,8 @@ block script
 block main
     +authForm()
         h1 Login 
-        label login    
-            input(type="text" name="login")
-        label password
-            input(type="password" name="password")
+        +generalInput("login","text","login")
+        +generalInput("password","password","password")
         +generalButton("Enter")
         p or
         +generalButton("Create account")
