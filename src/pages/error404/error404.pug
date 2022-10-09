@@ -1,0 +1,11 @@
+extends ../../layouts/main/main.pug
+include ../../components/errorCard/errorCard.pug
+include ../../components/card/card.pug
+
+block script
+    link(rel="stylesheet", href="error404.scss")
+
+block main  
+    +card()
+        +errorCard('404', 'Not Found', "/src/pages")
+    

@@ -1,0 +1,9 @@
+extends ../../layouts/main/main.pug
+include ../../components/errorCard/errorCard.pug
+
+block script
+    link(rel="stylesheet", href="error404.scss")
+
+block main  
+    +errorCard("500", "Internal Server Error", "/src/pages")
+    
