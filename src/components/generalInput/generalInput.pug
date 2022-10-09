@@ -1,7 +1,8 @@
-mixin generalInput(label,type,name)
+mixin generalInput(label,type,name,error)
     div(class="general-input-wrapper")
         label=label   
             input(
                 type=type
                 name=name
                 )
+        span=error        
