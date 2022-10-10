@@ -1,6 +1,5 @@
 extends ../../layouts/main/main.pug
 include ../../components/generalButton/generalButton.pug
-include ../../components/authForm/authForm.pug
 include ../../components/generalInput/generalInput.pug
 include ../../components/card/card.pug
 
@@ -9,7 +8,7 @@ block script
 
 block main
     +card()
-        +authForm()
+        form
             h1 Registration 
             +generalInput("email","email","email")
             +generalInput("login","text","login")

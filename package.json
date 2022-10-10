@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "parcel ./src/pages/error404/error404.pug",
-    "build": "parcel ./src/pages/error404/error404.pug"
+    "start": "parcel ./src/pages/changeData/changeData.pug",
+    "build": "parcel ./src/pages/changeData/changeData.pug"
   },
   "keywords": [],
   "author": "",

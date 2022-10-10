@@ -1,9 +1,15 @@
 extends ../../layouts/main/main.pug
-include ../../components/errorCard/errorCard.pug
+include ../../components/card/card.pug
+include ../../components/generalLink/generalLink.pug
 
 block script
-    link(rel="stylesheet", href="error404.scss")
+    link(rel="stylesheet", href="error500.scss")
 
-block main  
-    +errorCard("500", "Internal Server Error", "/src/pages")
+block main 
+    +card()
+        .error-container
+            h1 500
+            p Internal Server Error
+            +generalLink("Back to the chat list", "/src/pages") 
+   
     

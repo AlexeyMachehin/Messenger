@@ -1,1 +1,22 @@
-@import "../../../style.scss"
+@import "../../../style.scss";
+
+.container {
+    width: 500px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.exit-link {
+    color: $error;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}

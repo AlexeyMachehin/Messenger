@@ -2,11 +2,13 @@
 @import "./variables.scss";
 @import "./src/components/generalButton/generalButton.scss";
 @import "./src/components/generalInput/generalInput.scss";
-@import "./src/components/authForm/authForm.scss";
+// @import "./src/components/authForm/authForm.scss";
 @import "./src/layouts//main/main.scss";
-@import "./src/components/errorCard/errorCard.scss"; 
-@import "./src/components/errorCard/errorCard.scss";
+// @import "./src/components/errorCard/errorCard.scss"; 
+// @import "./src/components/errorCard/errorCard.scss";
 @import "./src/components/card/card.scss";
+@import "./src/components/generalLink/generalLink.scss";
+@import "./src/components/goBackAside/goBackAside.scss";
 
 * {
     font-family: "Roboto";

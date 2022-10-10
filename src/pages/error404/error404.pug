@@ -1,11 +1,15 @@
 extends ../../layouts/main/main.pug
-include ../../components/errorCard/errorCard.pug
 include ../../components/card/card.pug
+include ../../components/generalLink/generalLink.pug
 
 block script
     link(rel="stylesheet", href="error404.scss")
 
 block main  
     +card()
-        +errorCard('404', 'Not Found', "/src/pages")
+        .error-container
+            h1 404
+            p Not Found
+            +generalLink("Back to the chat list", "/src/pages") 
+       
     

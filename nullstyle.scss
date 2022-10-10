@@ -29,8 +29,6 @@ html,
 body {
   height: 100%;
   width: 100%;
- 
-  
 }
 input,
 button,
@@ -39,6 +37,9 @@ textarea {
 }
 input::-ms-clear {
   display: none;
+}
+input{
+  padding-left: 5px;
 }
 button {
   cursor: pointer;
