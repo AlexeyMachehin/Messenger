@@ -1,0 +1,20 @@
+extends ../../layouts/main/main.pug
+include ../../components/searchInput/searchInput.pug
+include ../../components/generalLink/generalLink.pug
+
+block script
+    link(rel="stylesheet" href="chat.scss")
+
+
+block main
+    .chat-container
+        aside(class="chats-list")
+            .chats-list__header
+                .profile-link-container 
+                    +generalLink("Profile")
+                +searchInput()
+
+
+
+
+        section(class="messages") 
