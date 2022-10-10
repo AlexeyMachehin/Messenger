@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "parcel ./src/pages/changeData/changeData.pug",
-    "build": "parcel ./src/pages/changeData/changeData.pug"
+    "start": "parcel ./src/pages/changePassword/changePassword.pug",
+    "build": "parcel ./src/pages/changePassword/changePassword.pug"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,12 @@
+include ../closeModalButton/closeModalButton.pug
+include ../generalButton/generalButton.pug
+include ../card/card.pug
+mixin uploadAvatarModal(isDone = false, title, imageName)
+    dialog(class="uploadAvatarModal")
+        +card()
+            .close-button-container
+                +closeModalButton("Close")
+            h3=title
+            label Select a file on your computer 
+                input(type="file" style="display: none")
+            +generalButton("Change")

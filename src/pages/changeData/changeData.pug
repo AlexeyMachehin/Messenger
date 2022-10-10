@@ -4,9 +4,10 @@ include ../../components/generalInput/generalInput.pug
 include ../../components/generalButton/generalButton.pug
 include ../../components/generalLink/generalLink.pug
 include ../../components/goBackAside/goBackAside.pug
+include ../../components/uploadAvatarModal/uploadAvatarModal.pug
 block script
     link(rel="stylesheet" href="changeData.scss")
-
+    script(src="changeData.js" type="module")
     -
         const user = {
             email: "Bart@yandex.ru",
@@ -18,7 +19,10 @@ block script
             avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"
         }
 
+
+
 block main
+    +uploadAvatarModal(false, "Upload the file")
     div
         +goBackAside()
         +card()
@@ -36,5 +40,7 @@ block main
                 +generalInput("Phone number", "tel", "phone", _, _, user.phone)
 
                 +generalButton("Save")
+
+                button(id="open" type='button') Show modal
 
 

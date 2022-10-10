@@ -1,0 +1,28 @@
+.uploadAvatarModal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+        color: $app-color;
+        cursor: pointer;
+    }
+}
+
+dialog {
+    margin: auto;
+    border-radius: 4px;
+}
+
+.close-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
