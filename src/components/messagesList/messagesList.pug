@@ -1,7 +1,6 @@
 include ../messagesAvatar/messagesAvatar.pug
-
-block script
-    link(rel="stylesheet" href="messagesList.scss")   
+include ../chatMessages/message/message.pug
+include ../card/card.pug
 
 mixin messagesList(user)
     .messages-list
@@ -9,6 +8,65 @@ mixin messagesList(user)
             d.messages-list__avatar-name-container
                 +messagesAvatar(user.avatarURL)
                 h3=user.display_name
-            button.add-delete-user add-delete
-        .messages-list__time-container
-            h4=user.time   
+            button.add-delete-user-button
+            ul.add-delete-user-list
+                li.add-delete-user-list__add-user 
+                    .add-delete-user-list__add-icon
+                    p Add user
+                li.add-delete-user-list__delete-user 
+                    .add-delete-user-list__delete-icon
+                    p Delete user
+        .messages-list__main    
+            .messages-list__time-container
+                h4=user.time
+            ul.messages-list__correspondence
+                li.messages-list__message
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'my-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'my-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'my-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'my-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'my-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbgfdsferldfigbnelrbgfdsferldfigbnelrbgfd sferldfigbnelrbgfdsferldfigbnelrbgfdsferldfigbnelrbgfdsferldfigbnelrbgfdsferldfigbnelrbgfdsf", user.avatarURL, user.time, user.display_name, 'user-message')
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'my-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'my-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("dfjhglfd jfdhbglj rdfljhgbleirubg ljergblierugbn erldfigbnelrbg", user.avatarURL, user.time, user.display_name, 'user-message')
+                li.messages-list__message    
+                    +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message', 'user-message')
+
+        .messages-list__footer  
+            p jhdfsbv

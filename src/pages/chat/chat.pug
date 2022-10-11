@@ -8,18 +8,19 @@ include ../../components/messagesAvatar/messagesAvatar.pug
 
 block script
     link(rel="stylesheet" href="chat.scss")
+    script(type="module" src="./chat.js")
 
     -
         const users = [
-            {id: 1, display_name:"aaa", message:"11", avatarLink:"", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"}, 
-            {id: 2, display_name:"aaa", message:"22", avatarLink:"", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
-            {id: 3, display_name:"aaa", message:"33", avatarLink:"", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
-            {id: 4, display_name:"aaa", message:"44", avatarLink:"", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
-            {id: 5, display_name:"aaa", message:"55", avatarLink:"", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
-            {id: 6, display_name:"aaa", message:"66", avatarLink:"", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
-            {id: 7, display_name:"aaa", message:"77", avatarLink:"", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
-            {id: 8, display_name:"aaa", message:"88", avatarLink:"", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
-            {id: 9, display_name:"aaa", message:"99", avatarLink:"", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 1, display_name:"aaa", message:"hi11", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"}, 
+            {id: 2, display_name:"bbb", message:"hi22", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 3, display_name:"ccc", message:"hi33", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 4, display_name:"ddd", message:"hi44", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 5, display_name:"eee", message:"hi55", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 6, display_name:"fff", message:"hi66", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 7, display_name:"ggg", message:"hi77", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 8, display_name:"hhh", message:"hi88", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 9, display_name:"iii", message:"hi99", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
         ]
 
 block main

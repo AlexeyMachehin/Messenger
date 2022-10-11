@@ -1,7 +1,10 @@
 @import "../messagesAvatar/messagesAvatar.scss";
+@import "../chatMessages/message/message.scss";
+@import "../card/card.scss";
 
 .messages-list {
     padding: 10px;
+    width: 100%;
 }
 
 .messages-list__avatar-name-container {
@@ -13,13 +16,99 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px;
     width: 100%;
-    height: 50px;
+    height: 60px;
     border-bottom: 2px solid $border;
+    background-color: $background-aside;
 }
 
-.messages-list__time-container{
+.messages-list__time-container {
     display: flex;
     justify-content: center;
-    margin: 5px 0;
+    margin: 10px 0;
+}
+
+.messages-list__correspondence {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.messages-list__footer {
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border-top: 2px solid $border;
+    background-color: $background-aside;
+}
+
+.messages-list__main {
+    padding-left: 10px;
+}
+
+.add-delete-user-list {
+    display: none;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+    padding: 10px;
+    border: 2px solid $border;
+    background-color: $backdrop;
+    position: absolute;
+    right: 25px;
+    top: 70px;
+}
+
+.add-delete-user-list-active {
+    display: block;
+}
+
+.add-delete-user-list__add-user,
+.add-delete-user-list__delete-user {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 12px;
+    &:hover {
+        background-color: #f5f5f5;
+    }
+}
+
+.add-delete-user-list__add-user {
+    margin-bottom: 5px;
+}
+
+.add-delete-user-list__add-icon {
+    width: 22px;
+    height: 22px;
+    background-position: center;
+    background-image: url(../../static/images/add-user.svg);
+    margin-right: 10px;
+}
+
+.add-delete-user-list__delete-icon {
+    width: 22px;
+    height: 22px;
+    background-image: url(../../static/images/delete-user.svg);
+    margin-right: 10px;
+}
+
+.add-delete-user-button {
+    width: 16px;
+    height: 16px;
+    background-image: url(../../static/images/add-delete-user-button.svg);
+    background-color: inherit;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 12px;
+    border-radius: 50%;
+}
+
+.add-delete-user-button-active {
+    width: 16px;
+    height: 16px;
+    background-image: url(../../static/images/add-delete-user-button-active.svg);
+    background-color: #f5f5f5;
 }
