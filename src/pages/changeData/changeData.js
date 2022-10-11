@@ -1,5 +1,3 @@
-import "../../layouts/main/main.scss";
-import "../../../style.scss";
 
 const openBtn = document.querySelector("#open");
 const closeBtn = document.querySelector(".close-modal-button")

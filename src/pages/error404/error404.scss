@@ -1,4 +1,7 @@
 @import "../../../style.scss";
+@import "../../layouts/main/main.scss";
+@import "../../components/card/card.scss";
+@import "../../components/generalLink/generalLink.scss";
 
 .card {
     display: flex;

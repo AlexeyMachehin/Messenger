@@ -1,4 +1,9 @@
 @import "../../../style.scss";
+@import "../../layouts/main/main.scss";
+@import "../../components/card/card.scss";
+@import "../../components/generalInput/generalInput.scss";
+@import "../../components/generalLink/generalLink.scss";
+@import "../../components/goBackAside/goBackAside.scss";
 
 .container {
     width: 500px;

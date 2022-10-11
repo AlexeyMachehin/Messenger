@@ -1,4 +1,8 @@
 @import "../../../style.scss";
+@import "../../layouts/main/main.scss";
+@import "../../components/generalButton/generalButton.scss";
+@import "../../components/card/card.scss";
+@import "../../components/generalInput/generalInput.scss";
 
 form {
     display: flex;

@@ -1,4 +1,10 @@
 @import "../../../style.scss";
+@import "../../layouts/main/main.scss";
+@import "../../components/searchInput/searchInput.scss";
+@import "../../components/generalLink/generalLink.scss";
+@import "../../components/message/message.scss";
+
+
 
 .chat-container {
     display: flex;
