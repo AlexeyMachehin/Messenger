@@ -1,0 +1,10 @@
+include ../messagesAvatar/messagesAvatar.pug
+
+block script
+    link(rel="stylesheet" href="messagesList.scss")
+
+mixin messagesList()
+    .messages-list
+       .messages-list__header
+            +messagesAvatar("https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1")
+            h3 Сашка

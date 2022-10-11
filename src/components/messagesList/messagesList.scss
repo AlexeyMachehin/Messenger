@@ -1,0 +1,13 @@
+@import "../messagesAvatar/messagesAvatar.scss";
+
+.messages-list {
+    padding: 10px;
+}
+
+.messages-list__header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid $border;
+}

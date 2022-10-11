@@ -1,17 +1,20 @@
+@import "../messagesAvatar/messagesAvatar.scss";
+
 .message {
     display: flex;
     width: 100%;
     
 }
-.message__avatar-container {
-    width: 40px;
-    height: 40px;
-}
-.message__avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
+// .message__avatar-container {
+//     width: 40px;
+//     height: 40px;
+//     margin-right: 5px;
+// }
+// .message__avatar {
+//     width: 40px;
+//     height: 40px;
+//     border-radius: 50%;
+// }
 
 .message__content {
     display: flex;

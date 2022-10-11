@@ -2,6 +2,9 @@ extends ../../layouts/main/main.pug
 include ../../components/searchInput/searchInput.pug
 include ../../components/generalLink/generalLink.pug
 include ../../components/message/message.pug
+include ../../components/noMessages/noMessages.pug
+include ../../components/messagesList/messagesList.pug
+include ../../components/messagesAvatar/messagesAvatar.pug
 
 block script
     link(rel="stylesheet" href="chat.scss")
@@ -35,5 +38,5 @@ block main
 
 
         section(class="messages")
-            .no-messages
-                p Select a chat to send a message 
+            //- +noMessages()
+            +messagesList()

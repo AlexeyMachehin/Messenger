@@ -1,7 +1,8 @@
+include ../messagesAvatar/messagesAvatar.pug
+
 mixin message(name, message, time, count, avatarURL) 
     article.message
-        .message__avatar-container
-            img.message__avatar(src=avatarURL alt="avatar")
+        +messagesAvatar(avatarURL)
         .message__content
             .message__header
                 h4=name 
