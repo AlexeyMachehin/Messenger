@@ -1,6 +1,7 @@
 @import "../messagesAvatar/messagesAvatar.scss";
-@import "../chatMessages/message/message.scss";
+@import "../message/message.scss";
 @import "../card/card.scss";
+@import "../select/select.scss";
 
 .messages-list {
     padding: 10px;
@@ -36,51 +37,21 @@
     height: 100%;
 }
 
-.messages-list__footer {
-    width: 100%;
-    height: 60px;
-    padding: 10px;
-    border-top: 2px solid $border;
-    background-color: $background-aside;
-}
-
 .messages-list__main {
     padding-left: 10px;
 }
 
-.add-delete-user-list {
-    display: none;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
-    border-radius: 12px;
-    padding: 10px;
-    border: 2px solid $border;
-    background-color: $backdrop;
-    position: absolute;
+.select-list-header {
     right: 25px;
     top: 70px;
 }
 
-.add-delete-user-list-active {
-    display: block;
+.select-list-footer {
+    bottom: 55px;
+    left: 290px;
 }
 
-.add-delete-user-list__add-user,
-.add-delete-user-list__delete-user {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 12px;
-    &:hover {
-        background-color: #f5f5f5;
-    }
-}
-
-.add-delete-user-list__add-user {
-    margin-bottom: 5px;
-}
-
-.add-delete-user-list__add-icon {
+.add-icon {
     width: 22px;
     height: 22px;
     background-position: center;
@@ -88,7 +59,7 @@
     margin-right: 10px;
 }
 
-.add-delete-user-list__delete-icon {
+.delete-icon {
     width: 22px;
     height: 22px;
     background-image: url(../../static/images/delete-user.svg);
@@ -111,4 +82,41 @@
     height: 16px;
     background-image: url(../../static/images/add-delete-user-button-active.svg);
     background-color: #f5f5f5;
+}
+
+.messages-list__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    padding: 0 10px;
+    border-top: 2px solid $border;
+    background-color: $background-aside;
+}
+
+.messages-list__footer__add-file {
+    width: 32px;
+    height: 32px;
+    background-image: url(../../static/images/paperClip.svg);
+    background-color: inherit;
+    margin-right: 10px;
+}
+
+.messages-list__footer__add-file-active {
+    background-image: url(../../static/images/paperClip-active.svg);
+}
+
+.messages-list__footer__send {
+    width: 32px;
+    height: 28px;
+    background-image: url(../../static/images/sendMessage.svg);
+    background-repeat: no-repeat;
+    background-color: inherit;
+    margin-left: 10px;
+}
+
+.messages-list__footer__input-form {
+    width: 100%;
+    display: flex;
 }

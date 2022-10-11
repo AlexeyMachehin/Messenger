@@ -1,5 +1,5 @@
 extends ../../layouts/main/main.pug
-include ../../components/searchInput/searchInput.pug
+include ../../components/chatPageInput/chatPageInput.pug
 include ../../components/generalLink/generalLink.pug
 include ../../components/user/user.pug
 include ../../components/noMessages/noMessages.pug
@@ -29,7 +29,7 @@ block main
             .chats-list__header
                 .profile-link-container 
                     +generalLink("Profile")
-                +searchInput()
+                +chatPageInput("search", "search")
 
             ul.chat
                 each item in users

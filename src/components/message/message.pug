@@ -1,0 +1,13 @@
+include ../messagesAvatar/messagesAvatar.pug
+
+block script
+    link(rel="stylesheet" href="message.scss")
+
+mixin message(message, avatarURL, time, name, className)
+    .message-container
+        +messagesAvatar(avatarURL)
+        .message-container__content
+            .message-container__content__header
+                h4.message-container__name=name
+                p.message-container__time=time
+            div(class=className).message-container__message=message
