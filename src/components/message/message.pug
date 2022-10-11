@@ -1,0 +1,12 @@
+mixin message(name, message, time, count, avatarURL) 
+    article.message
+        .message__avatar-container
+            img.message__avatar(src=avatarURL alt="avatar")
+        .message__content
+            .message__header
+                h4=name 
+                p=time  
+            .message__main
+                p=message
+                p=count
+
