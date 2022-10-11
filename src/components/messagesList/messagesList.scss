@@ -4,10 +4,22 @@
     padding: 10px;
 }
 
+.messages-list__avatar-name-container {
+    display: flex;
+    align-items: center;
+}
+
 .messages-list__header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 50px;
     border-bottom: 2px solid $border;
+}
+
+.messages-list__time-container{
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
 }
