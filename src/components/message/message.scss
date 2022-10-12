@@ -4,7 +4,7 @@
     margin-bottom: 20px;
 }
 
-.message-container__message {
+.message-text {
     display: flex;
     align-items: center;
     max-width: 500px;
@@ -17,11 +17,11 @@
     background-color: $userMessage;
 }
 
-.message-container__content__header {
+.message-content__header {
     display: flex;
 }
 
-.message-container__name {
+.message-name {
     margin-right: 10px;
 }
 

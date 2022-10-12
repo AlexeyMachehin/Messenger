@@ -18,14 +18,12 @@ block script
             avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"
         }
 
-
-
 block main
     +uploadAvatarModal()
     div
         +goBackAside()
         .card
-            div(class="container")
+            .container
                 h1 Change profile data
                 .avatar-wrapper(id="open")
                     img(class="avatar" src=user.avatarURL alt="avatar")
@@ -39,6 +37,6 @@ block main
 
                 +generalButton("Save")
 
-               
+
 
 

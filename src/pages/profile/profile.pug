@@ -20,9 +20,9 @@ block main
     div
         +goBackAside()
         .card
-            div(class="container")
+            .container
                 h1 My profile
-                img(class="avatar" src=user.avatarURL alt="avatar")
+                img.avatar(src=user.avatarURL alt="avatar")
                 h3=user.display_name
                 +generalInput("Email", "email", "email", _, true, user.email)
                 +generalInput("Login", "text", "login", _, true, user.login)
@@ -34,6 +34,6 @@ block main
                 +generalLink("Change data", "/")
                 +generalLink("Change password", "/")
 
-                a(class="exit-link" href="/") Exit
+                a.exit-link(href="/") Exit
         
     
