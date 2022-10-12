@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "parcel src/static/index.pug",
-    "build": "parcel src/static/index.pug"
+    "build": "parcel build src/static/index.pug"
   },
   "keywords": [],
   "author": "",
