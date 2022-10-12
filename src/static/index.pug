@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet")
+    link(href="../../style.scss" rel="stylesheet")
+    title=Document
+    script(src="../index.js" type="module")
+
+body
+    nav.menu
+        a(href="../pages/changeData/changeData.pug") changeData
+        a(href="../pages/changePassword/changePassword.pug") changePassword
+        a(href="../pages/chat/chat.pug") chat
+        a(href="../pages/error404/error404.pug") error404
+        a(href="../pages/error500/error500.pug") error500
+        a(href="../pages/login/login.pug") login
+        a(href="../pages/profile/profile.pug") profile
+        a(href="../pages/registration/registration.pug") registration
