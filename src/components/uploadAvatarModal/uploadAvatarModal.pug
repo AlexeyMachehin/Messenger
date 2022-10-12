@@ -9,7 +9,7 @@ mixin uploadAvatarModal()
                 button.close-modal-button
             h3 Upload a file
             label Select a file on your computer 
-                input(type="file" style="display: none")
+                input(type="file" style="display: none" name="avatar")
             +generalButton("Change")
 
         +card()
@@ -24,7 +24,7 @@ mixin uploadAvatarModal()
                 button.close-modal-button
             h3 Upload a file
             label Select a file on your computer 
-                input(type="file" style="display: none")
+                input(type="file" style="display: none" name="avatar")
             +errorSpan("You need to select a file")
             +generalButton("Change")        
 
@@ -34,5 +34,5 @@ mixin uploadAvatarModal()
             h3 
                 +errorSpan("Error, try again")
             label Select a file on your computer 
-                input(type="file" style="display: none")
+                input(type="file" style="display: none" name="avatar")
             +generalButton("Change")    
