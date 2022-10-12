@@ -1,0 +1,22 @@
+@import "../avatar/avatar.scss";
+@import "../message/message.scss";
+
+.messages {
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    .messages-list__time {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .messages-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+}

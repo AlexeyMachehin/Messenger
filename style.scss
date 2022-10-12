@@ -1,8 +1,29 @@
-@import './nullstyle.scss';
-@import './src/components/generalButton/generalButton.scss';
-@import './src/components/input/input.scss';
-@import './src/components/authForm/authForm.scss';
-@import './src/layouts//main/main.scss';
+@import "./nullstyle.scss";
+@import "./variables.scss";
+// @import "./src/components/generalButton/generalButton.scss";
+// @import "./src/components/closeModalButton/closeModalButton.scss";
+// @import "./src/components/generalInput/generalInput.scss";
+// // @import "./src/components/authForm/authForm.scss";
+// @import "./src/layouts/main/main.scss";
+// @import "./src/components/card/card.scss";
+// @import "./src/components/generalLink/generalLink.scss";
+// // @import "./src/components/goBackAside/goBackAside.scss";
+// @import "./src/components/uploadAvatarModal/uploadAvatarModal.scss";
+// @import "./src/components/searchInput/searchInput.scss";
+// @import "./src/components/message/message.scss";
+* {
+    font-family: "Roboto";
+}
 
+dialog {
+    margin: auto;
+}
 
-* { font-family:'Roboto'; }
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+}

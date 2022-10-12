@@ -1,0 +1,25 @@
+@import "../avatar/avatar.scss";
+
+.user {
+    display: flex;
+    width: 100%;
+}
+
+
+.user__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.user__header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.user__main {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

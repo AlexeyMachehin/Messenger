@@ -1,0 +1,15 @@
+extends ../../layouts/main/main.pug
+include ../../components/card/card.pug
+include ../../components/generalLink/generalLink.pug
+
+block script
+    link(rel="stylesheet", href="error500.scss")
+
+block main 
+    +card()
+        .error-container
+            h1 500
+            p Internal Server Error
+            +generalLink("Back to the chat list", "/src/pages") 
+   
+    

@@ -1,0 +1,83 @@
+extends ../../layouts/main/main.pug
+include ../../components/chatPageInput/chatPageInput.pug
+include ../../components/generalLink/generalLink.pug
+include ../../components/user/user.pug
+include ../../components/noMessages/noMessages.pug
+include ../../components/messagesList/messagesList.pug
+include ../../components/avatar/avatar.pug
+include ../../components/deleteUserModal/deleteUserModal.pug
+include ../../components/deleteChatModal/deleteChatModal.pug
+include ../../components/addUserModal/addUserModal.pug
+include ../../components/select/select.pug
+
+block script
+    link(rel="stylesheet" href="chat.scss")
+    script(type="module" src="./chat.js")
+
+    -
+        const users = [
+            {id: 1, display_name:"aaa", message:"hi11", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"}, 
+            {id: 2, display_name:"bbb", message:"hi22", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 3, display_name:"ccc", message:"hi33", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 4, display_name:"ddd", message:"hi44", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 5, display_name:"eee", message:"hi55", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 6, display_name:"fff", message:"hi66", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 7, display_name:"ggg", message:"hi77", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 8, display_name:"hhh", message:"hi88", time:"13.40", avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+            {id: 9, display_name:"iii", message:"hi99", time:"13.40", countMessages: 4, avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"},
+        ]
+
+block main
+    +deleteUserModal()
+    +deleteChatModal()
+    +addUserModal()
+    .chats-container
+        aside.chats
+            .chats-list__header
+                .profile-link-container 
+                    +generalLink("Profile")
+                +chatPageInput("search", "search")
+
+            ul.chats-list
+                each item in users
+                    li.chat__item
+                        +user(item.display_name, item.message, item.time, item.countMessages, item.avatarURL)
+
+
+        section.chat
+            //- +noMessages()
+            .chat__header
+                .chat-name
+                    +avatar(users[0].avatarURL)
+                    h3=users[0].display_name
+                .chat__header-container
+                    button.manage-user__button
+                    +select("select-list-header")
+                        li.select-item(id="addUser")
+                            .add-icon
+                            p Add user
+                        li.select-item(id="DeleteUser")
+                            .delete-icon
+                            p Delete user
+                        li.select-item(id="DeleteChat")
+                            .delete-icon
+                            p Delete chat 
+
+            +messagesList(users[0])
+
+            .chat__footer 
+                .chat__footer-container 
+                    button.manage-file__button
+                    +select('select-list-footer')
+                        li.select-item
+                            .photo-video-icon
+                            p Photo or video
+                        li.select-item
+                            .file-icon
+                            p File
+                        li.select-item
+                            .location-icon
+                            p Location
+                form.message-form
+                    +chatPageInput("text", "message")
+                    button.message-form__button

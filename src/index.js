@@ -1,2 +1,3 @@
-import "./layouts/main/main.scss"
-import "../nullstyle.scss"
+import "./layouts/main/main.scss";
+import "../nullstyle.scss";
+

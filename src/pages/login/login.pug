@@ -1,17 +1,17 @@
 extends ../../layouts/main/main.pug
 include ../../components/generalButton/generalButton.pug
-include ../../components/authForm/authForm.pug
+include ../../components/card/card.pug
+include ../../components/generalInput/generalInput.pug
 
 block script
-    script(src="./login.js" type="module")
+    link(rel="stylesheet", href="login.scss")
 
 block main
-    +authForm()
-        h1 Login 
-        label login    
-            input(type="text" name="login")
-        label password
-            input(type="password" name="password")
-        +generalButton("Enter")
-        p or
-        +generalButton("Create account")
+    +card()
+        form
+            h1 Login 
+            +generalInput("login","text","login")
+            +generalInput("password","password","password","Invalid login or password")
+            +generalButton("Enter")
+            p or
+            +generalButton("Create account")

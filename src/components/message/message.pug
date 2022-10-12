@@ -1,0 +1,10 @@
+include ../avatar/avatar.pug
+
+mixin message(message, avatarURL, time, name, className)
+    .message-container
+        +avatar(avatarURL)
+        .message-container__content
+            .message-container__content__header
+                h4.message-container__name=name
+                p.message-container__time=time
+            div(class=className).message-container__message=message

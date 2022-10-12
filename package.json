@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "parcel ./src/pages/registration/registration.pug",
-    "build": "parcel ./src/pages/registration/registration.pug"
+    "start": "parcel src/static/index.pug",
+    "build": "parcel src/static/index.pug"
   },
   "keywords": [],
   "author": "",

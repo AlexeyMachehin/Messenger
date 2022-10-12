@@ -1,1 +1,15 @@
-@import '../../../style.scss';
+@import "../../../style.scss";
+@import "../../layouts/main/main.scss";
+@import "../../components/generalButton/generalButton.scss";
+@import "../../components/generalInput/generalInput.scss";
+@import "../../components/card/card.scss";
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+    max-height: 700px;
+    gap: 10px;
+}
