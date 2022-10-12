@@ -54,14 +54,21 @@
 .profile-link-container {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .chat__item {
     padding: 5px;
     border-bottom: 2px solid $border;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $myMessage;
+    }
 }
 
 .chat {
     height: 100%;
     overflow: auto;
 }
+

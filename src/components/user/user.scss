@@ -1,23 +1,24 @@
 @import "../messagesAvatar/messagesAvatar.scss";
 
-.message {
+.user {
     display: flex;
     width: 100%;
 }
 
-.message__content {
+
+.user__content {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.message__header {
+.user__header {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.message__main {
+.user__main {
     display: flex;
     justify-content: space-between;
     width: 100%;

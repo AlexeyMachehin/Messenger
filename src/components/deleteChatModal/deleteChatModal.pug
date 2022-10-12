@@ -1,0 +1,11 @@
+include ../generalInput/generalInput.pug
+include ../generalButton/generalButton.pug
+include ../card/card.pug
+
+mixin deleteChatModal()
+    dialog(class="deleteChatModal")
+        +card()
+            .close-button-container
+                button.close-modal-button
+            h3 Are you sure you want to delete the chat?
+            +generalButton("Delete")

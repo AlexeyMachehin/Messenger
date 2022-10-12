@@ -10,21 +10,19 @@ mixin messagesList(user)
             d.messages-list__avatar-name-container
                 +messagesAvatar(user.avatarURL)
                 h3=user.display_name
-            button.add-delete-user-button
-            +select('select-list-header')
-                li.select-item
-                    .add-icon
-                    p Add user
-                li.select-item
-                    .delete-icon
-                    p Delete user
-            //- ul.add-delete-user-list
-            //-     li.add-delete-user-list__add-user 
-            //-         .add-delete-user-list__add-icon
-            //-         p Add user
-            //-     li.add-delete-user-list__delete-user 
-            //-         .add-delete-user-list__delete-icon
-            //-         p Delete user
+            .select-list-header-container
+                button.add-delete-user-button
+                +select('select-list-header')
+                    li.select-item
+                        .add-icon
+                        p Add user
+                    li.select-item
+                        .delete-icon
+                        p Delete user
+                    li.select-item
+                        .delete-icon
+                        p Delete chat    
+
         .messages-list__main    
             .messages-list__time-container
                 h4=user.time
@@ -77,22 +75,19 @@ mixin messagesList(user)
                 li.messages-list__message    
                     +message("рпва", user.avatarURL, user.time, user.display_name, 'user-message', 'user-message')
 
-        .messages-list__footer  
-            button.messages-list__footer__add-file
-            +select('select-list-footer')
-                li.select-item
-                    .add-icon
-                    p Photo or video
-                li.select-item
-                    .delete-icon
-                    p File
-                li.select-item
-                    .delete-icon
-                    p Location
-            //- ul.add-file-list
-            //-     li.add-file-list__photo-video Photo or video
-            //-     li.add-file-list__file FIle
-            //-     li.add-file-list__location Location
+        .messages-list__footer 
+            .select-list-footer-container 
+                button.messages-list__footer__add-file
+                +select('select-list-footer')
+                    li.select-item
+                        .photo-video-icon
+                        p Photo or video
+                    li.select-item
+                        .file-icon
+                        p File
+                    li.select-item
+                        .location-icon
+                        p Location
             form.messages-list__footer__input-form
                 +chatPageInput("text", "message")
                 button.messages-list__footer__send

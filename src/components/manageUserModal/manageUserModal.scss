@@ -1,0 +1,16 @@
+@import "../generalInput/generalInput.scss";
+@import "../generalButton/generalButton.scss";
+@import "../card/card.scss";
+
+.close-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.close-modal-button {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../static/images/closeCross.svg);
+    background-color: inherit;
+}

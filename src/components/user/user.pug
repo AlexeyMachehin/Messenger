@@ -1,13 +1,13 @@
 include ../messagesAvatar/messagesAvatar.pug
 
 mixin user(name, message, time, count, avatarURL) 
-    article.message
+    article.user
         +messagesAvatar(avatarURL)
-        .message__content
-            .message__header
+        .user__content
+            .user__header
                 h4=name 
                 p=time  
-            .message__main
+            .user__main
                 p=message
                 p=count
 

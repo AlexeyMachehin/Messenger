@@ -8,8 +8,10 @@
     background-color: $backdrop;
 }
 
-.select-list-active {
-    display: block;
+.active {
+    .select-list {
+        display: block;
+    }
 }
 
 .select-item {
@@ -24,5 +26,5 @@
 }
 
 .select-item + .select-item {
-    margin-bottom: 5px;
+    margin-top: 5px;
 }

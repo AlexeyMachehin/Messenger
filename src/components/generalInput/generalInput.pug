@@ -1,3 +1,5 @@
+include ../errorSpan/errorSpan.pug
+
 mixin generalInput(label,type,name,error,isDisable=false, value)
     div(class="general-input-wrapper")
         label=label   
@@ -7,4 +9,4 @@ mixin generalInput(label,type,name,error,isDisable=false, value)
                 value=value
                 disabled=isDisable
                 )
-        span=error        
+        +errorSpan(error)       

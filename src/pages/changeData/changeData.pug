@@ -22,14 +22,14 @@ block script
 
 
 block main
-    +uploadAvatarModal(false, "Upload the file")
+    +uploadAvatarModal()
     div
         +goBackAside()
         +card()
 
             div(class="container")
                 h1 Change profile data
-                .avatar-wrapper
+                .avatar-wrapper(id="open")
                     img(class="avatar" src=user.avatarURL alt="avatar")
                 h3=user.display_name
                 +generalInput("Email", "email", "email", _, _, user.email)
@@ -41,6 +41,6 @@ block main
 
                 +generalButton("Save")
 
-                button(id="open" type='button') Show modal
+               
 
 

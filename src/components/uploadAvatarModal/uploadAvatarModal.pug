@@ -1,12 +1,39 @@
 include ../closeModalButton/closeModalButton.pug
 include ../generalButton/generalButton.pug
 include ../card/card.pug
-mixin uploadAvatarModal(isDone = false, title, imageName)
+include ../errorSpan/errorSpan.pug
+
+mixin uploadAvatarModal()
     dialog(class="uploadAvatarModal")
         +card()
             .close-button-container
-                +closeModalButton("Close")
-            h3=title
+                button.close-modal-button
+            h3 Upload a file
             label Select a file on your computer 
                 input(type="file" style="display: none")
             +generalButton("Change")
+
+        +card()
+            .close-button-container
+                button.close-modal-button
+            h3 File uploaded
+            p pic.jpg
+            +generalButton("Change")
+
+        +card()
+            .close-button-container
+                button.close-modal-button
+            h3 Upload a file
+            label Select a file on your computer 
+                input(type="file" style="display: none")
+            +errorSpan("You need to select a file")
+            +generalButton("Change")        
+
+        +card()
+            .close-button-container
+                button.close-modal-button
+            h3 
+                +errorSpan("Error, try again")
+            label Select a file on your computer 
+                input(type="file" style="display: none")
+            +generalButton("Change")    
