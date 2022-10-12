@@ -1,8 +1,8 @@
-include ../messagesAvatar/messagesAvatar.pug
+include ../avatar/avatar.pug
 
 mixin user(name, message, time, count, avatarURL) 
     article.user
-        +messagesAvatar(avatarURL)
+        +avatar(avatarURL)
         .user__content
             .user__header
                 h4=name 

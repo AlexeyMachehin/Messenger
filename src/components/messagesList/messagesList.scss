@@ -1,143 +1,22 @@
-@import "../messagesAvatar/messagesAvatar.scss";
+@import "../avatar/avatar.scss";
 @import "../message/message.scss";
-@import "../card/card.scss";
-@import "../select/select.scss";
 
-.messages-list {
+.messages {
     padding: 10px;
-    width: 100%;
-}
-
-.messages-list__avatar-name-container {
-    display: flex;
-    align-items: center;
-}
-
-.messages-list__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    width: 100%;
-    height: 60px;
-    border-bottom: 2px solid $border;
-    background-color: $background-aside;
-}
-
-.messages-list__time-container {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-}
-
-.messages-list__correspondence {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     height: 100%;
-}
+    overflow: auto;
 
-.messages-list__main {
-    padding-left: 10px;
-}
+    .messages-list__time {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+    }
 
-.select-list-header {
-    right: 25px;
-    top: 70px;
-}
-
-.select-list-footer {
-    bottom: 55px;
-    left: 290px;
-}
-
-.add-icon {
-    width: 22px;
-    height: 22px;
-    background-position: center;
-    background-image: url(../../static/images/add-user.svg);
-    margin-right: 10px;
-}
-
-.delete-icon {
-    width: 22px;
-    height: 22px;
-    background-image: url(../../static/images/delete-user.svg);
-    margin-right: 10px;
-}
-
-.add-delete-user-button {
-    width: 16px;
-    height: 16px;
-    background-image: url(../../static/images/add-delete-user-button.svg);
-    background-color: inherit;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-right: 12px;
-    border-radius: 50%;
-}
-
-.active .add-delete-user-button {
-    width: 16px;
-    height: 16px;
-    background-image: url(../../static/images/add-delete-user-button-active.svg);
-    background-color: #f5f5f5;
-}
-
-.messages-list__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 60px;
-    padding: 0 10px;
-    border-top: 2px solid $border;
-    background-color: $background-aside;
-}
-
-.messages-list__footer__add-file {
-    width: 32px;
-    height: 32px;
-    background-image: url(../../static/images/paperClip.svg);
-    background-color: inherit;
-    margin-right: 10px;
-}
-
-.active .messages-list__footer__add-file{
-    background-image: url(../../static/images/paperClip-active.svg);
-}
-
-.messages-list__footer__send {
-    width: 32px;
-    height: 28px;
-    background-image: url(../../static/images/sendMessage.svg);
-    background-repeat: no-repeat;
-    background-color: inherit;
-    margin-left: 10px;
-}
-
-.messages-list__footer__input-form {
-    width: 100%;
-    display: flex;
-}
-
-.photo-video-icon {
-    margin-right: 10px;
-    width: 22px;
-    height: 22px;
-    background-image: url(../../static/images/photoAndVideo.svg);
-}
-
-.file-icon {
-    margin-right: 10px;
-    width: 22px;
-    height: 22px;
-    background-image: url(../../static/images/file.svg);
-}
-
-.location-icon {
-    margin-right: 10px;
-    width: 22px;
-    height: 22px;
-    background-image: url(../../static/images/Location.svg);
+    .messages-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
 }

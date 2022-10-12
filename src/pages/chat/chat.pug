@@ -4,7 +4,11 @@ include ../../components/generalLink/generalLink.pug
 include ../../components/user/user.pug
 include ../../components/noMessages/noMessages.pug
 include ../../components/messagesList/messagesList.pug
-include ../../components/messagesAvatar/messagesAvatar.pug
+include ../../components/avatar/avatar.pug
+include ../../components/deleteUserModal/deleteUserModal.pug
+include ../../components/deleteChatModal/deleteChatModal.pug
+include ../../components/addUserModal/addUserModal.pug
+include ../../components/select/select.pug
 
 block script
     link(rel="stylesheet" href="chat.scss")
@@ -24,19 +28,56 @@ block script
         ]
 
 block main
-    .chat-container
-        aside(class="chats-list")
+    +deleteUserModal()
+    +deleteChatModal()
+    +addUserModal()
+    .chats-container
+        aside.chats
             .chats-list__header
                 .profile-link-container 
                     +generalLink("Profile")
                 +chatPageInput("search", "search")
 
-            ul.chat
+            ul.chats-list
                 each item in users
                     li.chat__item
                         +user(item.display_name, item.message, item.time, item.countMessages, item.avatarURL)
 
 
-        section(class="messages")
+        section.chat
             //- +noMessages()
+            .chat__header
+                .chat-name
+                    +avatar(users[0].avatarURL)
+                    h3=users[0].display_name
+                .chat__header-container
+                    button.manage-user__button
+                    +select("select-list-header")
+                        li.select-item(id="addUser")
+                            .add-icon
+                            p Add user
+                        li.select-item(id="DeleteUser")
+                            .delete-icon
+                            p Delete user
+                        li.select-item(id="DeleteChat")
+                            .delete-icon
+                            p Delete chat 
+
             +messagesList(users[0])
+
+            .chat__footer 
+                .chat__footer-container 
+                    button.manage-file__button
+                    +select('select-list-footer')
+                        li.select-item
+                            .photo-video-icon
+                            p Photo or video
+                        li.select-item
+                            .file-icon
+                            p File
+                        li.select-item
+                            .location-icon
+                            p Location
+                form.message-form
+                    +chatPageInput("text", "message")
+                    button.message-form__button

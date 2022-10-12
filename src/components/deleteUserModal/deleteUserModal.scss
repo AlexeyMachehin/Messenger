@@ -1,0 +1,9 @@
+@import "../generalInput/generalInput.scss";
+@import "../generalButton/generalButton.scss";
+@import "../dialogModal/dialogModal.scss";
+
+.dialog-modal__container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

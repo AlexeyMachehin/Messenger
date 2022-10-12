@@ -1,11 +1,8 @@
-include ../messagesAvatar/messagesAvatar.pug
-
-block script
-    link(rel="stylesheet" href="message.scss")
+include ../avatar/avatar.pug
 
 mixin message(message, avatarURL, time, name, className)
     .message-container
-        +messagesAvatar(avatarURL)
+        +avatar(avatarURL)
         .message-container__content
             .message-container__content__header
                 h4.message-container__name=name

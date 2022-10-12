@@ -1,6 +1,6 @@
-const openBtn = document.querySelector("#open");
-const closeBtn = document.querySelector(".close-modal-button");
+import { Dialog } from '../../components/dialogModal/dialogService';
 
-const dialog = document.querySelector("dialog");
-openBtn.addEventListener("click", () => dialog.showModal());
-closeBtn.addEventListener("click", () => dialog.close());
+const dialog = new Dialog('.uploadAvatarModal');
+const openBtn = document.querySelector("#open");
+
+openBtn.addEventListener("click", () => dialog.openDialog());
