@@ -14,6 +14,7 @@
 .user__header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
 }
 
@@ -21,4 +22,28 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.message-count {
+    min-width: 16px;
+    height: 16px;
+    color: #fff;
+    background-color: #26a69a;
+    border-radius: 16px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 10px 6px;
+}
+
+.message-time {
+    color: $secondary-color;
+    font-size: 12px;
+}
+
+.message-text {
+    max-width: 140px;
+    overflow: hidden;
+    color: $secondary-color;
+    text-overflow: ellipsis;
 }
