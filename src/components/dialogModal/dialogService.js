@@ -3,7 +3,9 @@ export class Dialog {
   closeButton;
   constructor(className) {
     this.dialog = document.querySelector(className);
-    this.closeButton = document.querySelector(`${className} .close-modal-button`);
+    this.closeButton = document.querySelector(
+      `${className} .close-modal-button`
+    );
     this.subscribeToClickOnCLose();
   }
 

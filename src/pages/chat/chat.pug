@@ -35,7 +35,7 @@ block main
         aside.chats
             .chats-list__header
                 .profile-link-container 
-                    +generalLink("Profile")
+                    +generalLink("Profile", '/')
                 +chatPageInput("search", "search")
 
             ul.chats-list
@@ -79,5 +79,5 @@ block main
                             .location-icon
                             p Location
                 form.message-form
-                    +chatPageInput("text", "message")
+                    +chatPageInput("text", "message", "message")
                     button.message-form__button

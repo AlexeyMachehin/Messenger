@@ -1,16 +1,6 @@
 @import "./nullstyle.scss";
 @import "./variables.scss";
-// @import "./src/components/generalButton/generalButton.scss";
-// @import "./src/components/closeModalButton/closeModalButton.scss";
-// @import "./src/components/generalInput/generalInput.scss";
-// // @import "./src/components/authForm/authForm.scss";
-// @import "./src/layouts/main/main.scss";
-// @import "./src/components/card/card.scss";
-// @import "./src/components/generalLink/generalLink.scss";
-// // @import "./src/components/goBackAside/goBackAside.scss";
-// @import "./src/components/uploadAvatarModal/uploadAvatarModal.scss";
-// @import "./src/components/searchInput/searchInput.scss";
-// @import "./src/components/message/message.scss";
+
 * {
     font-family: "Roboto";
 }
@@ -26,4 +16,12 @@ dialog::backdrop {
 .menu {
     display: flex;
     flex-direction: column;
+}
+
+.card {
+    background: $background-color;
+    border-radius: 4px;
+    box-shadow: 0 2px 1px -1px #0003, 0 1px 1px #00000024, 0 1px 3px #0000001f;
+    padding: 20px;
+  
 }

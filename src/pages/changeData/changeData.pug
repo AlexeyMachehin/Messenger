@@ -1,5 +1,4 @@
 extends ../../layouts/main/main.pug
-include ../../components/card/card.pug
 include ../../components/generalInput/generalInput.pug
 include ../../components/generalButton/generalButton.pug
 include ../../components/generalLink/generalLink.pug
@@ -19,15 +18,12 @@ block script
             avatarURL:"https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1"
         }
 
-
-
 block main
     +uploadAvatarModal()
     div
         +goBackAside()
-        +card()
-
-            div(class="container")
+        .card
+            .container
                 h1 Change profile data
                 .avatar-wrapper(id="open")
                     img(class="avatar" src=user.avatarURL alt="avatar")
@@ -41,6 +37,6 @@ block main
 
                 +generalButton("Save")
 
-               
+
 
 

@@ -1,13 +1,12 @@
 extends ../../layouts/main/main.pug
 include ../../components/generalButton/generalButton.pug
 include ../../components/generalInput/generalInput.pug
-include ../../components/card/card.pug
 
 block script
    link(rel="stylesheet" href="registration.scss")
 
 block main
-    +card()
+    .card
         form
             h1 Registration 
             +generalInput("email","email","email")

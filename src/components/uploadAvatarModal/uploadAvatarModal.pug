@@ -1,38 +1,37 @@
 include ../generalButton/generalButton.pug
-include ../card/card.pug
 include ../errorSpan/errorSpan.pug
 
 mixin uploadAvatarModal()
-    dialog(class="uploadAvatarModal")
-        +card()
+    dialog.uploadAvatarModal
+        .card
             .close-button-container
                 button.close-modal-button
             h3 Upload a file
             label Select a file on your computer 
-                input(type="file" style="display: none")
+                input(type="file" style="display: none" name="avatar")
             +generalButton("Change")
 
-        +card()
+        .card
             .close-button-container
                 button.close-modal-button
             h3 File uploaded
             p pic.jpg
             +generalButton("Change")
 
-        +card()
+        .card
             .close-button-container
                 button.close-modal-button
             h3 Upload a file
             label Select a file on your computer 
-                input(type="file" style="display: none")
+                input(type="file" style="display: none" name="avatar")
             +errorSpan("You need to select a file")
             +generalButton("Change")        
 
-        +card()
+        .card
             .close-button-container
                 button.close-modal-button
             h3 
                 +errorSpan("Error, try again")
             label Select a file on your computer 
-                input(type="file" style="display: none")
+                input(type="file" style="display: none" name="avatar")
             +generalButton("Change")    

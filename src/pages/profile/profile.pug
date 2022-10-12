@@ -1,5 +1,4 @@
 extends ../../layouts/main/main.pug
-include ../../components/card/card.pug
 include ../../components/generalInput/generalInput.pug
 include ../../components/generalLink/generalLink.pug
 include ../../components/goBackAside/goBackAside.pug
@@ -20,11 +19,10 @@ block script
 block main
     div
         +goBackAside()
-        +card()
-            
-            div(class="container")
+        .card
+            .container
                 h1 My profile
-                img(class="avatar" src=user.avatarURL alt="avatar")
+                img.avatar(src=user.avatarURL alt="avatar")
                 h3=user.display_name
                 +generalInput("Email", "email", "email", _, true, user.email)
                 +generalInput("Login", "text", "login", _, true, user.login)
@@ -33,9 +31,9 @@ block main
                 +generalInput("Nickname", "text", "display_name", _, true, user.display_name)
                 +generalInput("Phone number", "tel", "phone", _, true, user.phone)
 
-                +generalLink("Change data", "/src/pages")
-                +generalLink("Change password", "/src/pages")
+                +generalLink("Change data", "../../pages/changeData/changeData.pug")
+                +generalLink("Change password", "/")
 
-                a(class="exit-link" href="/src/pages") Exit
+                a.exit-link(href="/") Exit
         
     
