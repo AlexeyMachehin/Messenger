@@ -1,12 +1,11 @@
 extends ../../layouts/main/main.pug
-include ../../components/card/card.pug
 include ../../components/generalLink/generalLink.pug
 
 block script
     link(rel="stylesheet", href="error404.scss")
 
 block main  
-    +card()
+    .card
         .error-container
             h1 404
             p Not Found

@@ -1,5 +1,4 @@
 extends ../../layouts/main/main.pug
-include ../../components/card/card.pug
 include ../../components/generalInput/generalInput.pug
 include ../../components/generalLink/generalLink.pug
 include ../../components/goBackAside/goBackAside.pug
@@ -20,8 +19,7 @@ block script
 block main
     div
         +goBackAside()
-        +card()
-            
+        .card
             div(class="container")
                 h1 My profile
                 img(class="avatar" src=user.avatarURL alt="avatar")
