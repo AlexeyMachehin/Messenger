@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "client": "parcel src/static/index.pug",
+    "client": "parcel src/static/index.pug --open --port=3000",
     "build": "parcel build src/static/index.pug",
     "server": "nodemon server.js"
   },
