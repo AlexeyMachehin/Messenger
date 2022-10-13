@@ -10,6 +10,7 @@
 @import "../../components/deleteUserModal/deleteUserModal.scss";
 @import "../../components/addUserModal/addUserModal.scss";
 @import "../../components/deleteChatModal/deleteChatModal.scss";
+@import "../../../variables.scss";
 
 .chats-container {
     display: flex;
@@ -74,7 +75,7 @@
 
     .active {
         .manage-user__button {
-            background-color: $selectItemHoverf5;
+            background-color: $selectItemHover;
             background-image: url(../../static/images/add-delete-user-button-active.svg);
         }
     }
