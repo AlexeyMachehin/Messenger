@@ -7,13 +7,13 @@
     flex-direction: column;
     gap: 10px;
 
-    label {
-        color: $app-color;
+    .uploadAvatarModal__label {
+        color: $appColor;
         cursor: pointer;
     }
 }
 
-dialog {
+.uploadAvatarModal {
     border-radius: 4px;
 }
 
@@ -29,4 +29,3 @@ dialog {
     background-image: url(../../static/images/closeCross.svg);
     background-color: inherit;
 }
-

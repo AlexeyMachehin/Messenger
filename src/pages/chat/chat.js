@@ -1,8 +1,8 @@
-import { Dialog } from '../../components/dialogModal/dialogService';
+import { Dialog } from "../../components/dialogModal/dialogService";
 
-const addUserModal = new Dialog('.addUserModal');
-const deleteUserDialog = new Dialog('.deleteUserModal');
-const deleteChatModal = new Dialog('.deleteChatModal');
+const addUserModal = new Dialog(".addUserModal");
+const deleteUserDialog = new Dialog(".deleteUserModal");
+const deleteChatModal = new Dialog(".deleteChatModal");
 
 const addUserButton = document.querySelector("#addUser");
 const deleteUserButton = document.querySelector("#DeleteUser");
@@ -11,7 +11,6 @@ const deleteChatButton = document.querySelector("#DeleteChat");
 addUserButton.addEventListener("click", () => addUserModal.openDialog());
 deleteUserButton.addEventListener("click", () => deleteUserDialog.openDialog());
 deleteChatButton.addEventListener("click", () => deleteChatModal.openDialog());
-
 
 const selectListHeader = document.querySelector(".chat__header-container");
 const selectListFooter = document.querySelector(".chat__footer-container");

@@ -1,9 +1,9 @@
-@import "../../../style.scss";
+@import "../../../styles.scss";
 @import "../../layouts/main/main.scss";
 @import "../../components/generalButton/generalButton.scss";
 @import "../../components/generalInput/generalInput.scss";
 
-form {
+.registration-form {
     display: flex;
     justify-content: center;
     align-items: center;
