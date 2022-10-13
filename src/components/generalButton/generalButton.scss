@@ -1,7 +1,7 @@
 .general-button {
     width: 100%;
     height: 30px;
-    background-color: $app-color;
+    background-color: $appColor;
     border-radius: 4px;
-    color: white;
+    color: $generalButtonText;
 }

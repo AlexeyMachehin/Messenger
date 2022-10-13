@@ -27,8 +27,8 @@
 .message-count {
     min-width: 16px;
     height: 16px;
-    color: #fff;
-    background-color: #26a69a;
+    color: $generalButtonText;
+    background-color: $appColor;
     border-radius: 16px;
     justify-content: center;
     align-items: center;
@@ -37,13 +37,13 @@
 }
 
 .message-time {
-    color: $secondary-color;
+    color: $secondaryColor;
     font-size: 12px;
 }
 
 .message-text {
     max-width: 140px;
     overflow: hidden;
-    color: $secondary-color;
+    color: $secondaryColor;
     text-overflow: ellipsis;
 }

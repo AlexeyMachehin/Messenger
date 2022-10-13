@@ -2,16 +2,14 @@
 
 .general-input-wrapper {
     width: 100%;
-    label {
-        width: 100%;
-        flex-direction: column;
-        display: flex;
-    }
-    input {
-        height: 30px;
-        border: 1px solid #00000041;
-        border-radius: 4px;
-        margin-top: 5px;
-    }
-    
+}
+
+.general-input {
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    height: 30px;
+    border: 1px solid $generalInputBorder;
+    border-radius: 4px;
+    margin-top: 5px;
 }

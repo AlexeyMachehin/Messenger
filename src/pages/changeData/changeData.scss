@@ -40,8 +40,8 @@
     opacity: 0;
     left: 0;
     right: 0;
-    background: rgb(22, 27, 27);
-    color: white;
+    background: $avatarWrapperPseudo;
+    color: $generalButtonText;
     width: 100%;
     height: 100%;
     cursor: pointer;
