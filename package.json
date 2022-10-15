@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "parcel src/static/index.pug",
     "build": "parcel build src/static/index.pug",
-    "start": "parcel build src/static/index.pug && node ./server.js"
+    "start": "npm run build && node ./server.js"
   },
   "keywords": [],
   "author": "Alexey Machehin",
