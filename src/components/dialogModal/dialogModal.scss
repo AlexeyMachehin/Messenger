@@ -1,0 +1,18 @@
+.dialog__header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.close-modal-button {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../static/images/closeCross.svg);
+    background-color: inherit;
+    margin-left: 10px;
+}
+
+.dialog {
+    border-radius: 4px;
+}

@@ -1,0 +1,21 @@
+.goBackAside {
+    width: 100%;
+    height: 35px;
+    background-color: $backgroundAside;
+    box-shadow: $goBackAsideShadow;
+    cursor: pointer;
+    background-image: url("../../static/images/ellipseArrow.svg");
+    background-size: 27px;
+    background-position: center left 5px;
+    background-repeat: no-repeat;
+
+    &:hover {
+        background-color: $goBackButtonHover;
+    }
+}
+
+.goBackAside__link {
+    display: block;
+    width: 100%;
+    height: 30px;
+}

@@ -1,0 +1,37 @@
+include ../generalButton/generalButton.pug
+include ../errorSpan/errorSpan.pug
+
+mixin uploadAvatarModal()
+    dialog.uploadAvatarModal
+        .card
+            .close-button-container
+                button.close-modal-button
+            h3 Upload a file
+            label.uploadAvatarModal__label Select a file on your computer 
+                input(type="file" style="display: none" name="avatar")
+            +generalButton("Change")
+
+        .card
+            .close-button-container
+                button.close-modal-button
+            h3 File uploaded
+            p pic.jpg
+            +generalButton("Change")
+
+        .card
+            .close-button-container
+                button.close-modal-button
+            h3 Upload a file
+            label.uploadAvatarModal__label Select a file on your computer 
+                input(type="file" style="display: none" name="avatar")
+            +errorSpan("You need to select a file")
+            +generalButton("Change")        
+
+        .card
+            .close-button-container
+                button.close-modal-button
+            h3 
+                +errorSpan("Error, try again")
+            label.uploadAvatarModal__label Select a file on your computer 
+                input(type="file" style="display: none" name="avatar")
+            +generalButton("Change")          

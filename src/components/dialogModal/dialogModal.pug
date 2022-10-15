@@ -1,0 +1,7 @@
+mixin dialogModal(className, title)
+    dialog.dialog(class=className)
+        .card
+            .dialog__header
+                h3=title
+                button.close-modal-button
+            block

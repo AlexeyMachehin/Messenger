@@ -1,20 +1,29 @@
 {
-  "name": "test",
+  "name": "middle.messenger.praktikum.yandex",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "dev": "parcel index.pug",
-    "build": "parcel build index.pug"
+    "dev": "parcel src/static/index.pug",
+    "build": "parcel build src/static/index.pug",
+    "start": "npm run build && node ./server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alexey Machehin",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/transformer-pug": "^2.7.0",
-    "parcel": "^2.7.0"
+    "@parcel/transformer-pug": "2.7.0",
+    "@parcel/transformer-sass": "2.7.0",
+    "@webdiscus/pug-loader": "2.9.3",
+    "dotenv": "16.0.3",
+    "parcel": "2.7.0",
+    "parcel-transformer-pug-precompile": "1.0.6",
+    "pug": "3.0.2",
+    "sass": "1.55.0"
   },
   "dependencies": {
-    "pug": "^3.0.2"
+    "express": "4.18.2"
+  },
+  "engines": {
+    "node": "16.17.0"
   }
 }

@@ -1,0 +1,12 @@
+include ../errorSpan/errorSpan.pug
+
+mixin generalInput(label,type,name,error,isDisable=false, value)
+    .general-input-wrapper
+        label=label   
+            input.general-input(
+                type=type
+                name=name
+                value=value
+                disabled=isDisable
+                )
+        +errorSpan(error)       

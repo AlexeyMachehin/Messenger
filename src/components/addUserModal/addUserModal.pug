@@ -1,0 +1,8 @@
+include ../generalInput/generalInput.pug
+include ../generalButton/generalButton.pug
+
+mixin addUserModal()
+    +dialogModal("addUserModal", 'Add user')
+        .dialog-modal__container
+            +generalInput("login","text")
+            +generalButton("Add user")
