@@ -1,4 +1,7 @@
-class Block {
+import { compile, compileTemplate } from "pug";
+import EventBus from "./eventBus";
+
+export class Block {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -8,16 +11,16 @@ class Block {
 
   _element: HTMLElement;
   _meta: {
-    tagName: keyof HTMLElementTagNameMap;
+    template: string;
     props: {};
   };
-  props: {};
+  props: any;
   eventBus: () => EventBus;
 
-  constructor(tagName: keyof HTMLElementTagNameMap = "div", props = {}) {
+  constructor(template: string, props = {}) {
     const eventBus = new EventBus();
     this._meta = {
-      tagName,
+      template,
       props,
     };
 
@@ -37,8 +40,8 @@ class Block {
   }
 
   _createResources(): void {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
+    const { template } = this._meta;
+    this._element = this._createDocumentElement(template);
   }
 
   init(): void {
@@ -80,14 +83,15 @@ class Block {
 
   _render() {
     const block = this.render();
-    this._element.innerHTML = block;
+    // this._element.innerHTML = block;
   }
 
-  render(): string {
-    return "";
+  render(): compileTemplate {
+    return compile('<div></div>');
   }
 
   getContent(): HTMLElement {
+    console.log(this.element)
     return this.element;
   }
 
@@ -100,15 +104,9 @@ class Block {
     return proxy;
   }
 
-  _createDocumentElement(tagName: keyof HTMLElementTagNameMap): HTMLElement {
-    return document.createElement<keyof HTMLElementTagNameMap>(tagName);
+  _createDocumentElement(template: string): HTMLElement {
+    console.log(template)
+    return compile(template);
   }
 
-  show(): void {
-    this.element.style.display = "block";
-  }
-
-  hide(): void {
-    this.element.style.display = "none";
-  }
 }
