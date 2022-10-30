@@ -4,13 +4,14 @@ include ../../components/generalInput/generalInput.pug
 
 block script
     link(rel="stylesheet", href="login.scss")
+    script(type="module" src="./login.ts")
 
 block main
-    .card
-        form.login-form
-            h1 Login 
-            +generalInput("login","text","login")
-            +generalInput("password","password","password","Invalid login or password")
-            +generalButton("Enter")
-            p or
-            +generalButton("Create account")
+    //- .card
+    //-     form.login-form
+    //-         h1 Login 
+    //-         +generalInput("login","text","login")
+    //-         +generalInput("password","password","password","Invalid login or password")
+    //-         +generalButton("Enter")
+    //-         p or
+    //-         +generalButton("Create account")

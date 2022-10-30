@@ -3,11 +3,12 @@ include ../../components/generalLink/generalLink.pug
 
 block script
     link(rel="stylesheet", href="error500.scss")
+    script(type="module" src="./error500.ts")
 
 block main 
-    .card
-        .error-container
-            h1 500
-            p Internal Server Error
-            +generalLink("Back to the chat list",  "../../pages/chat/chat.pug")   
+    //- .card
+    //-     .error-container
+    //-         h1 500
+    //-         p Internal Server Error
+    //-         +generalLink("Back to the chat list",  "../../pages/chat/chat.pug")   
     
