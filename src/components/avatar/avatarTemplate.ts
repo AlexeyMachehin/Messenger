@@ -1,1 +1,1 @@
-export const avatarTemplate = `img.avatar-container_avatar(src=avatarURL alt="avatar")`;
+export const avatarTemplate = `img(class=classImg src=avatarURL alt="avatar")`;

@@ -69,6 +69,8 @@ const messagesArray: Message[] = mockChats[0].messages?.map(
         className: "my-message",
         avatar: new Avatar({
           avatarURL: mockChats[0].avatarURL,
+          class: 'avatar-container',
+          classImg: 'avatar-container_avatar',
         }),
       });
     }
@@ -79,6 +81,8 @@ const messagesArray: Message[] = mockChats[0].messages?.map(
       className: "user-message",
       avatar: new Avatar({
         avatarURL: mockChats[0].avatarURL,
+        class: 'avatar-container',
+        classImg: 'avatar-container_avatar',
       }),
     });
   }
@@ -94,6 +98,8 @@ const chatsArray: Chat[] = mockChats.map(
       count: chat.countMessages ?? 0,
       avatar: new Avatar({
         avatarURL: chat.avatarURL,
+        class: 'avatar-container',
+        classImg: 'avatar-container_avatar',
       }),
     })
 );
@@ -113,6 +119,8 @@ const chats: Chats = new Chats({
   }),
   avatarHeader: new Avatar({
     avatarURL: mockChats[0].avatarURL,
+    class: 'avatar-container',
+    classImg: 'avatar-container_avatar',
   }),
   userName: mockChats[0].display_name,
   messagesList: new MessagesList({

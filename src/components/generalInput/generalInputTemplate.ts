@@ -4,7 +4,7 @@ label=label
         type=type
         name=name
         value=value
-        disabled=isDisable
+        disabled=disabled
         )
 span.error-span=errorText
 `

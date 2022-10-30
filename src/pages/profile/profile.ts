@@ -6,7 +6,7 @@ import { Props } from "../../utils/models/props";
 import { render } from "../../utils/renderDOM";
 import { profileTemplate } from "./profileTemplate";
 
-export const user = {
+const user = {
   email: "Bart@yandex.ru",
   login: "Bart",
   first_name: "Bart",

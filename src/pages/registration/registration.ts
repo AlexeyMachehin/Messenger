@@ -5,7 +5,7 @@ import { Props } from "../../utils/models/props";
 import { render } from "../../utils/renderDOM";
 import { registrationTemplate } from "./registrationTemplate";
 
-export default class Avatar extends Block {
+export default class Registration extends Block {
   constructor(
     props: Props & {
       generalInputEmail: Block;
@@ -27,7 +27,7 @@ export default class Avatar extends Block {
   }
 }
 
-const registration: Avatar = new Avatar({
+const registration: Registration = new Registration({
   generalInputEmail: new GeneralInput({
     label: "email",
     type: "email",
