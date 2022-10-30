@@ -3,7 +3,7 @@ import { Props } from "../../utils/models/props";
 import { generalLinkTemplate } from "./generalLinkTemplate";
 
 export default class GeneralLink extends Block {
-  constructor(props: Props & { text: string; class: string; href: string }) {
+  constructor(props: Props & { text: string; href: string }) {
     super("div", props);
   }
 
