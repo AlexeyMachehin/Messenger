@@ -1,5 +1,6 @@
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
+import GoBackAside from "../../components/goBackAside/goBackAside";
 import Block from "../../utils/block";
 import { Props } from "../../utils/models/props";
 import { render } from "../../utils/renderDOM";
@@ -13,6 +14,7 @@ export default class ChangePassword extends Block {
       generalInputNewPassword: Block;
       generalInputRepeatPassword: Block;
       generalButtonSave: Block;
+      goBackAside: Block;
     }
   ) {
     super("div", props);
@@ -44,6 +46,7 @@ const changePassword: ChangePassword = new ChangePassword({
   generalButtonSave: new GeneralButton({
     buttonText: "Save",
   }),
+  goBackAside: new GoBackAside({}),
 });
 
 render(".main", changePassword);
