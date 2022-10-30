@@ -4,20 +4,21 @@ include ../../components/generalInput/generalInput.pug
 
 block script
    link(rel="stylesheet" href="registration.scss")
+   script(type="module" src="./registration.ts")
 
 block main
-    .card
-        form.registration-form
-            h1 Registration 
-            +generalInput("email","email","email")
-            +generalInput("login","text","login")
-            +generalInput("name","text","first_name")
-            +generalInput("surname","text","second_name")
-            +generalInput("phone number","tel","phone")
-            +generalInput("password","password","password")
-            +generalInput("repeat password","password","repeat-password","Passwords don't match")
+    //- .card
+    //-     form.registration-form
+    //-         h1 Registration 
+    //-         +generalInput("email","email","email")
+    //-         +generalInput("login","text","login")
+    //-         +generalInput("name","text","first_name")
+    //-         +generalInput("surname","text","second_name")
+    //-         +generalInput("phone number","tel","phone")
+    //-         +generalInput("password","password","password")
+    //-         +generalInput("repeat password","password","repeat-password","Passwords don't match")
 
-            +generalButton("Create account")
-            p or
-            +generalButton("Enter")
+    //-         +generalButton("Create account")
+    //-         p or
+    //-         +generalButton("Enter")
             
