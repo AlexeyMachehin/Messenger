@@ -9,8 +9,9 @@ export default class GeneralInput extends Block {
       label: string;
       type: string;
       name: string;
-      errorText: string;
-    
+      errorText?: string;
+      disabled?: boolean;
+      value?: unknown;
     }
   ) {
     super("div", { ...props, class: "general-input-wrapper" });
