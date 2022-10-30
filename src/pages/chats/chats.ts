@@ -1,4 +1,3 @@
-import { chats } from "./../chat/mockData";
 import { chats as mockChats } from "./mockData";
 import Avatar from "../../components/avatar/avatar";
 import Block from "../../utils/block";
@@ -10,46 +9,32 @@ import Chat from "../../components/chat/chat";
 import ChatPageInput from "../../components/chatPageInput/chatPageInput";
 import Message from "../../components/message/message";
 import MessagesList from "../../components/messagesList/messagesList";
-// import { Dialog } from "../../components/dialogModal/dialogService";
-
-// const addUserModal = new Dialog(".addUserModal");
-// const deleteUserDialog = new Dialog(".deleteUserModal");
-// const deleteChatModal = new Dialog(".deleteChatModal");
-
-// const addUserButton = document.querySelector("#addUser");
-// const deleteUserButton = document.querySelector("#DeleteUser");
-// const deleteChatButton = document.querySelector("#DeleteChat");
-
-// addUserButton?.addEventListener("click", () => addUserModal.openDialog());
-// deleteUserButton?.addEventListener("click", () => deleteUserDialog.openDialog());
-// deleteChatButton?.addEventListener("click", () => deleteChatModal.openDialog());
-
-// const selectListHeader = document.querySelector(".chat__header-container");
-// const selectListFooter = document.querySelector(".chat__footer-container");
-// const addDeleteUserButton = document.querySelector(".manage-user__button");
-// const addFileButton = document.querySelector(".manage-file__button");
-// const body = document.querySelector("body");
-
-// addDeleteUserButton?.addEventListener("click", (e) => {
-//   selectListFooter?.classList.remove("active");
-//   selectListHeader?.classList.toggle("active");
-//   e.stopPropagation();
-// });
-
-// addFileButton?.addEventListener("click", (e) => {
-//   selectListHeader?.classList.remove("active");
-//   selectListFooter?.classList.toggle("active");
-//   e.stopPropagation();
-// });
-
-// body?.addEventListener("click", () => {
-//   selectListHeader?.classList.remove("active");
-//   selectListFooter?.classList.remove("active");
-// });
+import IconButton from "../../components/iconButton/iconButton";
+import Select from "../../components/select/select";
+import SelectItem from "../../components/selectItem/selectItem";
+import ManageUserModal from "../../components/manageUserModal/manageUserModal";
+import GeneralInput from "../../components/generalInput/generalInput";
+import GeneralButton from "../../components/generalButton/generalButton";
+import ManageChatModal from "../../components/manageChatModal/manageChatModal";
 
 class Chats extends Block {
   constructor(
-    props: Props & { chats: any[]; generalLink: Block; chatPageInput: Block }
+    props: Props & {
+      chats: any[];
+      generalLink: Block;
+      chatPageInput: Block;
+      avatarHeader: Avatar;
+      userName: string;
+      messagesList: MessagesList;
+      inputFooter: ChatPageInput;
+      manageFileButton: IconButton;
+      selectFooter: Select;
+      manageUserButton: IconButton;
+      selectHeader: Select;
+      addUserDialog: ManageUserModal;
+      deleteUserDialog: ManageUserModal;
+      manageChatModal: ManageChatModal;
+    }
   ) {
     super("div", props);
   }
@@ -59,8 +44,8 @@ class Chats extends Block {
   }
 }
 
-const messagesArray: Message[] = mockChats[0].messages?.map(
-  (message, index) => {
+const messagesArray: Message[] =
+  mockChats[0].messages?.map((message, index) => {
     if (index % 2 === 0) {
       return new Message({
         message,
@@ -69,8 +54,8 @@ const messagesArray: Message[] = mockChats[0].messages?.map(
         className: "my-message",
         avatar: new Avatar({
           avatarURL: mockChats[0].avatarURL,
-          class: 'avatar-container',
-          classImg: 'avatar-container_avatar',
+          class: ["avatar-container"],
+          classImg: "avatar-container_avatar",
         }),
       });
     }
@@ -81,46 +66,124 @@ const messagesArray: Message[] = mockChats[0].messages?.map(
       className: "user-message",
       avatar: new Avatar({
         avatarURL: mockChats[0].avatarURL,
-        class: 'avatar-container',
-        classImg: 'avatar-container_avatar',
+        class: ["avatar-container"],
+        classImg: "avatar-container_avatar",
       }),
     });
-  }
-);
+  }) ?? [];
 
 const chatsArray: Chat[] = mockChats.map(
   (chat) =>
     new Chat({
-      class: "user",
+      class: ["user"],
       name: chat.display_name,
       message: chat.message,
       time: chat.time,
       count: chat.countMessages ?? 0,
       avatar: new Avatar({
         avatarURL: chat.avatarURL,
-        class: 'avatar-container',
-        classImg: 'avatar-container_avatar',
+        class: ["avatar-container"],
+        classImg: "avatar-container_avatar",
       }),
     })
 );
 
+const deleteUserDialog = new ManageUserModal({
+  class: ["deleteUserModal"],
+  title: "Delete user",
+  generalInput: new GeneralInput({
+    label: "login",
+    type: "text",
+    name: "login",
+  }),
+  generalButton: new GeneralButton({
+    buttonText: "Delete user",
+  }),
+});
+
+const addUserDialog = new ManageUserModal({
+  class: ["addUserModal"],
+  title: "Add user",
+  generalInput: new GeneralInput({
+    label: "login",
+    type: "text",
+    name: "login",
+  }),
+  generalButton: new GeneralButton({
+    buttonText: "Add user",
+  }),
+});
+
+const manageChatModal = new ManageChatModal({
+  class: ["deleteChatModal"],
+  title: "Are you sure you want to delete the chat?",
+  generalButton: new GeneralButton({
+    buttonText: "Delete",
+  }),
+});
+
+const selectFooter = new Select({
+  class: ["select-list-footer"],
+  items: [
+    new SelectItem({
+      text: "Photo or video",
+      classIcon: "photo-video-icon",
+    }),
+    new SelectItem({
+      text: "File",
+      classIcon: "file-icon",
+    }),
+    new SelectItem({
+      text: "Location",
+      classIcon: "location-icon",
+    }),
+  ],
+});
+
+const selectHeader = new Select({
+  class: ["select-list-header"],
+  items: [
+    new SelectItem({
+      text: "Add user",
+      classIcon: "add-icon",
+      events: {
+        click: openDialog.bind(addUserDialog),
+      },
+    }),
+    new SelectItem({
+      text: "Delete user",
+      classIcon: "delete-icon",
+      events: {
+        click: openDialog.bind(deleteUserDialog),
+      },
+    }),
+    new SelectItem({
+      text: "Delete chat",
+      classIcon: "delete-icon",
+      events: {
+        click: openDialog.bind(manageChatModal),
+      },
+    }),
+  ],
+});
+
 const chats: Chats = new Chats({
   chatPageInput: new ChatPageInput({
-    class: "input-wrapper",
+    class: ["input-wrapper"],
     placeholder: "search",
     type: "search",
   }),
-  class: "chats-container",
+  class: ["chats-container"],
   chats: chatsArray,
   generalLink: new GeneralLink({
     text: "Profile",
-    class: "profile-link-container",
+    class: ["profile-link-container"],
     href: "../../pages/profile/profile.pug",
   }),
   avatarHeader: new Avatar({
     avatarURL: mockChats[0].avatarURL,
-    class: 'avatar-container',
-    classImg: 'avatar-container_avatar',
+    class: ["avatar-container"],
+    classImg: "avatar-container_avatar",
   }),
   userName: mockChats[0].display_name,
   messagesList: new MessagesList({
@@ -128,16 +191,37 @@ const chats: Chats = new Chats({
     messages: messagesArray,
   }),
   inputFooter: new ChatPageInput({
-    class: "input-wrapper",
+    class: ["input-wrapper"],
     type: "text",
     placeholder: "message",
     name: "message",
   }),
+  manageFileButton: new IconButton({
+    class: ["manage-file__button"],
+    events: {
+      click: (event) => openSelect.apply(selectFooter, [event]),
+    },
+  }),
+  selectFooter,
+  manageUserButton: new IconButton({
+    class: ["manage-user__button"],
+    events: {
+      click: (event) => openSelect.apply(selectHeader, [event]),
+    },
+  }),
+  selectHeader,
+  deleteUserDialog,
+  addUserDialog,
+  manageChatModal,
 });
 
 render(".main", chats);
-setTimeout(() => {
-  chats.children.chatPageInput.setProps({
-    placeholder: "search",
-  });
-}, 1000);
+
+function openSelect() {
+  this.service.open();
+  (arguments[0] as PointerEvent).stopPropagation();
+}
+
+function openDialog() {
+  this.service.openDialog();
+}

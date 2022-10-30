@@ -12,7 +12,7 @@ const DEFAULT_PROPS: Props = {
 
 type Children = { [key: string]: Block[] | Block };
 class Block extends EventBus {
-  private _element: Element = null;
+  private _element: Element | null = null;
 
   private _meta: {
     tagName: keyof HTMLElementTagNameMap | null;
@@ -104,7 +104,7 @@ class Block extends EventBus {
     Object.assign(this.props, nextProps);
   };
 
-  get element(): Element {
+  get element(): Element | null {
     return this._element;
   }
 
@@ -112,14 +112,14 @@ class Block extends EventBus {
     const block = this.render();
     this._removeEvents();
 
-    this._element.innerHTML = "";
+    if (this._element != null) this._element.innerHTML = "";
 
     if (typeof block === "object") {
       Array.from(block.children).forEach((child) => {
-        this._element.appendChild(child);
+        this._element?.appendChild(child);
       });
     } else {
-      this._element.insertAdjacentHTML("beforeend", block);
+      this._element?.insertAdjacentHTML("beforeend", block);
     }
     this._addEvents();
   }
@@ -128,7 +128,7 @@ class Block extends EventBus {
     return document.createElement("template").content;
   }
 
-  getContent(): Element {
+  getContent(): Element | null {
     return this.element;
   }
 
@@ -139,11 +139,6 @@ class Block extends EventBus {
         return typeof value === "function" ? value.bind(target) : value;
       },
       set: (target, prop, value) => {
-        // target[prop as string] = value;
-        // this._meta.propsAndChildren = this.props;
-        // this.emit(Events.FLOW_CDU, this._meta.propsAndChildren, target);
-
-        // return true;
         if (target[prop as string] !== value) {
           target[prop as string] = value;
           this._meta.propsAndChildren = this.props;
@@ -162,7 +157,7 @@ class Block extends EventBus {
   ): HTMLElementTagNameMap[F] {
     const element = document.createElement(tagName);
     if (this.props.class != null) {
-      element.classList.add(this.props.class);
+      element.classList.add(...this.props.class);
     }
     if (this._meta.propsAndChildren?.settings?.withInternalID ?? true) {
       element.setAttribute("data-id", this._id);
@@ -182,7 +177,7 @@ class Block extends EventBus {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      this._element.addEventListener(eventName, events[eventName]);
+      this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
@@ -190,7 +185,7 @@ class Block extends EventBus {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      this._element.removeEventListener(eventName, events[eventName]);
+      this._element?.removeEventListener(eventName, events[eventName]);
     });
   }
 
@@ -230,8 +225,6 @@ class Block extends EventBus {
 
     const fragment = this._createDocumentElement("template");
     const regexp = compile(template)(propsAndStubs);
-    // .replace(/(<{2})/g, "<")
-    // .replace(/(>{2})/g, ">");
     fragment.innerHTML = regexp;
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
@@ -239,21 +232,22 @@ class Block extends EventBus {
           const stub = fragment.content.querySelector(
             `[data-id="${item._id}"]`
           );
-          stub?.replaceWith(item.getContent());
+          const content = item.getContent();
+          if (content != null) stub?.replaceWith(content);
         });
       } else {
         const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-        stub?.replaceWith(child.getContent());
+        const content = child.getContent();
+        if (content != null) stub?.replaceWith(content);
       }
     });
-    console.log(fragment.content);
     return fragment.content;
   }
 
   addAttribute(): void {
     const { attr = {} } = this.props;
     Object.entries<string>(attr).forEach(([key, value]) => {
-      this._element.setAttribute(key, value);
+      this._element?.setAttribute(key, value);
     });
   }
 }

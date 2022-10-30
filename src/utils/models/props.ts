@@ -8,6 +8,6 @@ export type Props = {
   attr?: {
     [key: string]: string;
   };
-  class?: string,
-  [key: string]: unknown;
+  class?: string[],
+  [key: string]: unknown
 };

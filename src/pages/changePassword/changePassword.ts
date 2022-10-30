@@ -10,11 +10,11 @@ export default class ChangePassword extends Block {
   constructor(
     props: Props & {
       avatarURL: string;
-      generalInputOldPassword: Block;
-      generalInputNewPassword: Block;
-      generalInputRepeatPassword: Block;
-      generalButtonSave: Block;
-      goBackAside: Block;
+      generalInputOldPassword: GeneralInput;
+      generalInputNewPassword: GeneralInput;
+      generalInputRepeatPassword: GeneralInput;
+      generalButtonSave: GeneralButton;
+      goBackAside: GoBackAside;
     }
   ) {
     super("div", props);
@@ -24,7 +24,7 @@ export default class ChangePassword extends Block {
     return this.compile(changePasswordTemplate, this.props);
   }
 }
-const changePassword: ChangePassword = new ChangePassword({
+const changePassword = new ChangePassword({
   avatarURL:
     "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",
   generalInputOldPassword: new GeneralInput({

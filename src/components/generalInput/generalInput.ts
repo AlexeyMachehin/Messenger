@@ -11,10 +11,10 @@ export default class GeneralInput extends Block {
       name: string;
       errorText?: string;
       disabled?: boolean;
-      value?: unknown;
+      value?: string | number;
     }
   ) {
-    super("div", { ...props, class: "general-input-wrapper" });
+    super("div", { ...props, class: ["general-input-wrapper"] });
   }
 
   render(): DocumentFragment {

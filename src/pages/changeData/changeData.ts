@@ -1,5 +1,4 @@
 import Avatar from "../../components/avatar/avatar";
-import { Dialog } from "../../components/dialogModal/dialogService";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GoBackAside from "../../components/goBackAside/goBackAside";
@@ -8,11 +7,6 @@ import Block from "../../utils/block";
 import { Props } from "../../utils/models/props";
 import { render } from "../../utils/renderDOM";
 import { changeDataTemplate } from "./changeDataTemplate";
-
-// const dialog = new Dialog(".uploadAvatarModal");
-// const openBtn = document.querySelector("#open");
-
-// openBtn?.addEventListener("click", () => dialog.openDialog());
 
 const user = {
   email: "Bart@yandex.ru",
@@ -24,29 +18,24 @@ const user = {
   avatarURL:
     "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",
 };
-let dialog: Dialog;
 export default class ChangeData extends Block {
   constructor(
     props: Props & {
-      uploadAvatarModal: Block;
+      uploadAvatarModal: UploadAvatarModal;
       avatarURL: string;
       displayName: string;
       avatar: Avatar;
-      goBackAside: Block;
-      generalInputEmail: Block;
-      generalInputLogin: Block;
-      generalInputName: Block;
-      generalInputSurname: Block;
-      generalInputNickname: Block;
-      generalInputPhoneNumber: Block;
-      generalButtonSave: Block;
+      goBackAside: GoBackAside;
+      generalInputEmail: GeneralInput;
+      generalInputLogin: GeneralInput;
+      generalInputName: GeneralInput;
+      generalInputSurname: GeneralInput;
+      generalInputNickname: GeneralInput;
+      generalInputPhoneNumber: GeneralInput;
+      generalButtonSave: GeneralButton;
     }
   ) {
     super("div", props);
-  }
-
-  componentDidMount(): void {
-    dialog = new Dialog(".uploadAvatarModal");
   }
 
   render(): DocumentFragment {
@@ -54,21 +43,23 @@ export default class ChangeData extends Block {
   }
 }
 
-const changeData: ChangeData = new ChangeData({
+const dialog = new UploadAvatarModal({
+  avatarURL: user.avatarURL,
+});
+
+const changeData = new ChangeData({
   avatarURL: user.avatarURL,
   displayName: user.display_name,
   goBackAside: new GoBackAside(),
 
-  uploadAvatarModal: new UploadAvatarModal({
-    avatarURL: user.avatarURL,
-  }),
+  uploadAvatarModal: dialog,
   avatar: new Avatar({
     avatarURL:
       "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",
-    class: "avatar-wrapper",
+    class: ["avatar-wrapper"],
     classImg: "avatar",
     events: {
-      click: () => dialog.openDialog(),
+      click: handleClick.bind(dialog),
     },
   }),
   generalInputEmail: new GeneralInput({
@@ -125,3 +116,7 @@ const changeData: ChangeData = new ChangeData({
 });
 
 render(".main", changeData);
+
+function handleClick() {
+  this.service.openDialog();
+}

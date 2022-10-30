@@ -4,7 +4,7 @@ import { generalButtonTemplate } from "./generalButtonTemplate";
 
 export default class GeneralButton extends Block {
   constructor(props: Props & { buttonText: string }) {
-    super("button", { ...props, class: "general-button" });
+    super("button", { ...props, class: ["general-button"] });
   }
 
   render(): DocumentFragment {

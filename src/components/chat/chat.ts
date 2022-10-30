@@ -1,5 +1,6 @@
 import Block from "../../utils/block";
 import { Props } from "../../utils/models/props";
+import Avatar from "../avatar/avatar";
 import { chatTemplate } from "./chatTemplate";
 
 export default class Chat extends Block {
@@ -8,7 +9,7 @@ export default class Chat extends Block {
     message: string;
     time: string;
     count: number;
-    avatar: Block
+    avatar: Avatar
   }) {
     super("article", props);
   }

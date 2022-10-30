@@ -7,6 +7,7 @@ export default class ChatPageInput extends Block {
     props: Props & {
       type: string;
       placeholder: string;
+      name?: string;
     }
   ) {
     super("div", props);

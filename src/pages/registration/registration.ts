@@ -8,18 +8,18 @@ import { registrationTemplate } from "./registrationTemplate";
 export default class Registration extends Block {
   constructor(
     props: Props & {
-      generalInputEmail: Block;
-      generalInputLogin: Block;
-      generalInputName: Block;
-      generalInputSurname: Block;
-      generalInputPhoneNumber: Block;
-      generalInputPassword: Block;
-      generalInputRepeatPassword: Block;
-      generalButtonCreateAccount: Block;
-      generalButtonEnter: Block;
+      generalInputEmail: GeneralInput;
+      generalInputLogin: GeneralInput;
+      generalInputName: GeneralInput;
+      generalInputSurname: GeneralInput;
+      generalInputPhoneNumber: GeneralInput;
+      generalInputPassword: GeneralInput;
+      generalInputRepeatPassword: GeneralInput;
+      generalButtonCreateAccount: GeneralInput;
+      generalButtonEnter: GeneralInput;
     }
   ) {
-    super("div", { ...props, class: "card" });
+    super("div", { ...props, class: ["card"] });
   }
 
   render(): DocumentFragment {
@@ -27,7 +27,7 @@ export default class Registration extends Block {
   }
 }
 
-const registration: Registration = new Registration({
+const registration = new Registration({
   generalInputEmail: new GeneralInput({
     label: "email",
     type: "email",

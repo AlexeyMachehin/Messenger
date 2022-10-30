@@ -7,9 +7,8 @@
 @import "../../components/select/select.scss";
 @import "../../components/messagesList/messagesList.scss";
 @import "../../components/avatar/avatar.scss";
-@import "../../components/deleteUserModal/deleteUserModal.scss";
-@import "../../components/addUserModal/addUserModal.scss";
-@import "../../components/deleteChatModal/deleteChatModal.scss";
+@import "../../components/manageUserModal/manageUserModal.scss";
+@import "../../components/manageChatModal/manageChatModal.scss";
 @import "../../../variables.scss";
 
 .chats-container {

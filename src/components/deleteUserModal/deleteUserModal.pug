@@ -1,9 +1,0 @@
-include ../generalInput/generalInput.pug
-include ../generalButton/generalButton.pug
-include ../dialogModal/dialogModal.pug
-
-mixin deleteUserModal()
-    +dialogModal("deleteUserModal", 'Delete user')
-        .dialog-modal__container
-            +generalInput("login","text")
-            +generalButton("Delete user")

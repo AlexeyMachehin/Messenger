@@ -1,23 +1,23 @@
 export class Dialog {
-  dialog;
-  closeButton;
-  constructor(className) {
-    this.dialog = document.querySelector(className);
-    this.closeButton = document.querySelector(
+  private _dialog: HTMLDialogElement | null;
+  private _closeButton: Element | null;
+  constructor(className: string) {
+    this._dialog = document.querySelector(className);
+    this._closeButton = document.querySelector(
       `${className} .close-modal-button`
     );
-    this.subscribeToClickOnCLose();
+    this._subscribeToClickOnCLose();
   }
 
   openDialog() {
-    this.dialog.showModal();
+    this._dialog?.showModal();
   }
 
   closeDialog() {
-    this.dialog.close();
+    this._dialog?.close();
   }
 
-  subscribeToClickOnCLose() {
-    this.closeButton.addEventListener("click", () => this.closeDialog());
+  private _subscribeToClickOnCLose() {
+    this._closeButton?.addEventListener("click", () => this.closeDialog());
   }
 }

@@ -8,13 +8,13 @@ import { loginTemplate } from "./loginTemplate";
 export default class Login extends Block {
   constructor(
     props: Props & {
-      generalInputLogin: Block;
-      generalInputPassword: Block;
-      generalButtonEnter: Block;
-      generalButtonCreateAccount: Block;
+      generalInputLogin: GeneralInput;
+      generalInputPassword: GeneralInput;
+      generalButtonEnter: GeneralInput;
+      generalButtonCreateAccount: GeneralInput;
     }
   ) {
-    super("div", { ...props, class: "card" });
+    super("div", { ...props, class: ["card"] });
   }
 
   render(): DocumentFragment {
@@ -22,7 +22,7 @@ export default class Login extends Block {
   }
 }
 
-const login: Login = new Login({
+const login = new Login({
   generalInputLogin: new GeneralInput({
     label: "login",
     type: "login",

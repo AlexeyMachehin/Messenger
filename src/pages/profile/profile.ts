@@ -22,15 +22,15 @@ export default class Profile extends Block {
     props: Props & {
       avatarURL: string;
       displayName: string;
-      goBackAside: Block;
-      generalInputEmail: Block;
-      generalInputLogin: Block;
-      generalInputName: Block;
-      generalInputSurname: Block;
-      generalInputNickname: Block;
-      generalInputPhoneNumber: Block;
-      generalLinkChangeData: Block;
-      generalLinkChangePassword: Block;
+      goBackAside: GoBackAside;
+      generalInputEmail: GeneralInput;
+      generalInputLogin: GeneralInput;
+      generalInputName: GeneralInput;
+      generalInputSurname: GeneralInput;
+      generalInputNickname: GeneralInput;
+      generalInputPhoneNumber: GeneralInput;
+      generalLinkChangeData: GeneralInput;
+      generalLinkChangePassword: GeneralInput;
     }
   ) {
     super("div", props);
@@ -40,7 +40,7 @@ export default class Profile extends Block {
     return this.compile(profileTemplate, this.props);
   }
 }
-const profile: Profile = new Profile({
+const profile = new Profile({
   avatarURL: user.avatarURL,
   displayName: user.display_name,
   goBackAside: new GoBackAside(),
