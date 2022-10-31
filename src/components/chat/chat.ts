@@ -4,13 +4,15 @@ import Avatar from "../avatar/avatar";
 import { chatTemplate } from "./chatTemplate";
 
 export default class Chat extends Block {
-  constructor(props: Props & {
-    name: string;
-    message: string;
-    time: string;
-    count: number;
-    avatar: Avatar
-  }) {
+  constructor(
+    props: Props & {
+      name: string;
+      message: string;
+      time: string;
+      count: number;
+      avatar: Avatar;
+    }
+  ) {
     super("article", props);
   }
   render(): DocumentFragment {

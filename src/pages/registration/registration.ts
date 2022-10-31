@@ -1,9 +1,11 @@
+import { ValidationPattern } from "./../../utils/models/validation";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
 import Block from "../../utils/block";
 import { onSubmitForm } from "../../utils/form/form";
+import { ValidationError } from "../../utils/models/validation";
 import { render } from "../../utils/renderDOM";
 import { registrationTemplate } from "./registrationTemplate";
 
@@ -16,11 +18,11 @@ export default class Registration extends Block {
           attr: {
             name: "email",
             required: true,
-            pattern: "[\\w.-]+@([A-Za-z0-9-]+\\.)+[A-Za-z0-9]+",
+            pattern: ValidationPattern.Email,
           },
         }),
         label: "email",
-        errorText: "Invalid Email",
+        errorText: ValidationError.Email,
       }),
       generalInputLogin: new GeneralInput({
         input: new Input({
@@ -30,11 +32,11 @@ export default class Registration extends Block {
             maxLength: 20,
             minLength: 3,
             required: true,
-            pattern: "^[a-zA-Z][a-zA-Z0-9-_]{2,20}$",
+            pattern: ValidationPattern.Login,
           },
         }),
         label: "login",
-        errorText: "Invalid login",
+        errorText: ValidationError.Login,
       }),
       generalInputName: new GeneralInput({
         input: new Input({
@@ -42,12 +44,11 @@ export default class Registration extends Block {
           attr: {
             name: "first_name",
             required: true,
-            pattern:
-              "[A-ZА-Я]{1,}.*" + "[^0-9]" + "[^+=~!?@#$%^&*;\\.\\()\\[\\]\\|:]",
+            pattern: ValidationPattern.First_name,
           },
         }),
         label: "name",
-        errorText: "Invalid Name",
+        errorText: ValidationError.First_name,
       }),
       generalInputSurname: new GeneralInput({
         input: new Input({
@@ -55,12 +56,11 @@ export default class Registration extends Block {
           attr: {
             name: "second_name",
             required: true,
-            pattern:
-              "[A-ZА-Я]{1,}.*" + "[^0-9]" + "[^+=~!?@#$%^&*;\\.\\()\\[\\]\\|:]",
+            pattern: ValidationPattern.Second_name,
           },
         }),
         label: "surname",
-        errorText: "Invalid Surname",
+        errorText: ValidationError.Second_name,
       }),
       generalInputPhoneNumber: new GeneralInput({
         input: new Input({
@@ -70,11 +70,11 @@ export default class Registration extends Block {
             maxLength: 15,
             minLength: 10,
             required: true,
-            pattern: "^(\\+[0-9]|[0-9])\\s?\\(?[0-9]{3}\\)?\\s?[0-9]{7}$",
+            pattern: ValidationPattern.Phone,
           },
         }),
         label: "phone number",
-        errorText: "Invalid phone number",
+        errorText: ValidationError.Phone,
       }),
       generalInputPassword: new GeneralInput({
         input: new Input({
@@ -84,26 +84,22 @@ export default class Registration extends Block {
             maxLength: 40,
             minLength: 8,
             required: true,
-            pattern:
-              "^^(?=.*[A-Z]{1,})" +
-              "(?=.*[a-z]{1,})(?=.*[0-9]{1,})" +
-              "[a-zA-Z0-9!@#$-_?.:{]{8,40}$",
+            pattern: ValidationPattern.Password,
           },
         }),
         label: "password",
-        errorText: "Invalid password",
+        errorText: ValidationError.Password,
       }),
-
       generalButtonCreateAccount: new GeneralButton({
         buttonText: "Create account",
-        events: {
-          click: (event) => onSubmitForm.apply(this, [event]),
-        },
       }),
       generalLinkEnter: new GeneralLink({
         text: "Login",
         href: "../login/login.html",
       }),
+      events: {
+        submit: (event) => onSubmitForm.apply(this, [event]),
+      },
       class: ["card"],
     });
   }

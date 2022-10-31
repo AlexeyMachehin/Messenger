@@ -1,3 +1,7 @@
+import {
+  ValidationPattern,
+  ValidationError,
+} from "./../../utils/models/validation";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
@@ -17,10 +21,10 @@ export default class Login extends Block {
             type: "login",
             name: "login",
             required: true,
-            pattern: "^[a-zA-Z][a-zA-Z0-9-_]{2,20}$",
+            pattern: ValidationPattern.Login,
           },
         }),
-        errorText: "Invalid login",
+        errorText: ValidationError.Login,
       }),
       generalInputPassword: new GeneralInput({
         input: new Input({
@@ -28,21 +32,18 @@ export default class Login extends Block {
           attr: {
             name: "password",
             required: true,
-            pattern:
-              "^^(?=.*[A-Z]{1,})" +
-              "(?=.*[a-z]{1,})(?=.*[0-9]{1,})" +
-              "[a-zA-Z0-9!@#$-_?.:{]{8,40}$",
+            pattern: ValidationPattern.Password,
           },
         }),
         label: "password",
-        errorText: "Invalid password",
+        errorText: ValidationError.Password,
       }),
       generalButtonEnter: new GeneralButton({
         buttonText: "Enter",
       }),
       generalLinkCreateAccount: new GeneralLink({
-       text:"Create account",
-       href:"../registration/registration.html"
+        text: "Create account",
+        href: "../registration/registration.html",
       }),
       events: {
         submit: (event) => onSubmitForm.apply(this, [event]),

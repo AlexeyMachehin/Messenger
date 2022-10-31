@@ -1,3 +1,7 @@
+import {
+  ValidationPattern,
+  ValidationError,
+} from "./../../utils/models/validation";
 import Avatar from "../../components/avatar/avatar";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
@@ -15,7 +19,7 @@ const user = {
   first_name: "Bart",
   second_name: "Simpson",
   display_name: "BartSimpson",
-  phone: "+7 (000) 000 00 00",
+  phone: "+70000000000",
   avatarURL:
     "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",
 };
@@ -25,7 +29,6 @@ export default class ChangeData extends Block {
       avatarURL: user.avatarURL,
       displayName: user.display_name,
       goBackAside: new GoBackAside(),
-
       uploadAvatarModal: new UploadAvatarModal({
         avatarURL: user.avatarURL,
       }),
@@ -44,10 +47,12 @@ export default class ChangeData extends Block {
           attr: {
             name: "email",
             value: user.email,
+            required: true,
+            pattern: ValidationPattern.Email,
           },
         }),
         label: "email",
-        errorText: "",
+        errorText: ValidationError.Email,
       }),
       generalInputLogin: new GeneralInput({
         input: new Input({
@@ -55,21 +60,25 @@ export default class ChangeData extends Block {
           attr: {
             name: "login",
             value: user.login,
+            required: true,
+            pattern: ValidationPattern.Login,
           },
         }),
         label: "login",
-        errorText: "",
+        errorText: ValidationError.Login,
       }),
       generalInputName: new GeneralInput({
         input: new Input({
           type: "text",
           attr: {
-            name: "name",
+            name: "first_name",
             value: user.first_name,
+            required: true,
+            pattern: ValidationPattern.First_name,
           },
         }),
         label: "name",
-        errorText: "",
+        errorText: ValidationError.First_name,
       }),
       generalInputSurname: new GeneralInput({
         input: new Input({
@@ -77,10 +86,12 @@ export default class ChangeData extends Block {
           attr: {
             name: "second_name",
             value: user.second_name,
+            required: true,
+            pattern: ValidationPattern.Second_name,
           },
         }),
         label: "surname",
-        errorText: "",
+        errorText: ValidationError.Second_name,
       }),
       generalInputNickname: new GeneralInput({
         input: new Input({
@@ -99,17 +110,19 @@ export default class ChangeData extends Block {
           attr: {
             name: "phone",
             value: user.phone,
+            required: true,
+            pattern: ValidationPattern.Phone,
           },
         }),
         label: "phone number",
-        errorText: "",
+        errorText: ValidationError.Phone,
       }),
       generalButtonSave: new GeneralButton({
         buttonText: "Save",
-        events: {
-          click: (event) => onSubmitForm.apply(this, [event]),
-        },
       }),
+      events: {
+        submit: (event) => onSubmitForm.apply(this, [event]),
+      },
     });
   }
 

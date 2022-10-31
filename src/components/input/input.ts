@@ -6,7 +6,7 @@ export default class Input extends Block {
   constructor(props: Props) {
     super("input", {
       ...props,
-      class: ["general-input"]
+      class: ["general-input"],
     });
   }
 

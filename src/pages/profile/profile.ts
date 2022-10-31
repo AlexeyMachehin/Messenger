@@ -12,7 +12,7 @@ const user = {
   first_name: "Bart",
   second_name: "Simpson",
   display_name: "BartSimpson",
-  phone: "+7 (000) 000 00 00",
+  phone: "+70000000000",
   avatarURL:
     "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",
 };

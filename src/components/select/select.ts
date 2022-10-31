@@ -9,13 +9,13 @@ export default class Select extends Block {
   constructor(props: Props & { items: SelectItem[] }) {
     super("ul", {
       ...props,
-      class: [...props.class ?? [], "select-list"],
+      class: [...(props.class ?? []), "select-list"],
     });
   }
 
   componentDidMount(): void {
-    const classes = this.props.class?.map(cl => '.' + cl);
-    this.service = new SelectService(classes?.join('') ?? '')
+    const classes = this.props.class?.map((cl) => "." + cl);
+    this.service = new SelectService(classes?.join("") ?? "");
   }
 
   render(): DocumentFragment {

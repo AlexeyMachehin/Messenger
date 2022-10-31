@@ -246,7 +246,7 @@ class Block extends EventBus {
 
   addAttribute(): void {
     const { attr = {} } = this.props;
-    Object.entries<string | number>(attr).forEach(([key, value]) => {
+    Object.entries<string | number | boolean>(attr).forEach(([key, value]) => {
       this._element?.setAttribute(key, value.toString());
     });
   }

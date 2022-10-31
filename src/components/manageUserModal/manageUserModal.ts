@@ -13,15 +13,13 @@ type DialogProps = Props & {
 
 export default class ManageUserModal extends Block {
   service: Dialog;
-  constructor(
-    props: DialogProps
-  ) {
+  constructor(props: DialogProps) {
     super("dialog", { ...props, class: [...(props.class ?? []), "dialog"] });
   }
 
   componentDidMount(): void {
     const classes = this.props.class?.map((cl) => "." + cl);
-    this.service = new Dialog(classes?.join('') ?? '');
+    this.service = new Dialog(classes?.join("") ?? "");
   }
 
   render(): DocumentFragment {

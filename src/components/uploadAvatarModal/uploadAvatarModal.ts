@@ -1,4 +1,4 @@
-import { Dialog } from './../dialogModal/dialogService';
+import { Dialog } from "./../dialogModal/dialogService";
 import Block from "../../utils/block";
 import { Props } from "../../utils/models/props";
 import { uploadAvatarModalTemplate } from "./uploadAvatarModalTemplate";
@@ -10,7 +10,7 @@ export default class UploadAvatarModal extends Block {
   }
 
   componentDidMount(): void {
-    this.service = new Dialog('.uploadAvatarModal')
+    this.service = new Dialog(".uploadAvatarModal");
   }
 
   render(): DocumentFragment {

@@ -1,3 +1,7 @@
+import {
+  ValidationPattern,
+  ValidationError,
+} from "./../../utils/models/validation";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GoBackAside from "../../components/goBackAside/goBackAside";
@@ -18,10 +22,11 @@ export default class ChangePassword extends Block {
           attr: {
             name: "old-password",
             required: true,
+            pattern: ValidationPattern.Password,
           },
         }),
         label: "Old password",
-        errorText: "",
+        errorText: ValidationError.Password,
       }),
       generalInputNewPassword: new GeneralInput({
         input: new Input({
@@ -29,29 +34,20 @@ export default class ChangePassword extends Block {
           attr: {
             name: "password",
             required: true,
+            pattern: ValidationPattern.Password,
           },
         }),
         label: "New password",
-        errorText: "",
+        errorText: ValidationError.Password,
       }),
-      generalInputRepeatPassword: new GeneralInput({
-        input: new Input({
-          type: "password",
-          attr: {
-            name: "repeat-password",
-            required: true,
-          },
-        }),
-        label: "Repeat password",
-        errorText: "Passwords don't match",
-      }),
+
       generalButtonSave: new GeneralButton({
         buttonText: "Save",
-        events: {
-          click: (event) => onSubmitForm.apply(this, [event]),
-        },
       }),
       goBackAside: new GoBackAside({}),
+      events: {
+        submit: (event) => onSubmitForm.apply(this, [event]),
+      },
     });
   }
 
