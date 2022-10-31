@@ -31,7 +31,7 @@ class Chats extends Block {
       generalLink: new GeneralLink({
         text: "Profile",
         class: ["profile-link-container"],
-        href: "../../pages/profile/profile.pug",
+        href: "../../pages/profile/profile.html",
       }),
       avatarHeader: new Avatar({
         avatarURL: mockChats[0].avatarURL,
