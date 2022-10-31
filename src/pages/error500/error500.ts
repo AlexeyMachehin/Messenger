@@ -17,7 +17,7 @@ export default class Error404 extends Block {
 const error500 = new Error404({
   generalLink: new GeneralLink({
     text: "Back to the chat list",
-    href: "../../pages/chat/chat.pug",
+    href: "../chats/chats.html",
   }),
   class: ["card"],
 });
