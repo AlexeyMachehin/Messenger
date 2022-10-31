@@ -42,6 +42,13 @@
     "express": "4.18.2",
     "uuid": "9.0.0"
   },
+  "targets": {
+    "modern": {
+      "engines": {
+        "browsers": ">= 50%"
+      }
+    }
+  },  
   "engines": {
     "node": "16.17.0"
   }
