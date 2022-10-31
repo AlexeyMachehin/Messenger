@@ -12,7 +12,7 @@ const DEFAULT_PROPS: Props = {
 
 type Children = { [key: string]: Block[] | Block };
 class Block extends EventBus {
-  private _element: Element | null = null;
+  private _element: HTMLElement | null = null;
 
   private _meta: {
     tagName: keyof HTMLElementTagNameMap | null;
@@ -104,7 +104,7 @@ class Block extends EventBus {
     Object.assign(this.props, nextProps);
   };
 
-  get element(): Element | null {
+  get element(): HTMLElement | null {
     return this._element;
   }
 
@@ -128,7 +128,7 @@ class Block extends EventBus {
     return document.createElement("template").content;
   }
 
-  getContent(): Element | null {
+  getContent(): HTMLElement | null {
     return this.element;
   }
 
@@ -177,7 +177,7 @@ class Block extends EventBus {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      this._element?.addEventListener(eventName, events[eventName]);
+      this._element?.addEventListener(eventName, events[eventName], true);
     });
   }
 
@@ -246,8 +246,8 @@ class Block extends EventBus {
 
   addAttribute(): void {
     const { attr = {} } = this.props;
-    Object.entries<string>(attr).forEach(([key, value]) => {
-      this._element?.setAttribute(key, value);
+    Object.entries<string | number>(attr).forEach(([key, value]) => {
+      this._element?.setAttribute(key, value.toString());
     });
   }
 }

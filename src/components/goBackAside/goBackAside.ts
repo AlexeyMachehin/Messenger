@@ -4,7 +4,7 @@ import { goBackAsideTemplate } from "./goBackAsideTemplate";
 
 export default class GoBackAside extends Block {
   constructor(props?: Props) {
-    super("div", { ...props, class: "goBackAside" });
+    super("div", { ...props, class: ["goBackAside"] });
   }
 
   render(): DocumentFragment {

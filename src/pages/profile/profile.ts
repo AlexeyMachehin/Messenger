@@ -1,8 +1,8 @@
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import GoBackAside from "../../components/goBackAside/goBackAside";
+import Input from "../../components/input/input";
 import Block from "../../utils/block";
-import { Props } from "../../utils/models/props";
 import { render } from "../../utils/renderDOM";
 import { profileTemplate } from "./profileTemplate";
 
@@ -18,89 +18,99 @@ const user = {
 };
 
 export default class Profile extends Block {
-  constructor(
-    props: Props & {
-      avatarURL: string;
-      displayName: string;
-      goBackAside: GoBackAside;
-      generalInputEmail: GeneralInput;
-      generalInputLogin: GeneralInput;
-      generalInputName: GeneralInput;
-      generalInputSurname: GeneralInput;
-      generalInputNickname: GeneralInput;
-      generalInputPhoneNumber: GeneralInput;
-      generalLinkChangeData: GeneralInput;
-      generalLinkChangePassword: GeneralInput;
-    }
-  ) {
-    super("div", props);
+  constructor() {
+    super("div", {
+      avatarURL: user.avatarURL,
+      displayName: user.display_name,
+      goBackAside: new GoBackAside(),
+
+      generalInputEmail: new GeneralInput({
+        input: new Input({
+          type: "email",
+          attr: {
+            name: "email",
+            disabled: true,
+            value: user.email,
+          },
+        }),
+        label: "email",
+        errorText: "",
+      }),
+      generalInputLogin: new GeneralInput({
+        input: new Input({
+          type: "login",
+          attr: {
+            name: "login",
+            disabled: true,
+            value: user.login,
+          },
+        }),
+        label: "login",
+        errorText: "",
+      }),
+      generalInputName: new GeneralInput({
+        input: new Input({
+          type: "text",
+          attr: {
+            name: "name",
+            disabled: true,
+            value: user.first_name,
+          },
+        }),
+        label: "name",
+        errorText: "",
+      }),
+      generalInputSurname: new GeneralInput({
+        input: new Input({
+          type: "text",
+          attr: {
+            name: "second_name",
+            disabled: true,
+            value: user.second_name,
+          },
+        }),
+        label: "surname",
+        errorText: "",
+      }),
+      generalInputNickname: new GeneralInput({
+        input: new Input({
+          type: "text",
+          attr: {
+            name: "display_name",
+            disabled: true,
+            value: user.display_name,
+          },
+        }),
+        label: "nickname",
+        errorText: "",
+      }),
+      generalInputPhoneNumber: new GeneralInput({
+        input: new Input({
+          type: "tel",
+          attr: {
+            name: "phone",
+            disabled: true,
+            value: user.phone,
+          },
+        }),
+        label: "phone number",
+        errorText: "",
+      }),
+      generalLinkChangeData: new GeneralLink({
+        text: "Change Data",
+        href: "../../pages/changeData/changeData.html",
+      }),
+      generalLinkChangePassword: new GeneralLink({
+        text: "Change password",
+        href: "../../pages/changePassword/changePassword.html",
+      }),
+    });
   }
 
   render(): DocumentFragment {
     return this.compile(profileTemplate, this.props);
   }
 }
-const profile = new Profile({
-  avatarURL: user.avatarURL,
-  displayName: user.display_name,
-  goBackAside: new GoBackAside(),
-
-  generalInputEmail: new GeneralInput({
-    label: "email",
-    type: "email",
-    name: "email",
-    errorText: "",
-    disabled: true,
-    value: user.email,
-  }),
-  generalInputLogin: new GeneralInput({
-    label: "login",
-    type: "login",
-    name: "login",
-    errorText: "",
-    disabled: true,
-    value: user.login,
-  }),
-  generalInputName: new GeneralInput({
-    label: "name",
-    type: "text",
-    name: "name",
-    errorText: "",
-    disabled: true,
-    value: user.first_name,
-  }),
-  generalInputSurname: new GeneralInput({
-    label: "surname",
-    type: "text",
-    name: "second_name",
-    errorText: "",
-    disabled: true,
-    value: user.second_name,
-  }),
-  generalInputNickname: new GeneralInput({
-    label: "nickname",
-    type: "text",
-    name: "display_name",
-    errorText: "",
-    disabled: true,
-    value: user.display_name,
-  }),
-  generalInputPhoneNumber: new GeneralInput({
-    label: "phone number",
-    type: "tel",
-    name: "phone",
-    errorText: "",
-    disabled: true,
-    value: user.phone,
-  }),
-  generalLinkChangeData: new GeneralLink({
-    text: "Change Data",
-    href: "../../pages/changeData/changeData.html",
-  }),
-  generalLinkChangePassword: new GeneralLink({
-    text: "Change password",
-    href: "../../pages/changePassword/changePassword.html",
-  }),
-});
+const profile = new Profile();
 
 render(".main", profile);

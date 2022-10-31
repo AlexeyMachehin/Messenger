@@ -6,7 +6,7 @@ export type Props = {
     [key: string]: EventListener;
   };
   attr?: {
-    [key: string]: string;
+    [key: string]: string | number | boolean;
   };
   class?: string[],
   [key: string]: unknown

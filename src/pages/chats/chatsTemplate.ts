@@ -13,6 +13,6 @@ section.chat
     .messages !{messagesList}
     .chat__footer 
         .chat__footer-container !{manageFileButton} !{selectFooter}
-        form.message-form !{inputFooter}
-            button.message-form__button                           
+        form.message-form !{inputFooter} !{messageButton}
+            // button.message-form__button                           
 `;
