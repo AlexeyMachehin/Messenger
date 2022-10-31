@@ -1,0 +1,8 @@
+{
+  "extends": "stylelint-config-recommended-scss",
+  "ignoreFiles": ["dist/*"],
+  "rules": {
+    "scss/at-import-partial-extension": "always",
+    "scss/at-import-partial-extension-whitelist": ["scss"]
+  }
+}
