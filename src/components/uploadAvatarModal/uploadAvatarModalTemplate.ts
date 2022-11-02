@@ -1,5 +1,5 @@
 export const uploadAvatarModalTemplate =`
-.card
+div(class="card uploadAvatarModal__card")
     .close-button-container
         button.close-modal-button
     h3 Upload a file

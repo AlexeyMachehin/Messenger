@@ -19,7 +19,7 @@ const error404: Error404 = new Error404({
     text: "Back to the chat list",
     href: "../chats/chats.html",
   }),
-  class: ["card"],
+  class: ["card", "error404__card"],
 });
 
 render(".main", error404);

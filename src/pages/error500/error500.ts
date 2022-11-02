@@ -19,7 +19,7 @@ const error500 = new Error404({
     text: "Back to the chat list",
     href: "../chats/chats.html",
   }),
-  class: ["card"],
+  class: ["card", "error500__card"],
 });
 
 render(".main", error500);

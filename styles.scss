@@ -1,6 +1,10 @@
 @import "./nullstyle.scss";
 @import "./variables.scss";
 
+* {
+    font-family: "Roboto", sans-serif;
+}
+
 dialog {
     margin: auto;
 }
@@ -19,4 +23,10 @@ dialog::backdrop {
     border-radius: 4px;
     box-shadow: 0 2px 1px -1px #0003, 0 1px 1px #00000024, 0 1px 3px #0000001f;
     padding: 20px;
+}
+
+.dialog-modal__container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
