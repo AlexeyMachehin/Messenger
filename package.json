@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "parcel src/static/index.pug",
     "build": "parcel build src/static/index.pug",
-    "start": "npm run build && node ./server.js"
+    "start": "npm run build && node ./server.js",
+    "stylelint": "stylelint src/**/*.scss"
   },
   "keywords": [],
   "author": "Alexey Machehin",
@@ -13,15 +14,40 @@
   "devDependencies": {
     "@parcel/transformer-pug": "2.7.0",
     "@parcel/transformer-sass": "2.7.0",
+    "@types/pug": "2.0.6",
+    "@types/uuid": "8.3.4",
     "@webdiscus/pug-loader": "2.9.3",
+    "assert": "2.0.0",
+    "buffer": "6.0.3",
     "dotenv": "16.0.3",
+    "eslint": "8.2.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-react": "7.28.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "os-browserify": "0.3.0",
     "parcel": "2.7.0",
     "parcel-transformer-pug-precompile": "1.0.6",
+    "path-browserify": "1.0.1",
+    "process": "0.11.10",
     "pug": "3.0.2",
-    "sass": "1.55.0"
+    "sass": "1.55.0",
+    "stylelint": "14.14.0",
+    "stylelint-config-recommended-scss": "7.0.0",
+    "typescript": "4.8.4",
+    "stylelint-scss": "4.3.0"
   },
   "dependencies": {
-    "express": "4.18.2"
+    "express": "4.18.2",
+    "uuid": "9.0.0"
+  },
+  "targets": {
+    "modern": {
+      "engines": {
+        "browsers": ">= 50%"
+      }
+    }
   },
   "engines": {
     "node": "16.17.0"

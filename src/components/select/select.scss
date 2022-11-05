@@ -8,10 +8,8 @@
     background-color: $backdrop;
 }
 
-.active {
-    .select-list {
-        display: block;
-    }
+.select-list.active {
+    display: block;
 }
 
 .select-item {

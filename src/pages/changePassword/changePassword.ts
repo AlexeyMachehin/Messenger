@@ -1,0 +1,69 @@
+import Block from "../../utils/block";
+import { changePasswordTemplate } from "./changePasswordTemplate";
+import { Props } from "./../../utils/models/props";
+import {
+  ValidationPattern,
+  ValidationError,
+} from "./../../utils/models/validation";
+import { render } from "../../utils/renderDOM";
+import { onSubmitForm } from "../../utils/form/form";
+import GeneralButton from "../../components/generalButton/generalButton";
+import GeneralInput from "../../components/generalInput/generalInput";
+import GoBackAside from "../../components/goBackAside/goBackAside";
+import Input from "../../components/input/input";
+
+type ChangePasswordType = {
+  avatarURL: string;
+  generalInputOldPassword: GeneralInput;
+  generalInputNewPassword: GeneralInput;
+  generalButtonSave: GeneralButton;
+  goBackAside: GoBackAside;
+} & Props;
+
+export default class ChangePassword extends Block<ChangePasswordType> {
+  constructor() {
+    super("div", {
+      avatarURL:
+        "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",
+      generalInputOldPassword: new GeneralInput({
+        input: new Input({
+          attr: {
+            type: "password",
+            name: "old-password",
+            required: true,
+            pattern: ValidationPattern.Password,
+          },
+        }),
+        label: "Old password",
+        errorText: ValidationError.Password,
+      }),
+      generalInputNewPassword: new GeneralInput({
+        input: new Input({
+          attr: {
+            type: "password",
+            name: "password",
+            required: true,
+            pattern: ValidationPattern.Password,
+          },
+        }),
+        label: "New password",
+        errorText: ValidationError.Password,
+      }),
+
+      generalButtonSave: new GeneralButton({
+        buttonText: "Save",
+      }),
+      goBackAside: new GoBackAside({}),
+      events: {
+        submit: (event) => onSubmitForm.apply(this, [event]),
+      },
+    });
+  }
+
+  render(): DocumentFragment {
+    return this.compile(changePasswordTemplate, this.props);
+  }
+}
+const changePassword = new ChangePassword();
+
+render(".main", changePassword);

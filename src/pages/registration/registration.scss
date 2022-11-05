@@ -2,6 +2,7 @@
 @import "../../layouts/main/main.scss";
 @import "../../components/generalButton/generalButton.scss";
 @import "../../components/generalInput/generalInput.scss";
+@import "../../components/generalLink/generalLink.scss";
 
 .registration-form {
     display: flex;
@@ -9,6 +10,6 @@
     align-items: center;
     flex-direction: column;
     width: 300px;
-    max-height: 700px;
+    min-height: 570px;
     gap: 10px;
 }
