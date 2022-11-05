@@ -1,9 +1,27 @@
+export const user = {
+  email: "Bart@yandex.ru",
+  login: "Bart",
+  first_name: "Bart",
+  second_name: "Simpson",
+  display_name: "BartSimpson",
+  phone: "+70000000000",
+  avatarURL:
+    "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",
+};
+
 export const chats = [
   {
     id: 1,
     display_name: "aaa",
     message: "hi11",
-    messages:["привет1", "привет2", "привет3", "привет4", "привет5", "привет6"],
+    messages: [
+      "привет1",
+      "привет2",
+      "привет3",
+      "привет4",
+      "привет5",
+      "привет6",
+    ],
     time: "13.40",
     avatarURL:
       "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",

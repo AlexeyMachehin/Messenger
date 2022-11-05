@@ -1,18 +1,18 @@
 import Block from "../../utils/block";
-import { checkInputValue } from "../../utils/form/form";
+import { generalInputTemplate } from "./generalInputTemplate";
 import { Props } from "../../utils/models/props";
 import Input from "../input/input";
-import { generalInputTemplate } from "./generalInputTemplate";
+import { checkInputValue } from "../../utils/form/form";
 
-export default class GeneralInput extends Block {
-  constructor(
-    props: Props & {
-      label: string;
-      input: Input;
-      errorText?: string;
-      isValid?: boolean;
-    }
-  ) {
+type GeneralInputType = {
+  label: string;
+  input: Input;
+  errorText?: string;
+  isValid?: boolean;
+} & Props;
+
+export default class GeneralInput extends Block<GeneralInputType> {
+  constructor(props: GeneralInputType) {
     super("div", {
       ...props,
       events: {

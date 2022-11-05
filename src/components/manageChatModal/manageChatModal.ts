@@ -1,23 +1,25 @@
-import { Dialog } from "./../dialogModal/dialogService";
 import Block from "../../utils/block";
-import { Props } from "../../utils/models/props";
-import GeneralButton from "../generalButton/generalButton";
 import { manageChatModalTemplate } from "./manageChatModalTemplate";
+import { Props } from "../../utils/models/props";
+import { Dialog } from "../../utils/service/dialogService";
+import { fromStringToClassName } from "../../utils/fromStringToClassName";
+import GeneralButton from "../generalButton/generalButton";
 
-export default class ManageChatModal extends Block {
+type ManageChatModalType = {
+  generalButton: GeneralButton;
+  title: string;
+} & Props;
+
+export default class ManageChatModal extends Block<ManageChatModalType> {
   service: Dialog;
-  constructor(
-    props: Props & {
-      generalButton: GeneralButton;
-      title: string;
-    }
-  ) {
+  constructor(props: ManageChatModalType) {
     super("dialog", props);
   }
 
   componentDidMount(): void {
-    const classes = this.props.class?.map((cl) => "." + cl);
-    this.service = new Dialog(classes?.join("") ?? "");
+    if (this.props.class != null) {
+      this.service = new Dialog(fromStringToClassName(this.props.class));
+    }
   }
 
   render(): DocumentFragment {

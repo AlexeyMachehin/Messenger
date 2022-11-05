@@ -1,11 +1,15 @@
-import GeneralLink from "../../components/generalLink/generalLink";
 import Block from "../../utils/block";
+import { error404Template } from "./error404Template";
 import { Props } from "../../utils/models/props";
 import { render } from "../../utils/renderDOM";
-import { error404Template } from "./error404Template";
+import GeneralLink from "../../components/generalLink/generalLink";
 
-export default class Error404 extends Block {
-  constructor(props: Props & { generalLink: GeneralLink }) {
+type Error404Type = {
+  generalLink: GeneralLink;
+} & Props;
+
+export default class Error404 extends Block<Error404Type> {
+  constructor(props: Error404Type) {
     super("div", props);
   }
 

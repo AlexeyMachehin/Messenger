@@ -1,9 +1,14 @@
 import Block from "../../utils/block";
-import { Props } from "../../utils/models/props";
 import { generalLinkTemplate } from "./generalLinkTemplate";
+import { Props } from "../../utils/models/props";
 
-export default class GeneralLink extends Block {
-  constructor(props: Props & { text: string; href: string }) {
+type GeneralLinkType = {
+  text: string;
+  href: string;
+} & Props;
+
+export default class GeneralLink extends Block<GeneralLinkType> {
+  constructor(props: GeneralLinkType) {
     super("div", props);
   }
 

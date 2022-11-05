@@ -1,8 +1,10 @@
-import { chats as mockChats } from "./mockData";
-import Avatar from "../../components/avatar/avatar";
 import Block from "../../utils/block";
-import { render } from "../../utils/renderDOM";
 import { chatsTemplate } from "./chatsTemplate";
+import { Props } from "./../../utils/models/props";
+import { chats as mockChats } from "../../utils/mockData";
+import { render } from "../../utils/renderDOM";
+import { onSubmitForm } from "../../utils/form/form";
+import Avatar from "../../components/avatar/avatar";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Chat from "../../components/chat/chat";
 import ChatPageInput from "../../components/chatPageInput/chatPageInput";
@@ -16,9 +18,26 @@ import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralButton from "../../components/generalButton/generalButton";
 import ManageChatModal from "../../components/manageChatModal/manageChatModal";
 import Input from "../../components/input/input";
-import { onSubmitForm } from "../../utils/form/form";
 
-class Chats extends Block {
+type ChatsType = {
+  chatPageInput: ChatPageInput;
+  chats: Chat[];
+  generalLink: GeneralLink;
+  avatarHeader: Avatar;
+  userName: string;
+  messagesList: MessagesList;
+  inputFooter: ChatPageInput;
+  messageButton: IconButton;
+  manageFileButton: IconButton;
+  selectFooter: Select;
+  manageUserButton: IconButton;
+  selectHeader: Select;
+  deleteUserDialog: ManageUserModal;
+  addUserDialog: ManageUserModal;
+  manageChatModal: ManageChatModal;
+} & Props;
+
+class Chats extends Block<ChatsType> {
   constructor() {
     super("div", {
       chatPageInput: new ChatPageInput({
@@ -48,7 +67,7 @@ class Chats extends Block {
         type: "text",
         placeholder: "message",
         name: "message",
-        required: true,
+       
       }),
       messageButton: new IconButton({
         class: ["message-form__button"],
@@ -213,10 +232,13 @@ const chats = new Chats();
 render(".main", chats);
 
 function openSelect() {
-  this.children[arguments[1]].service.open();
-  (arguments[0] as PointerEvent).stopPropagation();
+  const indexOfEvent = 0;
+  const indexOfSelect = 1;
+  this.children[arguments[indexOfSelect]].service.open();
+  (arguments[indexOfEvent] as PointerEvent).stopPropagation();
 }
 
 function openDialog() {
-  this.children[arguments[0]].service.openDialog();
+  const indexOfEvent = 0;
+  this.children[arguments[indexOfEvent]].service.openDialog();
 }

@@ -12,18 +12,25 @@ import Block from "../../utils/block";
 import { onSubmitForm } from "../../utils/form/form";
 import { render } from "../../utils/renderDOM";
 import { changeDataTemplate } from "./changeDataTemplate";
+import { user } from "../../utils/mockData";
+import { Props } from "../../utils/models/props";
 
-const user = {
-  email: "Bart@yandex.ru",
-  login: "Bart",
-  first_name: "Bart",
-  second_name: "Simpson",
-  display_name: "BartSimpson",
-  phone: "+70000000000",
-  avatarURL:
-    "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",
-};
-export default class ChangeData extends Block {
+type ChangeDataType = {
+  avatarURL: string;
+  displayName: string;
+  goBackAside: GoBackAside;
+  uploadAvatarModal: UploadAvatarModal;
+  avatar: Avatar;
+  generalInputEmail: GeneralInput;
+  generalInputLogin: GeneralInput;
+  generalInputName: GeneralInput;
+  generalInputSurname: GeneralInput;
+  generalInputNickname: GeneralInput;
+  generalInputPhoneNumber: GeneralInput;
+  generalButtonSave: GeneralButton;
+} & Props;
+
+export default class ChangeData extends Block<ChangeDataType> {
   constructor() {
     super("div", {
       avatarURL: user.avatarURL,
@@ -43,8 +50,8 @@ export default class ChangeData extends Block {
       }),
       generalInputEmail: new GeneralInput({
         input: new Input({
-          type: "email",
           attr: {
+            type: "email",
             name: "email",
             value: user.email,
             required: true,
@@ -56,8 +63,8 @@ export default class ChangeData extends Block {
       }),
       generalInputLogin: new GeneralInput({
         input: new Input({
-          type: "login",
           attr: {
+            type: "login",
             name: "login",
             value: user.login,
             required: true,
@@ -69,34 +76,34 @@ export default class ChangeData extends Block {
       }),
       generalInputName: new GeneralInput({
         input: new Input({
-          type: "text",
           attr: {
+            type: "text",
             name: "first_name",
             value: user.first_name,
             required: true,
-            pattern: ValidationPattern.First_name,
+            pattern: ValidationPattern.FirstName,
           },
         }),
         label: "name",
-        errorText: ValidationError.First_name,
+        errorText: ValidationError.FirstName,
       }),
       generalInputSurname: new GeneralInput({
         input: new Input({
-          type: "text",
           attr: {
+            type: "text",
             name: "second_name",
             value: user.second_name,
             required: true,
-            pattern: ValidationPattern.Second_name,
+            pattern: ValidationPattern.SecondName,
           },
         }),
         label: "surname",
-        errorText: ValidationError.Second_name,
+        errorText: ValidationError.SecondName,
       }),
       generalInputNickname: new GeneralInput({
         input: new Input({
-          type: "text",
           attr: {
+            type: "text",
             name: "display_name",
             value: user.display_name,
           },
@@ -106,8 +113,8 @@ export default class ChangeData extends Block {
       }),
       generalInputPhoneNumber: new GeneralInput({
         input: new Input({
-          type: "tel",
           attr: {
+            type: "tel",
             name: "phone",
             value: user.phone,
             required: true,

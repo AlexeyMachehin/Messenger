@@ -1,9 +1,14 @@
 import Block from "../../utils/block";
-import { Props } from "../../utils/models/props";
 import { avatarTemplate } from "./avatarTemplate";
+import { Props } from './../../utils/models/props';
 
-export default class Avatar extends Block {
-  constructor(props: Props & { avatarURL: string; classImg: string }) {
+export type AvatarType = {
+  avatarURL: string;
+  classImg: string;
+} & Props;
+
+export default class Avatar extends Block<AvatarType> {
+  constructor(props: AvatarType) {
     super("div", props);
   }
 

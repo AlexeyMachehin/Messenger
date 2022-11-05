@@ -1,12 +1,17 @@
 import Block from "../../utils/block";
+import { selectTemplate } from "./selectTemplate";
 import { Props } from "../../utils/models/props";
+import { fromStringToClassName } from "../../utils/fromStringToClassName";
 import SelectItem from "../selectItem/selectItem";
 import SelectService from "./selectService";
-import { selectTemplate } from "./selectTemplate";
 
-export default class Select extends Block {
+type SelectType = {
+  items: SelectItem[];
+} & Props;
+
+export default class Select extends Block<SelectType> {
   service: SelectService;
-  constructor(props: Props & { items: SelectItem[] }) {
+  constructor(props: SelectType) {
     super("ul", {
       ...props,
       class: [...(props.class ?? []), "select-list"],
@@ -14,8 +19,9 @@ export default class Select extends Block {
   }
 
   componentDidMount(): void {
-    const classes = this.props.class?.map((cl) => "." + cl);
-    this.service = new SelectService(classes?.join("") ?? "");
+    if (this.props.class != null) {
+      this.service = new SelectService(fromStringToClassName(this.props.class));
+    }
   }
 
   render(): DocumentFragment {

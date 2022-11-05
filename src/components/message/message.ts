@@ -1,17 +1,18 @@
 import Block from "../../utils/block";
-import { Props } from "../../utils/models/props";
 import { messageTemplate } from "./messageTemplate";
+import { Props } from "../../utils/models/props";
+import { AvatarType } from "./../avatar/avatar";
 
-export default class Message extends Block {
-  constructor(
-    props: Props & {
-      message: string;
-      time: string;
-      name: string;
-      className: string;
-      avatar: Block;
-    }
-  ) {
+type MessageType = {
+  message: string;
+  time: string;
+  name: string;
+  className: string;
+  avatar: Block<AvatarType>;
+} & Props;
+
+export default class Message extends Block<MessageType> {
+  constructor(props: MessageType) {
     super("div", props);
   }
 

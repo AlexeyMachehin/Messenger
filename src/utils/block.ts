@@ -4,29 +4,24 @@ import { EventBus } from "./eventBus";
 import { v4 as makeUUID } from "uuid";
 import { compile } from "pug";
 
-const DEFAULT_PROPS: Props = {
-  settings: {
-    withInternalID: true,
-  },
-};
+type Children = { [key: string]: Block<Props>[] | Block<Props> };
 
-type Children = { [key: string]: Block[] | Block };
-class Block extends EventBus {
+class Block<T extends Props> extends EventBus {
   private _element: HTMLElement | null = null;
 
   private _meta: {
     tagName: keyof HTMLElementTagNameMap | null;
-    propsAndChildren?: Props;
+    propsAndChildren?: T;
   } = {
     tagName: null,
   };
   children: Children;
-  _id;
-  props;
+  private _id;
+  props: T;
 
   constructor(
     tagName: keyof HTMLElementTagNameMap = "div",
-    propsAndChildren: Props = DEFAULT_PROPS
+    propsAndChildren: T
   ) {
     super();
     this._meta = {
@@ -46,14 +41,14 @@ class Block extends EventBus {
     this.emit(Events.INIT);
   }
 
-  _registerEvents(): void {
+  private _registerEvents(): void {
     this.on(Events.INIT, this.init.bind(this));
     this.on(Events.FLOW_CDM, this._componentDidMount.bind(this));
     this.on(Events.FLOW_RENDER, this._render.bind(this));
     this.on(Events.FLOW_CDU, this._componentDidUpdate.bind(this));
   }
 
-  _createResources(): void {
+  private _createResources(): void {
     const { tagName } = this._meta;
     if (tagName != null) {
       this._element = this._createDocumentElement(tagName);
@@ -65,7 +60,7 @@ class Block extends EventBus {
     this.emit(Events.FLOW_RENDER);
   }
 
-  _componentDidMount(): void {
+  private _componentDidMount(): void {
     this.componentDidMount();
 
     Object.values(this.children).forEach((child) => {
@@ -85,7 +80,7 @@ class Block extends EventBus {
     this.emit(Events.FLOW_CDM);
   }
 
-  _componentDidUpdate(oldProps: Props, newProps: Props): void {
+  private _componentDidUpdate(oldProps: Props, newProps: Props): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {
       this.emit(Events.FLOW_RENDER);
@@ -108,7 +103,7 @@ class Block extends EventBus {
     return this._element;
   }
 
-  _render(): void {
+  private _render(): void {
     const block = this.render();
     this._removeEvents();
 
@@ -132,15 +127,15 @@ class Block extends EventBus {
     return this.element;
   }
 
-  _makePropsProxy(props: Props): Props {
+  private _makePropsProxy(props: T): T {
     return new Proxy(props, {
-      get(target, prop) {
-        const value = target[prop as string];
+      get(target: T, prop: string) {
+        const value = target[prop];
         return typeof value === "function" ? value.bind(target) : value;
       },
-      set: (target, prop, value) => {
-        if (target[prop as string] !== value) {
-          target[prop as string] = value;
+      set: (target: T, prop: string, value: any) => {
+        if (target[prop] !== value) {
+          (target as Record<string, any>)[prop] = value;
           this._meta.propsAndChildren = this.props;
           this.emit(Events.FLOW_CDU, this._meta.propsAndChildren, target);
         }
@@ -152,7 +147,7 @@ class Block extends EventBus {
     });
   }
 
-  _createDocumentElement<F extends keyof HTMLElementTagNameMap>(
+  private _createDocumentElement<F extends keyof HTMLElementTagNameMap>(
     tagName: F
   ): HTMLElementTagNameMap[F] {
     const element = document.createElement(tagName);
@@ -173,7 +168,7 @@ class Block extends EventBus {
     (this.getContent() as HTMLElement).style.display = "none";
   }
 
-  _addEvents(): void {
+  private _addEvents(): void {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
@@ -181,7 +176,7 @@ class Block extends EventBus {
     });
   }
 
-  _removeEvents(): void {
+  private _removeEvents(): void {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
@@ -189,9 +184,12 @@ class Block extends EventBus {
     });
   }
 
-  _getChildren(propsAndChildren: Props): { children: Children; props: Props } {
+  private _getChildren(propsAndChildren: T): {
+    children: Children;
+    props: Props;
+  } {
     const children: Children = {};
-    const props: Props = {};
+    const props = {} as Record<string, any>;
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (
