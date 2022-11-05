@@ -1,17 +1,25 @@
+import Block from "../../utils/block";
+import { loginTemplate } from "./loginTemplate";
+import { Props } from "./../../utils/models/props";
 import {
   ValidationPattern,
   ValidationError,
 } from "./../../utils/models/validation";
+import { onSubmitForm } from "../../utils/form/form";
+import { render } from "../../utils/renderDOM";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
-import Block from "../../utils/block";
-import { onSubmitForm } from "../../utils/form/form";
-import { render } from "../../utils/renderDOM";
-import { loginTemplate } from "./loginTemplate";
 
-export default class Login extends Block {
+type LoginType = {
+  generalInputLogin: GeneralInput;
+  generalInputPassword: GeneralInput;
+  generalButtonEnter: GeneralButton;
+  generalLinkCreateAccount: GeneralLink;
+} & Props;
+
+export default class Login extends Block<LoginType> {
   constructor() {
     super("div", {
       generalInputLogin: new GeneralInput({
@@ -28,8 +36,8 @@ export default class Login extends Block {
       }),
       generalInputPassword: new GeneralInput({
         input: new Input({
-          type: "password",
           attr: {
+            type: "password",
             name: "password",
             required: true,
             pattern: ValidationPattern.Password,

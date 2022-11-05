@@ -1,7 +1,13 @@
 @import "../generalButton/generalButton.scss";
 
-.dialog-modal__container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.close-modal-button {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../static/images/closeCross.svg);
+    background-color: inherit;
+    margin-left: 10px;
+}
+
+.dialog {
+    border-radius: 4px;
 }

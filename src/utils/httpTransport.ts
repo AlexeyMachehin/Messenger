@@ -1,19 +1,14 @@
 import { HTTPOptions } from "./models/httpOptions";
 import { METHODS } from "./models/httpMethod";
-
-function queryStringify(data: {}) {
-  let urlParameters =
-    "?" +
-    Object.entries(data)
-      .map((e) => e.join("="))
-      .join("&");
-
-  return urlParameters;
-}
+import { queryStringify } from "./queryStringify";
 
 class HTTPTransport {
   get(url: string, options: HTTPOptions) {
-    return this.request(url, { ...options, method: METHODS.GET });
+    return this.request(url, {
+      ...options,
+      data: queryStringify(options.data),
+      method: METHODS.GET,
+    });
   }
   post(url: string, options: HTTPOptions) {
     return this.request(url, { ...options, method: METHODS.POST });
@@ -30,10 +25,10 @@ class HTTPTransport {
 
   request(url: string, options: HTTPOptions) {
     const { method, data, headers = {}, timeout = 5000 } = options;
-    const query = method === METHODS.GET ? queryStringify(data) : "";
+
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url + query);
+      xhr.open(method, url + data);
       xhr.onload = () => resolve(xhr);
       if (xhr.status === 200) {
         console.log(xhr.responseText);
@@ -48,7 +43,7 @@ class HTTPTransport {
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(query);
+        xhr.send(data);
       }
     });
   }

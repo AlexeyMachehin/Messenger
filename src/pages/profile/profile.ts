@@ -1,23 +1,28 @@
+import Block from "../../utils/block";
+import { profileTemplate } from "./profileTemplate";
+import { Props } from "./../../utils/models/props";
+import { render } from "../../utils/renderDOM";
+import { user } from "../../utils/mockData";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
-import Block from "../../utils/block";
-import { render } from "../../utils/renderDOM";
-import { profileTemplate } from "./profileTemplate";
 
-const user = {
-  email: "Bart@yandex.ru",
-  login: "Bart",
-  first_name: "Bart",
-  second_name: "Simpson",
-  display_name: "BartSimpson",
-  phone: "+70000000000",
-  avatarURL:
-    "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1",
-};
+type ProfileType = {
+  avatarURL: string;
+  displayName: string;
+  goBackAside: GoBackAside;
+  generalInputEmail: GeneralInput;
+  generalInputLogin: GeneralInput;
+  generalInputName: GeneralInput;
+  generalInputSurname: GeneralInput;
+  generalInputNickname: GeneralInput;
+  generalInputPhoneNumber: GeneralInput;
+  generalLinkChangeData: GeneralLink;
+  generalLinkChangePassword: GeneralLink;
+} & Props;
 
-export default class Profile extends Block {
+export default class Profile extends Block<ProfileType> {
   constructor() {
     super("div", {
       avatarURL: user.avatarURL,
@@ -26,8 +31,8 @@ export default class Profile extends Block {
 
       generalInputEmail: new GeneralInput({
         input: new Input({
-          type: "email",
           attr: {
+            type: "email",
             name: "email",
             disabled: true,
             value: user.email,
@@ -38,8 +43,8 @@ export default class Profile extends Block {
       }),
       generalInputLogin: new GeneralInput({
         input: new Input({
-          type: "login",
           attr: {
+            type: "login",
             name: "login",
             disabled: true,
             value: user.login,
@@ -50,8 +55,8 @@ export default class Profile extends Block {
       }),
       generalInputName: new GeneralInput({
         input: new Input({
-          type: "text",
           attr: {
+            type: "text",
             name: "name",
             disabled: true,
             value: user.first_name,
@@ -62,8 +67,8 @@ export default class Profile extends Block {
       }),
       generalInputSurname: new GeneralInput({
         input: new Input({
-          type: "text",
           attr: {
+            type: "text",
             name: "second_name",
             disabled: true,
             value: user.second_name,
@@ -74,8 +79,8 @@ export default class Profile extends Block {
       }),
       generalInputNickname: new GeneralInput({
         input: new Input({
-          type: "text",
           attr: {
+            type: "text",
             name: "display_name",
             disabled: true,
             value: user.display_name,
@@ -86,8 +91,8 @@ export default class Profile extends Block {
       }),
       generalInputPhoneNumber: new GeneralInput({
         input: new Input({
-          type: "tel",
           attr: {
+            type: "tel",
             name: "phone",
             disabled: true,
             value: user.phone,

@@ -1,11 +1,15 @@
-import { Dialog } from "./../dialogModal/dialogService";
 import Block from "../../utils/block";
-import { Props } from "../../utils/models/props";
 import { uploadAvatarModalTemplate } from "./uploadAvatarModalTemplate";
+import { Dialog } from "../../utils/service/dialogService";
+import { Props } from "../../utils/models/props";
 
-export default class UploadAvatarModal extends Block {
+type UploadAvatarModalType = {
+  avatarURL: string;
+} & Props;
+
+export default class UploadAvatarModal extends Block<UploadAvatarModalType> {
   service: Dialog;
-  constructor(props: Props & { avatarURL: string }) {
+  constructor(props: UploadAvatarModalType) {
     super("dialog", { ...props, class: ["uploadAvatarModal"] });
   }
 

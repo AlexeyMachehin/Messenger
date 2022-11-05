@@ -1,21 +1,33 @@
+import Block from "../../utils/block";
+import { registrationTemplate } from "./registrationTemplate";
+import { Props } from "./../../utils/models/props";
+import { onSubmitForm } from "../../utils/form/form";
 import { ValidationPattern } from "./../../utils/models/validation";
+import { ValidationError } from "../../utils/models/validation";
+import { render } from "../../utils/renderDOM";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
-import Block from "../../utils/block";
-import { onSubmitForm } from "../../utils/form/form";
-import { ValidationError } from "../../utils/models/validation";
-import { render } from "../../utils/renderDOM";
-import { registrationTemplate } from "./registrationTemplate";
 
-export default class Registration extends Block {
+type RegistrationType = {
+  generalInputEmail: GeneralInput;
+  generalInputLogin: GeneralInput;
+  generalInputName: GeneralInput;
+  generalInputSurname: GeneralInput;
+  generalInputPhoneNumber: GeneralInput;
+  generalInputPassword: GeneralInput;
+  generalButtonCreateAccount: GeneralButton;
+  generalLinkEnter: GeneralLink;
+} & Props;
+
+export default class Registration extends Block<RegistrationType> {
   constructor() {
     super("div", {
       generalInputEmail: new GeneralInput({
         input: new Input({
-          type: "email",
           attr: {
+            type: "email",
             name: "email",
             required: true,
             pattern: ValidationPattern.Email,
@@ -26,8 +38,8 @@ export default class Registration extends Block {
       }),
       generalInputLogin: new GeneralInput({
         input: new Input({
-          type: "login",
           attr: {
+            type: "login",
             name: "login",
             maxLength: 20,
             minLength: 3,
@@ -40,32 +52,32 @@ export default class Registration extends Block {
       }),
       generalInputName: new GeneralInput({
         input: new Input({
-          type: "text",
           attr: {
+            type: "text",
             name: "first_name",
             required: true,
-            pattern: ValidationPattern.First_name,
+            pattern: ValidationPattern.FirstName,
           },
         }),
         label: "name",
-        errorText: ValidationError.First_name,
+        errorText: ValidationError.FirstName,
       }),
       generalInputSurname: new GeneralInput({
         input: new Input({
-          type: "text",
           attr: {
+            type: "text",
             name: "second_name",
             required: true,
-            pattern: ValidationPattern.Second_name,
+            pattern: ValidationPattern.SecondName,
           },
         }),
         label: "surname",
-        errorText: ValidationError.Second_name,
+        errorText: ValidationError.SecondName,
       }),
       generalInputPhoneNumber: new GeneralInput({
         input: new Input({
-          type: "tel",
           attr: {
+            type: "tel",
             name: "phone",
             maxLength: 15,
             minLength: 10,
@@ -78,8 +90,8 @@ export default class Registration extends Block {
       }),
       generalInputPassword: new GeneralInput({
         input: new Input({
-          type: "password",
           attr: {
+            type: "password",
             name: "password",
             maxLength: 40,
             minLength: 8,

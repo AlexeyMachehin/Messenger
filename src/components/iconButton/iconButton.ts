@@ -1,8 +1,8 @@
 import Block from "../../utils/block";
-import { Props } from "../../utils/models/props";
 import { iconButtonTemplate } from "./iconButtonTemplate";
+import { Props } from "../../utils/models/props";
 
-export default class IconButton extends Block {
+export default class IconButton extends Block<Props> {
   constructor(props: Props) {
     super("button", props);
   }

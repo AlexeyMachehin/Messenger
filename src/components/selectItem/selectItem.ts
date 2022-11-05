@@ -1,9 +1,14 @@
 import Block from "../../utils/block";
-import { Props } from "../../utils/models/props";
 import { selectItemTemplate } from "./selectItemTemplate";
+import { Props } from "../../utils/models/props";
 
-export default class SelectItem extends Block {
-  constructor(props: Props & { text: string; classIcon: string }) {
+type SelectItemType = {
+  text: string;
+  classIcon: string;
+} & Props;
+
+export default class SelectItem extends Block<SelectItemType> {
+  constructor(props: SelectItemType) {
     super("div", { ...props, class: ["select-item"] });
   }
 

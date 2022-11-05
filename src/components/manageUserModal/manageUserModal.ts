@@ -1,25 +1,27 @@
-import { manageUserModalTemplate } from "./manageUserModalTemplate";
-import { Dialog } from "../dialogModal/dialogService";
 import Block from "../../utils/block";
+import { manageUserModalTemplate } from "./manageUserModalTemplate";
 import { Props } from "../../utils/models/props";
+import { Dialog } from "../../utils/service/dialogService";
+import { fromStringToClassName } from "../../utils/fromStringToClassName";
 import GeneralInput from "../generalInput/generalInput";
 import GeneralButton from "../generalButton/generalButton";
 
-type DialogProps = Props & {
+type ManageUserModalType = {
   title: string;
   generalInput: GeneralInput;
   generalButton: GeneralButton;
-};
+} & Props;
 
-export default class ManageUserModal extends Block {
+export default class ManageUserModal extends Block<ManageUserModalType> {
   service: Dialog;
-  constructor(props: DialogProps) {
+  constructor(props: ManageUserModalType) {
     super("dialog", { ...props, class: [...(props.class ?? []), "dialog"] });
   }
 
   componentDidMount(): void {
-    const classes = this.props.class?.map((cl) => "." + cl);
-    this.service = new Dialog(classes?.join("") ?? "");
+    if (this.props.class != null) {
+      this.service = new Dialog(fromStringToClassName(this.props.class));
+    }
   }
 
   render(): DocumentFragment {

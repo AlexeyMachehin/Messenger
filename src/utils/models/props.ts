@@ -9,5 +9,5 @@ export type Props = {
     [key: string]: string | number | boolean;
   };
   class?: string[],
-  [key: string]: unknown
+  [key: string | symbol]: unknown
 };
