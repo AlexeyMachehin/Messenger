@@ -55,7 +55,7 @@ export default class ChangePassword extends Block<ChangePasswordType> {
       }),
       goBackAside: new GoBackAside({}),
       events: {
-        submit: (event) => onSubmitForm.apply(this, [event]),
+        submit: (event) => onSubmitForm.apply<ChangePassword, [Event], void>(this, [event]),
       },
     });
   }

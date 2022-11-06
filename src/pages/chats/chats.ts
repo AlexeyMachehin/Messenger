@@ -37,7 +37,7 @@ type ChatsType = {
   manageChatModal: ManageChatModal;
 } & Props;
 
-class Chats extends Block<ChatsType> {
+export class Chats extends Block<ChatsType> {
   constructor() {
     super("div", {
       chatPageInput: new ChatPageInput({
@@ -67,18 +67,22 @@ class Chats extends Block<ChatsType> {
         type: "text",
         placeholder: "message",
         name: "message",
-       
       }),
       messageButton: new IconButton({
         class: ["message-form__button"],
         events: {
-          click: (event) => onSubmitForm.apply(this, [event]),
+          click: (event) =>
+            onSubmitForm.apply<Chats, [Event], void>(this, [event]),
         },
       }),
       manageFileButton: new IconButton({
         class: ["manage-file__button"],
         events: {
-          click: (event) => openSelect.apply(this, [event, "selectFooter"]),
+          click: (event) =>
+            openSelect.apply<Chats, [Event, string], void>(this, [
+              event,
+              "selectFooter",
+            ]),
         },
       }),
       selectFooter: new Select({
@@ -101,7 +105,11 @@ class Chats extends Block<ChatsType> {
       manageUserButton: new IconButton({
         class: ["manage-user__button"],
         events: {
-          click: (event) => openSelect.apply(this, [event, "selectHeader"]),
+          click: (event) =>
+            openSelect.apply<Chats, [Event, string], void>(this, [
+              event,
+              "selectHeader",
+            ]),
         },
       }),
       selectHeader: new Select({
@@ -111,21 +119,30 @@ class Chats extends Block<ChatsType> {
             text: "Add user",
             classIcon: "add-icon",
             events: {
-              click: () => openDialog.apply(this, ["addUserDialog"]),
+              click: () =>
+                openDialog.apply<Chats, [string], void>(this, [
+                  "addUserDialog",
+                ]),
             },
           }),
           new SelectItem({
             text: "Delete user",
             classIcon: "delete-icon",
             events: {
-              click: () => openDialog.apply(this, ["deleteUserDialog"]),
+              click: () =>
+                openDialog.apply<Chats, [string], void>(this, [
+                  "deleteUserDialog",
+                ]),
             },
           }),
           new SelectItem({
             text: "Delete chat",
             classIcon: "delete-icon",
             events: {
-              click: () => openDialog.apply(this, ["manageChatModal"]),
+              click: () =>
+                openDialog.apply<Chats, [string], void>(this, [
+                  "manageChatModal",
+                ]),
             },
           }),
         ],
@@ -231,14 +248,16 @@ const chats = new Chats();
 
 render(".main", chats);
 
-function openSelect() {
+function openSelect(this: Chats) {
   const indexOfEvent = 0;
   const indexOfSelect = 1;
-  this.children[arguments[indexOfSelect]].service.open();
+  (this.children[arguments[indexOfSelect]] as Select).service?.open();
   (arguments[indexOfEvent] as PointerEvent).stopPropagation();
 }
 
-function openDialog() {
+function openDialog(this: Chats) {
   const indexOfEvent = 0;
-  this.children[arguments[indexOfEvent]].service.openDialog();
+  (
+    this.children[arguments[indexOfEvent]] as ManageUserModal
+  ).service?.openDialog();
 }

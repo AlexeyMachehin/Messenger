@@ -54,7 +54,7 @@ export default class Login extends Block<LoginType> {
         href: "../registration/registration.html",
       }),
       events: {
-        submit: (event) => onSubmitForm.apply(this, [event]),
+        submit: (event) => onSubmitForm.apply<Login, [Event], void>(this, [event]),
       },
       class: ["card"],
     });

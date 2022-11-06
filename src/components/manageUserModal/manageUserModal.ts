@@ -13,7 +13,7 @@ type ManageUserModalType = {
 } & Props;
 
 export default class ManageUserModal extends Block<ManageUserModalType> {
-  service: Dialog;
+  service: Dialog | null = null;
   constructor(props: ManageUserModalType) {
     super("dialog", { ...props, class: [...(props.class ?? []), "dialog"] });
   }

@@ -4,7 +4,7 @@ import { EventBus } from "./eventBus";
 import { v4 as makeUUID } from "uuid";
 import { compile } from "pug";
 
-type Children = { [key: string]: Block<Props>[] | Block<Props> };
+type Children = { [key: string]: Block<{}> | Block<{}>[] };
 
 class Block<T extends Props> extends EventBus {
   private _element: HTMLElement | null = null;
@@ -29,7 +29,7 @@ class Block<T extends Props> extends EventBus {
       propsAndChildren,
     };
 
-    const { children, props } = this._getChildren(propsAndChildren);
+    const { children } = this._getChildren(propsAndChildren);
 
     this.children = children;
 

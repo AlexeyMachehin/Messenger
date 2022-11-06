@@ -11,7 +11,7 @@ type ManageChatModalType = {
 } & Props;
 
 export default class ManageChatModal extends Block<ManageChatModalType> {
-  service: Dialog;
+  service: Dialog | null = null;
   constructor(props: ManageChatModalType) {
     super("dialog", props);
   }

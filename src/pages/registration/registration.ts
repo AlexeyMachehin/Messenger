@@ -110,7 +110,7 @@ export default class Registration extends Block<RegistrationType> {
         href: "../login/login.html",
       }),
       events: {
-        submit: (event) => onSubmitForm.apply(this, [event]),
+        submit: (event) => onSubmitForm.apply<Registration, Event[], void>(this, [event]),
       },
       class: ["card"],
     });

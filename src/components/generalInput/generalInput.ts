@@ -17,11 +17,11 @@ export default class GeneralInput extends Block<GeneralInputType> {
       ...props,
       events: {
         input: (e: Event) =>
-          checkInputValue.apply(this, [e.target as HTMLInputElement, e]),
+          checkInputValue.apply<GeneralInput, [HTMLInputElement, Event], void>(this, [e.target as HTMLInputElement, e]),
         focus: (e: Event) =>
-          checkInputValue.apply(this, [e.target as HTMLInputElement, e]),
+          checkInputValue.apply<GeneralInput, [HTMLInputElement, Event], void>(this, [e.target as HTMLInputElement, e]),
         blur: (e: Event) =>
-          checkInputValue.apply(this, [e.target as HTMLInputElement, e]),
+          checkInputValue.apply<GeneralInput, [HTMLInputElement, Event], void>(this, [e.target as HTMLInputElement, e]),
       },
       isValid: true,
       class: ["general-input-wrapper"],

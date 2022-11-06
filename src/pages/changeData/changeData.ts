@@ -45,7 +45,7 @@ export default class ChangeData extends Block<ChangeDataType> {
         class: ["avatar-wrapper"],
         classImg: "avatar",
         events: {
-          click: () => handleClick.apply(this),
+          click: () => handleClick.apply<ChangeData, void>(this),
         },
       }),
       generalInputEmail: new GeneralInput({
@@ -128,7 +128,7 @@ export default class ChangeData extends Block<ChangeDataType> {
         buttonText: "Save",
       }),
       events: {
-        submit: (event) => onSubmitForm.apply(this, [event]),
+        submit: (event) => onSubmitForm.apply<ChangeData, [Event], void>(this, [event]),
       },
     });
   }
@@ -142,6 +142,6 @@ const changeData = new ChangeData();
 
 render(".main", changeData);
 
-function handleClick() {
-  this.children.uploadAvatarModal.service.openDialog();
+function handleClick(this: ChangeData) {
+  (this.children.uploadAvatarModal as UploadAvatarModal).service?.openDialog();
 }
