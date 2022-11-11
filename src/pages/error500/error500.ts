@@ -1,16 +1,26 @@
 import Block from "../../utils/block";
 import { error500Template } from "./error500Template";
 import { Props } from "../../utils/models/props";
-import { render } from "../../utils/renderDOM";
+// import { render } from "../../utils/renderDOM";
 import GeneralLink from "../../components/generalLink/generalLink";
+import "./error500.scss"
+import { router } from '../../index';
 
 type Error500Type = {
   generalLink: GeneralLink;
 } & Props;
 
 export default class Error500 extends Block<Error500Type> {
-  constructor(props: Error500Type) {
-    super("div", props);
+  constructor() {
+    super("div", {
+      generalLink: new GeneralLink({
+        text: "Back to the chat list",
+        events: {
+          click: () => router.go("/")
+        },
+      }),
+      class: ["card", "error500__card"],
+    });
   }
 
   render(): DocumentFragment {
@@ -18,12 +28,6 @@ export default class Error500 extends Block<Error500Type> {
   }
 }
 
-const error500 = new Error500({
-  generalLink: new GeneralLink({
-    text: "Back to the chat list",
-    href: "../chats/chats.html",
-  }),
-  class: ["card", "error500__card"],
-});
+// export const error500: Error500 = new Error500();
 
-render(".main", error500);
+// render(".main", error500);

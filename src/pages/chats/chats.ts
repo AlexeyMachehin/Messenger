@@ -2,7 +2,7 @@ import Block from "../../utils/block";
 import { chatsTemplate } from "./chatsTemplate";
 import { Props } from "./../../utils/models/props";
 import { chats as mockChats } from "../../utils/mockData";
-import { render } from "../../utils/renderDOM";
+// import { render } from "../../utils/renderDOM";
 import { onSubmitForm } from "../../utils/form/form";
 import Avatar from "../../components/avatar/avatar";
 import GeneralLink from "../../components/generalLink/generalLink";
@@ -18,6 +18,8 @@ import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralButton from "../../components/generalButton/generalButton";
 import ManageChatModal from "../../components/manageChatModal/manageChatModal";
 import Input from "../../components/input/input";
+import "./chats.scss"
+import { router } from '../../index';
 
 type ChatsType = {
   chatPageInput: ChatPageInput;
@@ -37,7 +39,7 @@ type ChatsType = {
   manageChatModal: ManageChatModal;
 } & Props;
 
-export class Chats extends Block<ChatsType> {
+export default class Chats extends Block<ChatsType> {
   constructor() {
     super("div", {
       chatPageInput: new ChatPageInput({
@@ -50,7 +52,9 @@ export class Chats extends Block<ChatsType> {
       generalLink: new GeneralLink({
         text: "Profile",
         class: ["profile-link-container"],
-        href: "../../pages/profile/profile.html",
+        events: {
+          click: () => router.go('/profile')
+        }
       }),
       avatarHeader: new Avatar({
         avatarURL: mockChats[0].avatarURL,
@@ -244,9 +248,9 @@ const chatsArray = mockChats.map(
     })
 );
 
-const chats = new Chats();
+// const chats = new Chats();
 
-render(".main", chats);
+// render(".main", chats);
 
 function openSelect(this: Chats) {
   const indexOfEvent = 0;

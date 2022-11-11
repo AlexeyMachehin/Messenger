@@ -4,11 +4,13 @@ import { Props } from "./../../utils/models/props";
 import { onSubmitForm } from "../../utils/form/form";
 import { ValidationPattern } from "./../../utils/models/validation";
 import { ValidationError } from "../../utils/models/validation";
-import { render } from "../../utils/renderDOM";
+// import { render } from "../../utils/renderDOM";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
+import { router } from '../../index';
+import "./registration.scss"
 
 type RegistrationType = {
   generalInputEmail: GeneralInput;
@@ -107,7 +109,12 @@ export default class Registration extends Block<RegistrationType> {
       }),
       generalLinkEnter: new GeneralLink({
         text: "Login",
-        href: "../login/login.html",
+        // href: "../login/login.html",
+        events: {
+          click: () => {
+            router.go("/login");
+          },
+        },
       }),
       events: {
         submit: (event) => onSubmitForm.apply<Registration, Event[], void>(this, [event]),
@@ -121,6 +128,6 @@ export default class Registration extends Block<RegistrationType> {
   }
 }
 
-const registration = new Registration();
+// const registration = new Registration();
 
-render(".main", registration);
+// render(".main", registration);

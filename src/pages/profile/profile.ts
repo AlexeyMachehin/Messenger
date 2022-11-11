@@ -1,12 +1,14 @@
 import Block from "../../utils/block";
 import { profileTemplate } from "./profileTemplate";
 import { Props } from "./../../utils/models/props";
-import { render } from "../../utils/renderDOM";
+// import { render } from "../../utils/renderDOM";
 import { user } from "../../utils/mockData";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
+import "./profile.scss";
+import { router } from '../../index';
 
 type ProfileType = {
   avatarURL: string;
@@ -27,7 +29,11 @@ export default class Profile extends Block<ProfileType> {
     super("div", {
       avatarURL: user.avatarURL,
       displayName: user.display_name,
-      goBackAside: new GoBackAside(),
+      goBackAside: new GoBackAside({
+        events: {
+          click: () => router.back()
+        },
+      }),
 
       generalInputEmail: new GeneralInput({
         input: new Input({
@@ -103,11 +109,15 @@ export default class Profile extends Block<ProfileType> {
       }),
       generalLinkChangeData: new GeneralLink({
         text: "Change Data",
-        href: "../../pages/changeData/changeData.html",
+        events: {
+          click: () => router.go("/change-data")
+        },
       }),
       generalLinkChangePassword: new GeneralLink({
         text: "Change password",
-        href: "../../pages/changePassword/changePassword.html",
+        events: {
+          click: () => router.go("/change-password")
+        },
       }),
     });
   }
@@ -116,6 +126,6 @@ export default class Profile extends Block<ProfileType> {
     return this.compile(profileTemplate, this.props);
   }
 }
-const profile = new Profile();
+// const profile = new Profile();
 
-render(".main", profile);
+// render(".main", profile);

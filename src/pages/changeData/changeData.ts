@@ -10,10 +10,11 @@ import Input from "../../components/input/input";
 import UploadAvatarModal from "../../components/uploadAvatarModal/uploadAvatarModal";
 import Block from "../../utils/block";
 import { onSubmitForm } from "../../utils/form/form";
-import { render } from "../../utils/renderDOM";
 import { changeDataTemplate } from "./changeDataTemplate";
 import { user } from "../../utils/mockData";
 import { Props } from "../../utils/models/props";
+import "./changeData.scss";
+import { router } from '../../index';
 
 type ChangeDataType = {
   avatarURL: string;
@@ -35,7 +36,12 @@ export default class ChangeData extends Block<ChangeDataType> {
     super("div", {
       avatarURL: user.avatarURL,
       displayName: user.display_name,
-      goBackAside: new GoBackAside(),
+      goBackAside: new GoBackAside({
+        events: {
+          click: () => router.back()
+        },
+
+      }),
       uploadAvatarModal: new UploadAvatarModal({
         avatarURL: user.avatarURL,
       }),
@@ -138,9 +144,9 @@ export default class ChangeData extends Block<ChangeDataType> {
   }
 }
 
-const changeData = new ChangeData();
+// const changeData = new ChangeData();
 
-render(".main", changeData);
+// render(".main", changeData);
 
 function handleClick(this: ChangeData) {
   (this.children.uploadAvatarModal as UploadAvatarModal).service?.openDialog();

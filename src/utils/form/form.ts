@@ -1,7 +1,7 @@
 import GeneralInput from "../../components/generalInput/generalInput";
 import ChangeData from "../../pages/changeData/changeData";
 import ChangePassword from "../../pages/changePassword/changePassword";
-import { Chats } from "../../pages/chats/chats";
+import Chats from '../../pages/chats/chats';
 import Login from "../../pages/login/login";
 import Registration from "../../pages/registration/registration";
 
