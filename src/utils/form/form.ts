@@ -7,15 +7,18 @@ import Registration from "../../pages/registration/registration";
 
 type IThis = Login | Registration | Chats | ChangePassword | ChangeData;
 
-export function onSubmitForm(this: IThis) {
+export function onSubmitForm<T extends {}>(this: IThis): T {
   arguments[0].preventDefault();
   const form = this.element?.querySelector("form");
   if (form != null) {
     const fields = Array.from(form).filter(
       (el) => el.nodeName === "INPUT"
     ) as HTMLInputElement[];
-    console.log(fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {}));
+    return (fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {})) as T;
+    
   }
+  return {} as T;
+
 }
 
 export function checkInputValue(this: GeneralInput) {

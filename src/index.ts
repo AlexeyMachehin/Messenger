@@ -16,10 +16,9 @@ export const router = new Router(
 
 router.use("/change-data", ChangeData)
     .use("/change-password", ChangePassword)
-    .use("/change-password", Chats)
     .use("/error404", Error404)
     .use("/error500", Error500)
     .use("/login", Login)
-    .use("/profile", Profile)
-    .use("/", Chats)
-    .use("/registration", Registration).start();
+    .use("/settings", Profile)
+    .use("/messenger", Chats)
+    .use("/sign-up", Registration).start();

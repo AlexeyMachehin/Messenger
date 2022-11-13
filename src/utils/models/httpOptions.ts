@@ -3,6 +3,7 @@ import { METHODS } from "./httpMethod"
 export type HTTPOptions = {
     method: METHODS, 
     data: any, 
-    headers: {}, 
-    timeout: number
 }
+export type HTTPOptionsPost = {
+    data: any,
+};

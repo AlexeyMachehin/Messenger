@@ -53,7 +53,7 @@ export default class Chats extends Block<ChatsType> {
         text: "Profile",
         class: ["profile-link-container"],
         events: {
-          click: () => router.go('/profile')
+          click: () => router.go('/settings')
         }
       }),
       avatarHeader: new Avatar({

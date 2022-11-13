@@ -13,6 +13,8 @@ import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
 import "./login.scss";
 import { router } from "../../index";
+import { authorization } from '../../service/auth';
+
 
 
 type LoginType = {
@@ -57,13 +59,15 @@ export default class Login extends Block<LoginType> {
         // href: "../registration/registration",
         events: {
             click: () => {
-               router.go("/registration");
+            router.go("/sign-up");
             },
           },  
       }),
       events: {
         submit: (event) => {
-          onSubmitForm.apply<Login, [Event], void>(this, [event]);
+          const inputValues = onSubmitForm.apply<Login, [Event], { Login: string, password: string}>(this, [event]);
+          authorization.signIn(inputValues.Login, inputValues.password);
+
         },
       },
 

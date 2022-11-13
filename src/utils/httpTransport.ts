@@ -1,8 +1,8 @@
-import { HTTPOptions } from "./models/httpOptions";
+import { HTTPOptions, HTTPOptionsPost } from "./models/httpOptions";
 import { METHODS } from "./models/httpMethod";
 import { queryStringify } from "./queryStringify";
 
-class HTTPTransport {
+export default class HTTPTransport {
   get(url: string, options: HTTPOptions) {
     return this.request(url, {
       ...options,
@@ -10,25 +10,25 @@ class HTTPTransport {
       method: METHODS.GET,
     });
   }
-  post(url: string, options: HTTPOptions) {
-    return this.request(url, { ...options, method: METHODS.POST });
+  post(url: string, options: HTTPOptionsPost) {
+    return this.request(process.env.YANDEXPRAKTIKUMAPI+url, { ...options, method: METHODS.POST });
   }
   put(url: string, options: HTTPOptions) {
-    return this.request(url, { ...options, method: METHODS.PUT });
+    return this.request(process.env.YANDEXPRAKTIKUMAPI+url, { ...options, method: METHODS.PUT });
   }
   patch(url: string, options: HTTPOptions) {
-    return this.request(url, { ...options, method: METHODS.PATCH });
+    return this.request(process.env.YANDEXPRAKTIKUMAPI+url, { ...options, method: METHODS.PATCH });
   }
   delete(url: string, options: HTTPOptions) {
-    return this.request(url, { ...options, method: METHODS.DELETE });
+    return this.request(process.env.YANDEXPRAKTIKUMAPI+url, { ...options, method: METHODS.DELETE });
   }
 
   request(url: string, options: HTTPOptions) {
-    const { method, data, headers = {}, timeout = 5000 } = options;
+    const { method, data } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url + data);
+      xhr.open(method, url);
       xhr.onload = () => resolve(xhr);
       if (xhr.status === 200) {
         console.log(xhr.responseText);
@@ -40,11 +40,11 @@ class HTTPTransport {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
-      if (method === METHODS.GET || !data) {
-        xhr.send();
-      } else {
+      // if (method === METHODS.GET || !data) {
+      //   xhr.send();
+      // } else {
         xhr.send(data);
-      }
+      // }
     });
   }
 }
