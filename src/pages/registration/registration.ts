@@ -117,7 +117,10 @@ export default class Registration extends Block<RegistrationType> {
         },
       }),
       events: {
-        submit: (event) => onSubmitForm.apply<Registration, Event[], void>(this, [event]),
+        submit: (event) => {
+          onSubmitForm.apply<Registration, Event[], void>(this, [event]);
+          router.go("/login");
+        },
       },
       class: ["card"],
     });
