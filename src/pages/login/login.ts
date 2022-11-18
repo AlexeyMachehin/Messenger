@@ -1,3 +1,4 @@
+import connection from "./../../utils/WebSocket";
 import Block from "../../utils/block";
 import { loginTemplate } from "./loginTemplate";
 import { Props } from "./../../utils/models/props";
@@ -6,16 +7,15 @@ import {
   ValidationError,
 } from "./../../utils/models/validation";
 import { onSubmitForm } from "../../utils/form/form";
-// import { render } from "../../utils/renderDOM";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
 import "./login.scss";
 import { router } from "../../index";
-import { authorization } from '../../service/auth';
-
-
+import userController from "../../controllers/user-controllers";
+import { store, StoreEvents } from "../../store/Store";
+// import chatsController from "../../controllers/chats-controller";
 
 type LoginType = {
   generalInputLogin: GeneralInput;
@@ -58,21 +58,32 @@ export default class Login extends Block<LoginType> {
         text: "Create account",
         // href: "../registration/registration",
         events: {
-            click: () => {
+          click: () => {
             router.go("/sign-up");
-            },
-          },  
+          },
+        },
       }),
       events: {
         submit: (event) => {
-          const inputValues = onSubmitForm.apply<Login, [Event], { Login: string, password: string}>(this, [event]);
-          authorization.signIn(inputValues.Login, inputValues.password);
-
+          const inputValues = onSubmitForm.apply<
+            Login,
+            [Event],
+            { login: string; password: string }
+          >(this, [event]);
+          userController.signIn(inputValues);
+          // chatsController.getChats();
         },
       },
-
       class: ["card"],
+      first_name: "Test",
     });
+    
+    store.on(StoreEvents.Updated, (state) => {
+      this.setProps(state);
+    });
+    
+    connection.connect();
+    userController.getUser();
   }
 
   render(): DocumentFragment {

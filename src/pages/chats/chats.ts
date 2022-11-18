@@ -1,3 +1,5 @@
+import { ChatDto } from './../../utils/dto/chat-dto';
+import { store, StoreEvents } from "./../../store/Store";
 import Block from "../../utils/block";
 import { chatsTemplate } from "./chatsTemplate";
 import { Props } from "./../../utils/models/props";
@@ -18,8 +20,9 @@ import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralButton from "../../components/generalButton/generalButton";
 import ManageChatModal from "../../components/manageChatModal/manageChatModal";
 import Input from "../../components/input/input";
-import "./chats.scss"
-import { router } from '../../index';
+import "./chats.scss";
+import { router } from "../../index";
+import chatsController from "../../controllers/chats-controller";
 
 type ChatsType = {
   chatPageInput: ChatPageInput;
@@ -48,13 +51,13 @@ export default class Chats extends Block<ChatsType> {
         type: "search",
       }),
       class: ["chats-container"],
-      chats: chatsArray,
+      chats: [],
       generalLink: new GeneralLink({
         text: "Profile",
         class: ["profile-link-container"],
         events: {
-          click: () => router.go('/settings')
-        }
+          click: () => router.go("/settings"),
+        },
       }),
       avatarHeader: new Avatar({
         avatarURL: mockChats[0].avatarURL,
@@ -197,6 +200,27 @@ export default class Chats extends Block<ChatsType> {
         }),
       }),
     });
+
+    store.on(StoreEvents.Updated, (state) => {
+      const chats = state.chats.map(
+        (chat: ChatDto) =>
+          new Chat({
+            class: ["user"],
+            name: chat.title,
+            message: chat.last_message?.content ?? '',
+            time: chat.last_message?.time ?? '',
+            count: chat.unread_count,
+            avatar: new Avatar({
+              avatarURL: chat.avatar,
+              class: ["avatar-container"],
+              classImg: "avatar-container_avatar",
+            }),
+          })
+      );
+      this.setProps({chats});
+    });
+
+    chatsController.getChats();
   }
 
   render(): DocumentFragment {
@@ -232,21 +256,21 @@ const messagesArray =
     });
   }) ?? [];
 
-const chatsArray = mockChats.map(
-  (chat) =>
-    new Chat({
-      class: ["user"],
-      name: chat.display_name,
-      message: chat.message,
-      time: chat.time,
-      count: chat.countMessages ?? 0,
-      avatar: new Avatar({
-        avatarURL: chat.avatarURL,
-        class: ["avatar-container"],
-        classImg: "avatar-container_avatar",
-      }),
-    })
-);
+// const chatsArray = mockChats.map(
+//   (chat) =>
+//     new Chat({
+//       class: ["user"],
+//       name: chat.display_name,
+//       message: chat.message,
+//       time: chat.time,
+//       count: chat.countMessages ?? 0,
+//       avatar: new Avatar({
+//         avatarURL: chat.avatarURL,
+//         class: ["avatar-container"],
+//         classImg: "avatar-container_avatar",
+//       }),
+//     })
+// );
 
 // const chats = new Chats();
 

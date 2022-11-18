@@ -184,7 +184,7 @@ class Block<T extends Props> extends EventBus {
     });
   }
 
-  private _getChildren(propsAndChildren: T): {
+  private _getChildren(propsAndChildren: Props): {
     children: Children;
     props: Props;
   } {
@@ -210,6 +210,7 @@ class Block<T extends Props> extends EventBus {
   }
 
   compile(template: string, props: Props): DocumentFragment {
+    this.children =  this._getChildren(props).children;
     const propsAndStubs = { ...props };
     Object.entries(this.children).forEach(([key, child]) => {
       if (Array.isArray(child)) {
