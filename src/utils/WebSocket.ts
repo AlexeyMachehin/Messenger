@@ -5,10 +5,10 @@ export class Connection extends HTTPTransport {
     return this.post<any>(`chats/token/2410`, {
       data: { mode: "cors", credentials: "include" },
     })
-      .then((response) => console.log(response.json()))
-    //   .then((data) => {
-    //     console.log("token", data.token); // Получаем строку
-    //   });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("token", data.token); // Получаем строку
+      });
   }
 }
-export default new Connection();
+export const connection = new Connection();

@@ -7,6 +7,7 @@ export class UserController {
   }
 
   public getUser(): void {
+    
     authorization.getUser().then(data => store.set("first_name", data.first_name));
   }
 }

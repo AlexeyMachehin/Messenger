@@ -1,4 +1,4 @@
-import connection from "./../../utils/WebSocket";
+import { connection } from "./../../utils/WebSocket";
 import Block from "../../utils/block";
 import { loginTemplate } from "./loginTemplate";
 import { Props } from "./../../utils/models/props";
@@ -77,11 +77,11 @@ export default class Login extends Block<LoginType> {
       class: ["card"],
       first_name: "Test",
     });
-    
+
     store.on(StoreEvents.Updated, (state) => {
       this.setProps(state);
     });
-    
+
     connection.connect();
     userController.getUser();
   }
