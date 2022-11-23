@@ -3,7 +3,7 @@ import { METHODS } from "./models/httpMethod";
 import { queryStringify } from "./queryStringify";
 
 export default class HTTPTransport {
-  get<T>(url: string, options?: HTTPOptionsPost) {
+  protected get<T>(url: string, options?: HTTPOptionsPost) {
     if (options && options.data) {
       url = url + queryStringify(options.data);
     }
@@ -11,32 +11,32 @@ export default class HTTPTransport {
       method: METHODS.GET,
     });
   }
-  post<T>(url: string, options: HTTPOptionsPost): Promise<T> {
+  protected post<T>(url: string, options: HTTPOptionsPost): Promise<T> {
     return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
       ...options,
       method: METHODS.POST,
     });
   }
-  put(url: string, options: HTTPOptions) {
+  protected put(url: string, options: HTTPOptions) {
     return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
       ...options,
       method: METHODS.PUT,
     });
   }
-  patch(url: string, options: HTTPOptions) {
+  protected patch(url: string, options: HTTPOptions) {
     return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
       ...options,
       method: METHODS.PATCH,
     });
   }
-  delete(url: string, options: HTTPOptions) {
+  protected delete(url: string, options: HTTPOptions) {
     return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
       ...options,
       method: METHODS.DELETE,
     });
   }
 
-  request<F>(url: string, options: HTTPOptions): Promise<F> {
+  private request<F>(url: string, options: HTTPOptions): Promise<F> {
     const {
       method,
       data,

@@ -9,6 +9,7 @@ import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
 import "./profile.scss";
 import { router } from '../../index';
+import { ROUTES } from "../../utils/router/routes";
 
 type ProfileType = {
   avatarURL: string;
@@ -110,13 +111,13 @@ export default class Profile extends Block<ProfileType> {
       generalLinkChangeData: new GeneralLink({
         text: "Change Data",
         events: {
-          click: () => router.go("/change-data")
+          click: () => router.go(ROUTES.ChangeData)
         },
       }),
       generalLinkChangePassword: new GeneralLink({
         text: "Change password",
         events: {
-          click: () => router.go("/change-password")
+          click: () => router.go(ROUTES.ChangePassword)
         },
       }),
     });
@@ -126,6 +127,3 @@ export default class Profile extends Block<ProfileType> {
     return this.compile(profileTemplate, this.props);
   }
 }
-// const profile = new Profile();
-
-// render(".main", profile);

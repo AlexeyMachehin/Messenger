@@ -161,7 +161,7 @@ class Block<T extends Props> extends EventBus {
   }
 
   show(): void {
-    (this.getContent() as HTMLElement).style.display = "block";
+    (this.getContent() as HTMLElement).style.display = "flex";
   }
 
   hide(): void {

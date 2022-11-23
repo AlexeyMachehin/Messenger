@@ -9,6 +9,7 @@ type ChatType = {
   time: string;
   count: number;
   avatar: Avatar;
+  id: number;
 } & Props;
 
 export default class Chat extends Block<ChatType> {

@@ -1,10 +1,13 @@
-import { ChatDto } from './../../utils/dto/chat-dto';
-import { store, StoreEvents } from "./../../store/Store";
+import { storeCurrentUser } from './../../store/storeCurrentUser';
+import { ROUTES } from "./../../utils/router/routes";
+import { StoreTokenEvents } from "./../../store/storeToken";
+import { storeChat, StoreChatEvents } from "../../store/storeChat";
+import { WebSocketService } from "./../../utils/webSocket";
+import { ChatDto } from "./../../utils/dto/chat-dto";
 import Block from "../../utils/block";
 import { chatsTemplate } from "./chatsTemplate";
 import { Props } from "./../../utils/models/props";
 import { chats as mockChats } from "../../utils/mockData";
-// import { render } from "../../utils/renderDOM";
 import { onSubmitForm } from "../../utils/form/form";
 import Avatar from "../../components/avatar/avatar";
 import GeneralLink from "../../components/generalLink/generalLink";
@@ -23,6 +26,9 @@ import Input from "../../components/input/input";
 import "./chats.scss";
 import { router } from "../../index";
 import chatsController from "../../controllers/chats-controller";
+import { connection } from "../../api/connection";
+import { storeToken } from "../../store/storeToken";
+import { store } from "../../store/Store";
 
 type ChatsType = {
   chatPageInput: ChatPageInput;
@@ -40,7 +46,10 @@ type ChatsType = {
   deleteUserDialog: ManageUserModal;
   addUserDialog: ManageUserModal;
   manageChatModal: ManageChatModal;
+  getSelectedChat: () => number | null;
 } & Props;
+
+const webSocket = new WebSocketService();
 
 export default class Chats extends Block<ChatsType> {
   constructor() {
@@ -56,7 +65,7 @@ export default class Chats extends Block<ChatsType> {
         text: "Profile",
         class: ["profile-link-container"],
         events: {
-          click: () => router.go("/settings"),
+          click: () => router.go(ROUTES.Profile),
         },
       }),
       avatarHeader: new Avatar({
@@ -199,28 +208,79 @@ export default class Chats extends Block<ChatsType> {
           buttonText: "Delete",
         }),
       }),
+      getSelectedChat: () => {
+        const param = router.getParams();
+        if (param != null && param.chatId) {
+          return param.chatId;
+        }
+        return null;
+      },
     });
 
-    store.on(StoreEvents.Updated, (state) => {
-      const chats = state.chats.map(
-        (chat: ChatDto) =>
-          new Chat({
-            class: ["user"],
-            name: chat.title,
-            message: chat.last_message?.content ?? '',
-            time: chat.last_message?.time ?? '',
-            count: chat.unread_count,
-            avatar: new Avatar({
-              avatarURL: chat.avatar,
-              class: ["avatar-container"],
-              classImg: "avatar-container_avatar",
-            }),
-          })
-      );
-      this.setProps({chats});
-    });
+    this.subscribeToChangeChats();
+    this.subscribeToChangeToken();
 
     chatsController.getChats();
+
+    this.connectWebSocket();
+  }
+
+  subscribeToChangeChats(): void {
+    storeChat.on(StoreChatEvents.Updated, (state) => {
+      const chats = state.map((chat: ChatDto) => {
+        const chatInstance = new Chat({
+          class: ["user"],
+          name: chat.title,
+          message: chat.last_message?.content ?? "",
+          time: chat.last_message?.time ?? "",
+          count: chat.unread_count,
+          avatar: new Avatar({
+            avatarURL: chat.avatar,
+            class: ["avatar-container"],
+            classImg: "avatar-container_avatar",
+          }),
+          id: chat.id,
+          events: {
+            click: () => {
+              const chatId = chat.id;
+              connection.connect(chatId).then(() => {
+                const token = store.getState().token;
+                if (token != null) {
+                  router.go(ROUTES.ChatById(chatId), { chatId });
+                  webSocket.connect({
+                    chatId,
+                    token,
+                    userId: storeCurrentUser.getState().currentUser.id
+                  });
+                  webSocket.getMessageList({
+
+                  });
+                }
+              });
+            },
+          },
+        });
+        return chatInstance;
+      });
+      this.setProps({ chats });
+    });
+  }
+
+  subscribeToChangeToken(): void {
+    storeToken.on(StoreTokenEvents.Updated, () => this.connectWebSocket());
+  }
+
+  connectWebSocket(): void {
+    const chatId = this.props.getSelectedChat();
+    const token = store.getState().token;
+    if (chatId != null && token != null) {
+      connection.connect(chatId);
+      webSocket.connect({
+        chatId,
+        token,
+        userId: store.getState().currentUser.id
+      });
+    }
   }
 
   render(): DocumentFragment {
@@ -255,26 +315,6 @@ const messagesArray =
       }),
     });
   }) ?? [];
-
-// const chatsArray = mockChats.map(
-//   (chat) =>
-//     new Chat({
-//       class: ["user"],
-//       name: chat.display_name,
-//       message: chat.message,
-//       time: chat.time,
-//       count: chat.countMessages ?? 0,
-//       avatar: new Avatar({
-//         avatarURL: chat.avatarURL,
-//         class: ["avatar-container"],
-//         classImg: "avatar-container_avatar",
-//       }),
-//     })
-// );
-
-// const chats = new Chats();
-
-// render(".main", chats);
 
 function openSelect(this: Chats) {
   const indexOfEvent = 0;

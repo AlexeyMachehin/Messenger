@@ -5,6 +5,7 @@ import { Props } from "../../utils/models/props";
 import GeneralLink from "../../components/generalLink/generalLink";
 import "./error500.scss"
 import { router } from '../../index';
+import { ROUTES } from "../../utils/router/routes";
 
 type Error500Type = {
   generalLink: GeneralLink;
@@ -16,7 +17,7 @@ export default class Error500 extends Block<Error500Type> {
       generalLink: new GeneralLink({
         text: "Back to the chat list",
         events: {
-          click: () => router.go("/")
+          click: () => router.go(ROUTES.Default)
         },
       }),
       class: ["card", "error500__card"],

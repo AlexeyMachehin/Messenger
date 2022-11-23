@@ -1,4 +1,3 @@
-import { connection } from "./../../utils/WebSocket";
 import Block from "../../utils/block";
 import { loginTemplate } from "./loginTemplate";
 import { Props } from "./../../utils/models/props";
@@ -14,8 +13,7 @@ import Input from "../../components/input/input";
 import "./login.scss";
 import { router } from "../../index";
 import userController from "../../controllers/user-controllers";
-import { store, StoreEvents } from "../../store/Store";
-// import chatsController from "../../controllers/chats-controller";
+import { ROUTES } from "../../utils/router/routes";
 
 type LoginType = {
   generalInputLogin: GeneralInput;
@@ -56,12 +54,7 @@ export default class Login extends Block<LoginType> {
       }),
       generalLinkCreateAccount: new GeneralLink({
         text: "Create account",
-        // href: "../registration/registration",
-        events: {
-          click: () => {
-            router.go("/sign-up");
-          },
-        },
+        href: ROUTES.SignUp,
       }),
       events: {
         submit: (event) => {
@@ -70,27 +63,17 @@ export default class Login extends Block<LoginType> {
             [Event],
             { login: string; password: string }
           >(this, [event]);
-          userController.signIn(inputValues);
-          // chatsController.getChats();
+          userController.signIn(inputValues).then(() => {
+            router.go(ROUTES.Chats);
+          });
         },
       },
       class: ["card"],
-      first_name: "Test",
     });
 
-    store.on(StoreEvents.Updated, (state) => {
-      this.setProps(state);
-    });
-
-    connection.connect();
-    userController.getUser();
   }
 
   render(): DocumentFragment {
     return this.compile(loginTemplate, this.props);
   }
 }
-
-// const login = new Login();
-
-// render(".main", login);

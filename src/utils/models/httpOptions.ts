@@ -7,7 +7,8 @@ export type HTTPOptions = {
   withCredentials?: boolean,
 };
 export type HTTPOptionsPost = {
-  data: any;
+  data?: any;
+  headers?: any;
 };
 
 export type HTTPOptionsGet = Partial<{

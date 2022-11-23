@@ -1,10 +1,10 @@
 import Block from "../../utils/block";
 import { error404Template } from "./error404Template";
 import { Props } from "../../utils/models/props";
-// import { render } from "../../utils/renderDOM";
 import GeneralLink from "../../components/generalLink/generalLink";
 import "./error404.scss";
 import { router } from '../../index';
+import { ROUTES } from "../../utils/router/routes";
 
 type Error404Type = {
   generalLink: GeneralLink;
@@ -16,7 +16,7 @@ export class Error404 extends Block<Error404Type> {
       generalLink: new GeneralLink({
         text: "Back to the chat list",
         events: {
-          click: () => router.go("/")
+          click: () => router.go(ROUTES.Default)
         },
       }),
       class: ["card", "error404__card"],
@@ -27,7 +27,3 @@ export class Error404 extends Block<Error404Type> {
     return this.compile(error404Template, this.props);
   }
 }
-
-// export const error404: Error404 = new Error404();
-
-// render(".main", error404);

@@ -1,11 +1,11 @@
 import ChatsAPI from "../api/chatsAPI";
-import { store } from "./../store/Store";
+import { storeChat } from "../store/storeChat";
 
 export class ChatsController {
   public getChats(): void {
     ChatsAPI.getChats()
     .then((data) => {
-      store.set("chats", data);
+      storeChat.setChat(data);
     });
   }
 }
