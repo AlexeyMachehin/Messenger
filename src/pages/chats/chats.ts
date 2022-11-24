@@ -1,4 +1,4 @@
-import { storeCurrentUser } from './../../store/storeCurrentUser';
+import { storeCurrentUser } from "./../../store/storeCurrentUser";
 import { ROUTES } from "./../../utils/router/routes";
 import { StoreTokenEvents } from "./../../store/storeToken";
 import { storeChat, StoreChatEvents } from "../../store/storeChat";
@@ -58,6 +58,7 @@ export default class Chats extends Block<ChatsType> {
         class: ["input-wrapper"],
         placeholder: "search",
         type: "search",
+        change: () => console.log(1),
       }),
       class: ["chats-container"],
       chats: [],
@@ -76,7 +77,7 @@ export default class Chats extends Block<ChatsType> {
       userName: mockChats[0].display_name,
       messagesList: new MessagesList({
         timeHeader: mockChats[0].time,
-        messages: messagesArray,
+        messages: [],
       }),
       inputFooter: new ChatPageInput({
         class: ["input-wrapper"],
@@ -219,6 +220,7 @@ export default class Chats extends Block<ChatsType> {
 
     this.subscribeToChangeChats();
     this.subscribeToChangeToken();
+    this.subscribeToChangeMessages();
 
     chatsController.getChats();
 
@@ -250,10 +252,7 @@ export default class Chats extends Block<ChatsType> {
                   webSocket.connect({
                     chatId,
                     token,
-                    userId: storeCurrentUser.getState().currentUser.id
-                  });
-                  webSocket.getMessageList({
-
+                    userId: storeCurrentUser.getState().currentUser.id,
                   });
                 }
               });
@@ -270,6 +269,40 @@ export default class Chats extends Block<ChatsType> {
     storeToken.on(StoreTokenEvents.Updated, () => this.connectWebSocket());
   }
 
+  subscribeToChangeMessages(): void {
+    storeChat.on(StoreChatEvents.UpdatedMessages, (state) => {
+      const messages = state.map((message: any) => {
+        // if (index % 2 === 0) {
+        return new Message({
+          message: message.content,
+          time: mockChats[0].time,
+          name: mockChats[0].display_name,
+          className: "my-message",
+          avatar: new Avatar({
+            avatarURL: mockChats[0].avatarURL,
+            class: ["avatar-container"],
+            classImg: "avatar-container_avatar",
+          }),
+        });
+        // }
+        // return new Message({
+        //   message: message.content,
+        //   time: mockChats[0].time,
+        //   name: mockChats[0].display_name,
+        //   className: "user-message",
+        //   avatar: new Avatar({
+        //     avatarURL: mockChats[0].avatarURL,
+        //     class: ["avatar-container"],
+        //     classImg: "avatar-container_avatar",
+        //   }),
+        // });
+      });
+      if (!Array.isArray(this.children.messagesList)) {
+        this.children.messagesList.setProps({ messages });
+      }
+    });
+  }
+
   connectWebSocket(): void {
     const chatId = this.props.getSelectedChat();
     const token = store.getState().token;
@@ -278,7 +311,7 @@ export default class Chats extends Block<ChatsType> {
       webSocket.connect({
         chatId,
         token,
-        userId: store.getState().currentUser.id
+        userId: store.getState().currentUser.id,
       });
     }
   }
@@ -287,34 +320,6 @@ export default class Chats extends Block<ChatsType> {
     return this.compile(chatsTemplate, this.props);
   }
 }
-
-const messagesArray =
-  mockChats[0].messages?.map((message, index) => {
-    if (index % 2 === 0) {
-      return new Message({
-        message,
-        time: mockChats[0].time,
-        name: mockChats[0].display_name,
-        className: "my-message",
-        avatar: new Avatar({
-          avatarURL: mockChats[0].avatarURL,
-          class: ["avatar-container"],
-          classImg: "avatar-container_avatar",
-        }),
-      });
-    }
-    return new Message({
-      message,
-      time: mockChats[0].time,
-      name: mockChats[0].display_name,
-      className: "user-message",
-      avatar: new Avatar({
-        avatarURL: mockChats[0].avatarURL,
-        class: ["avatar-container"],
-        classImg: "avatar-container_avatar",
-      }),
-    });
-  }) ?? [];
 
 function openSelect(this: Chats) {
   const indexOfEvent = 0;

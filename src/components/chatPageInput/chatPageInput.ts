@@ -6,6 +6,7 @@ type ChatPageInputType = {
   type: string;
   placeholder: string;
   name?: string;
+  change?: () => void
 } & Props;
 
 export default class ChatPageInput extends Block<ChatPageInputType> {

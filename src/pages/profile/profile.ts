@@ -1,15 +1,15 @@
 import Block from "../../utils/block";
 import { profileTemplate } from "./profileTemplate";
 import { Props } from "./../../utils/models/props";
-// import { render } from "../../utils/renderDOM";
 import { user } from "../../utils/mockData";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
 import "./profile.scss";
-import { router } from '../../index';
+import { router } from "../../index";
 import { ROUTES } from "../../utils/router/routes";
+import userControllers from "../../controllers/user-controllers";
 
 type ProfileType = {
   avatarURL: string;
@@ -23,6 +23,7 @@ type ProfileType = {
   generalInputPhoneNumber: GeneralInput;
   generalLinkChangeData: GeneralLink;
   generalLinkChangePassword: GeneralLink;
+  logout: GeneralLink;
 } & Props;
 
 export default class Profile extends Block<ProfileType> {
@@ -32,7 +33,7 @@ export default class Profile extends Block<ProfileType> {
       displayName: user.display_name,
       goBackAside: new GoBackAside({
         events: {
-          click: () => router.back()
+          click: () => router.back(),
         },
       }),
 
@@ -111,13 +112,21 @@ export default class Profile extends Block<ProfileType> {
       generalLinkChangeData: new GeneralLink({
         text: "Change Data",
         events: {
-          click: () => router.go(ROUTES.ChangeData)
+          click: () => router.go(ROUTES.ChangeData),
         },
       }),
       generalLinkChangePassword: new GeneralLink({
         text: "Change password",
         events: {
-          click: () => router.go(ROUTES.ChangePassword)
+          click: () => router.go(ROUTES.ChangePassword),
+        },
+      }),
+      logout: new GeneralLink({
+        text: "Exit",
+        events: {
+          click: () => {
+            userControllers.logout().then(() => router.go(ROUTES.Login));
+          },
         },
       }),
     });
