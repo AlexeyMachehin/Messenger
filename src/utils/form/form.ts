@@ -43,7 +43,9 @@ export function onSubmitForm<T extends {}>(this: IThis): T {
     // });
     // console.log(socket)
     console.log(fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {}));
-    return fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {}) as T;
+    const result = fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {}) as T;
+    form.reset()
+    return result;
   }
   return {} as T;
 }

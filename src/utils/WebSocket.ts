@@ -29,7 +29,7 @@ export class WebSocketService {
           if (Array.isArray(data)) {
             storeChat.setMessages(data);
           } else {
-            if (data.type !== 'pong' || data.type !=="user connected") {
+            if (data.type !== 'pong' && data.type !=="user connected") {
               storeChat.setMessages([data]);
             }
           }
