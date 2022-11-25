@@ -95,7 +95,7 @@ export default class Chats extends Block<ChatsType> {
             const values = onSubmitForm.apply<
               Chats,
               [Event],
-              { message: string }
+              { message: string; }
             >(this, [event]);
             webSocket.sendMessage(values.message);
           },
@@ -233,7 +233,10 @@ export default class Chats extends Block<ChatsType> {
 
     chatsController.getChats();
 
-    this.connectWebSocket();
+    if (router.getParams()) {
+      this.connectWebSocket();
+    }
+
   }
 
   subscribeToChangeChats(): void {
@@ -314,14 +317,15 @@ export default class Chats extends Block<ChatsType> {
   }
 
   connectWebSocket(): void {
-    const chatId = this.props.getSelectedChat();
-    const token = store.getState().token;
-    if (chatId != null && token != null) {
-      connection.connect(chatId);
-      webSocket.connect({
-        chatId,
-        token,
-        userId: store.getState().currentUser.id,
+    const chatId = router.getParams().chatId;
+    if (chatId != null) {
+      connection.connect(chatId).then(() => {
+        const token = store.getState().token;
+        webSocket.connect({
+          chatId,
+          token,
+          userId: store.getState().currentUser.id,
+        });
       });
     }
   }

@@ -5,7 +5,6 @@ import {
   ValidationPattern,
   ValidationError,
 } from "./../../utils/models/validation";
-// import { render } from "../../utils/renderDOM";
 import { onSubmitForm } from "../../utils/form/form";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
@@ -71,6 +70,3 @@ export default class ChangePassword extends Block<ChangePasswordType> {
     return this.compile(changePasswordTemplate, this.props);
   }
 }
-// const changePassword = new ChangePassword();
-
-// render(".main", changePassword);
