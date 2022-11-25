@@ -276,7 +276,7 @@ export default class Chats extends Block<ChatsType> {
 
   subscribeToChangeMessages(): void {
     storeChat.on(StoreChatEvents.UpdatedMessages, (state) => {
-      const messages = state.reverse().map((message: any) => {
+      const messages = state.sort((a: any, b: any) => new Date(a.time).valueOf() - new Date(b.time).valueOf()).map((message: any) => {
         // if (index % 2 === 0) {
         return new Message({
           message: message.content,

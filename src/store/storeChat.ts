@@ -13,7 +13,8 @@ export class StoreChat extends Store {
   }
 
   setMessages(messages: any[]) {
-    this.set("messages", messages);
+    const oldMessage = this.getState()?.messages;
+    this.set("messages", [...(oldMessage ? oldMessage : []), ...messages]);
     this.emit(StoreChatEvents.UpdatedMessages, this.state.messages);
   }
 

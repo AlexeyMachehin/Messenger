@@ -15,16 +15,22 @@ export class WebSocketService {
         );
         this.webSocket.addEventListener("open", () => {
           store.set("isOpenWebSocket", true);
+          this.sendPing();
           resolve(true);
         });
 
-        this.webSocket.addEventListener("close", () =>
+        this.webSocket.addEventListener("close", () => {
           store.set("isOpenWebSocket", false)
+        }
         );
 
         this.webSocket.addEventListener("message", (event) => {
-          const gfdgd = storeChat.getMessages()
-          storeChat.setMessages([...gfdgd, JSON.parse(event.data)]);
+          const data = JSON.parse(event.data);
+          if (Array.isArray(data)) {
+            storeChat.setMessages(data);
+          } else {
+            storeChat.setMessages([data]);
+          }
         });
 
         this.webSocket.addEventListener("error", () => {
@@ -40,6 +46,18 @@ export class WebSocketService {
         content: message,
         type: "message",
       })
+    );
+  }
+
+  private sendPing(): void {
+    setInterval(
+      () =>
+        this.webSocket?.send(
+          JSON.stringify({
+            type: "ping",
+          })
+        ),
+      30000
     );
   }
 
