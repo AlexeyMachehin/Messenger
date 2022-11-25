@@ -16,6 +16,10 @@ export class StoreChat extends Store {
     this.set("messages", messages);
     this.emit(StoreChatEvents.UpdatedMessages, this.state.messages);
   }
+
+  getMessages(): any[] {
+    return this.getState().messages;
+  }
 }
 
 export const storeChat = new StoreChat();
