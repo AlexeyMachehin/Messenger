@@ -1,6 +1,5 @@
 import { storeCurrentUser } from "./../../store/storeCurrentUser";
 import { ROUTES } from "./../../utils/router/routes";
-import { StoreTokenEvents } from "./../../store/storeToken";
 import { storeChat, StoreChatEvents } from "../../store/storeChat";
 import { WebSocketService } from "../../utils/webSocket";
 import { ChatDto } from "./../../utils/dto/chat-dto";
@@ -27,7 +26,6 @@ import "./chats.scss";
 import { router } from "../../index";
 import chatsController from "../../controllers/chats-controller";
 import { connection } from "../../api/connection";
-import { storeToken } from "../../store/storeToken";
 import { store } from "../../store/Store";
 
 type ChatsType = {
@@ -228,13 +226,13 @@ export default class Chats extends Block<ChatsType> {
     });
 
     this.subscribeToChangeChats();
-    this.subscribeToChangeToken();
     this.subscribeToChangeMessages();
 
     chatsController.getChats();
 
-    if (router.getParams()) {
-      this.connectWebSocket();
+    const chatId = router.getParams()?.chatId;
+    if (chatId) {
+      this.connectWebSocket(chatId);
     }
 
   }
@@ -277,9 +275,6 @@ export default class Chats extends Block<ChatsType> {
     });
   }
 
-  subscribeToChangeToken(): void {
-    storeToken.on(StoreTokenEvents.Updated, () => this.connectWebSocket());
-  }
 
   subscribeToChangeMessages(): void {
     storeChat.on(StoreChatEvents.UpdatedMessages, (state) => {
@@ -316,8 +311,7 @@ export default class Chats extends Block<ChatsType> {
     }
   }
 
-  connectWebSocket(): void {
-    const chatId = router.getParams().chatId;
+  connectWebSocket(chatId: number): void {
     if (chatId != null) {
       connection.connect(chatId).then(() => {
         const token = store.getState().token;
