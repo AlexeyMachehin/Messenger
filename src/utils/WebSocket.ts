@@ -29,7 +29,9 @@ export class WebSocketService {
           if (Array.isArray(data)) {
             storeChat.setMessages(data);
           } else {
-            storeChat.setMessages([data]);
+            if (data.type != 'pong') {
+              storeChat.setMessages([data]);
+            }
           }
         });
 
