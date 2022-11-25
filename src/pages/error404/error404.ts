@@ -10,7 +10,7 @@ type Error404Type = {
   generalLink: GeneralLink;
 } & Props;
 
-export class Error404 extends Block<Error404Type> {
+export default class Error404 extends Block<Error404Type> {
   constructor() {
     super("div", {
       generalLink: new GeneralLink({

@@ -2,7 +2,7 @@ import { storeCurrentUser } from "./../../store/storeCurrentUser";
 import { ROUTES } from "./../../utils/router/routes";
 import { StoreTokenEvents } from "./../../store/storeToken";
 import { storeChat, StoreChatEvents } from "../../store/storeChat";
-import { WebSocketService } from "./../../utils/webSocket";
+import { WebSocketService } from "../../utils/webSocket";
 import { ChatDto } from "./../../utils/dto/chat-dto";
 import Block from "../../utils/block";
 import { chatsTemplate } from "./chatsTemplate";

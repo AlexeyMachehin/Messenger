@@ -1,5 +1,5 @@
 import { storeChat } from "../store/storeChat";
-import { store } from "./../store/Store";
+import { store } from "../store/Store";
 
 export class WebSocketService {
   private webSocket?: WebSocket;
@@ -23,8 +23,8 @@ export class WebSocketService {
         );
 
         this.webSocket.addEventListener("message", (event) => {
-          const oldMessages = storeChat.getMessages()
-          storeChat.setMessages([...oldMessages, JSON.parse(event.data)]);
+          const gfdgd = storeChat.getMessages()
+          storeChat.setMessages([...gfdgd, JSON.parse(event.data)]);
         });
 
         this.webSocket.addEventListener("error", () => {
