@@ -23,7 +23,8 @@ export class WebSocketService {
         );
 
         this.webSocket.addEventListener("message", (event) => {
-          storeChat.setMessages(JSON.parse(event.data));
+          const oldMessages = storeChat.getMessages()
+          storeChat.setMessages([...oldMessages, JSON.parse(event.data)]);
         });
 
         this.webSocket.addEventListener("error", () => {

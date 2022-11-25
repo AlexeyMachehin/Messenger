@@ -91,8 +91,10 @@ export default class Chats extends Block<ChatsType> {
       messageButton: new IconButton({
         class: ["message-form__button"],
         events: {
-          click: (event) =>
-            onSubmitForm.apply<Chats, [Event], void>(this, [event]),
+          click: (event) => {
+            const values = onSubmitForm.apply<Chats, [Event], { message: string; }>(this, [event]);
+            webSocket.sendMessage(values.message);
+          }
         },
       }),
       manageFileButton: new IconButton({
@@ -274,7 +276,7 @@ export default class Chats extends Block<ChatsType> {
 
   subscribeToChangeMessages(): void {
     storeChat.on(StoreChatEvents.UpdatedMessages, (state) => {
-      const messages = state.map((message: any) => {
+      const messages = state.reverse().map((message: any) => {
         // if (index % 2 === 0) {
         return new Message({
           message: message.content,
