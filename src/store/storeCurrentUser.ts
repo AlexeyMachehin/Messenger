@@ -1,4 +1,4 @@
-import { UserDto } from './../utils/dto/user-dto';
+import { UserDto } from "./../utils/dto/user-dto";
 import { Store } from "./Store";
 
 export enum StoreCurrentUserEvents {
@@ -7,8 +7,11 @@ export enum StoreCurrentUserEvents {
 
 export class StoreCurrentUser extends Store {
   setUser(user: UserDto) {
-    this.set('currentUser', user);
+    this.set("currentUser", user);
     this.emit(StoreCurrentUserEvents.Updated, this.state.currentUser);
+  }
+  getCurrentUser(): UserDto {
+    return this.getState().currentUser;
   }
 }
 

@@ -92,9 +92,13 @@ export default class Chats extends Block<ChatsType> {
         class: ["message-form__button"],
         events: {
           click: (event) => {
-            const values = onSubmitForm.apply<Chats, [Event], { message: string; }>(this, [event]);
+            const values = onSubmitForm.apply<
+              Chats,
+              [Event],
+              { message: string }
+            >(this, [event]);
             webSocket.sendMessage(values.message);
-          }
+          },
         },
       }),
       manageFileButton: new IconButton({
@@ -276,36 +280,37 @@ export default class Chats extends Block<ChatsType> {
 
   subscribeToChangeMessages(): void {
     storeChat.on(StoreChatEvents.UpdatedMessages, (state) => {
-      const messages = state.sort((a: any, b: any) => new Date(a.time).valueOf() - new Date(b.time).valueOf()).map((message: any) => {
-        // if (index % 2 === 0) {
-        return new Message({
-          message: message.content,
-          time: mockChats[0].time,
-          name: mockChats[0].display_name,
-          className: "my-message",
-          avatar: new Avatar({
-            avatarURL: mockChats[0].avatarURL,
-            class: ["avatar-container"],
-            classImg: "avatar-container_avatar",
-          }),
+      const messages = state
+        .sort(
+          (a: any, b: any) =>
+            new Date(a.time).valueOf() - new Date(b.time).valueOf()
+        )
+        .map((message: any) => {
+          return new Message({
+            message: message.content,
+            time: new Date(message.time).toLocaleTimeString(),
+            name: message.user_id,
+            className: this._isMyMessage(message.user_id),
+            avatar: new Avatar({
+              avatarURL: mockChats[0].avatarURL,
+              class: ["avatar-container"],
+              classImg: "avatar-container_avatar",
+            }),
+          });
         });
-        // }
-        // return new Message({
-        //   message: message.content,
-        //   time: mockChats[0].time,
-        //   name: mockChats[0].display_name,
-        //   className: "user-message",
-        //   avatar: new Avatar({
-        //     avatarURL: mockChats[0].avatarURL,
-        //     class: ["avatar-container"],
-        //     classImg: "avatar-container_avatar",
-        //   }),
-        // });
-      });
       if (!Array.isArray(this.children.messagesList)) {
         this.children.messagesList.setProps({ messages });
       }
     });
+  }
+
+  private _isMyMessage(id: number) {
+    const storeId = storeCurrentUser.getCurrentUser().id;
+    if (id === storeId) {
+      return "my-message";
+    } else {
+      return "user-message";
+    }
   }
 
   connectWebSocket(): void {
