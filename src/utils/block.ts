@@ -165,7 +165,9 @@ class Block<T extends Props> extends EventBus {
   }
 
   hide(): void {
-    (this.getContent() as HTMLElement).style.display = "none";
+    if(this.element?.parentElement) {
+      this.element.parentElement.innerHTML = '';
+    }
   }
 
   private _addEvents(): void {

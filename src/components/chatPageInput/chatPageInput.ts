@@ -6,12 +6,20 @@ type ChatPageInputType = {
   type: string;
   placeholder: string;
   name?: string;
-  change?: () => void
+  change?: (event: Event) => void
 } & Props;
 
 export default class ChatPageInput extends Block<ChatPageInputType> {
   constructor(props: ChatPageInputType) {
     super("div", props);
+  }
+
+  componentDidMount(): void {
+    const change = this.props.change;
+    if (change) {
+      const input = this.element?.querySelector('input');
+      input?.addEventListener('input', (event) => change(event))
+    }
   }
 
   render(): DocumentFragment {

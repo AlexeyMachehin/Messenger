@@ -1,5 +1,4 @@
 import { router } from "./../../index";
-// import { UserController } from "./../../controllers/user-controllers";
 import Block from "../../utils/block";
 import { registrationTemplate } from "./registrationTemplate";
 import { Props } from "./../../utils/models/props";
@@ -10,11 +9,9 @@ import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
-// import { router } from '../../index';
 import "./registration.scss";
 import { ROUTES } from "../../utils/router/routes";
 import userController from "../../controllers/user-controllers";
-// import Login from "../login/login";
 
 type RegistrationType = {
   generalInputEmail: GeneralInput;
@@ -123,7 +120,7 @@ export default class Registration extends Block<RegistrationType> {
             { login: string; password: string }
           >(this, [event]);
           userController.signUp(inputValues).then(() => {
-            router.go(ROUTES.Login);
+            router.go(ROUTES.Chats);
           });
         },
       },

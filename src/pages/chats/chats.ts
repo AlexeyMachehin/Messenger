@@ -58,7 +58,10 @@ export default class Chats extends Block<ChatsType> {
         class: ["input-wrapper"],
         placeholder: "search",
         type: "search",
-        change: () => console.log(1),
+        events: {
+          change: (event) =>
+            chatsController.findChat((event.target as HTMLInputElement).value),
+        },
       }),
       class: ["chats-container"],
       chats: [],

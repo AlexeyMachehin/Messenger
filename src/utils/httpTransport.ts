@@ -47,7 +47,7 @@ export default class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
-      xhr.responseType = 'json';
+      xhr.responseType = "json";
       Object.entries(headers).forEach(([key, value]) => {
         return xhr.setRequestHeader(key, value);
       });
@@ -56,12 +56,17 @@ export default class HTTPTransport {
         xhr.withCredentials = true;
       }
 
-      xhr.onload = () => resolve(xhr.response);
-      if (xhr.status === 200) {
-        console.log(xhr.responseText);
-      } else {
-        console.log(`Ответ от сервера: ${xhr.status} | ${xhr.statusText}`);
-      }
+      xhr.onload = function () {
+        let resp: any = "";
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.response);
+        } else {
+          reject(resp);
+        }
+
+        resolve(xhr.response);
+      };
 
       xhr.onabort = reject;
       xhr.onerror = reject;
@@ -70,7 +75,7 @@ export default class HTTPTransport {
       if (method === METHODS.GET) {
         xhr.send();
       } else {
-      xhr.send(data);
+        xhr.send(data);
       }
     });
   }

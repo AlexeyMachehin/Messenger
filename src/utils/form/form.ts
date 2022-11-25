@@ -1,7 +1,7 @@
 import GeneralInput from "../../components/generalInput/generalInput";
 import ChangeData from "../../pages/changeData/changeData";
 import ChangePassword from "../../pages/changePassword/changePassword";
-import Chats from '../../pages/chats/chats';
+import Chats from "../../pages/chats/chats";
 import Login from "../../pages/login/login";
 import Registration from "../../pages/registration/registration";
 
@@ -15,7 +15,7 @@ export function onSubmitForm<T extends {}>(this: IThis): T {
   //     (el) => el.nodeName === "INPUT"
   //   ) as HTMLInputElement[];
   //   return (fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {})) as T;
-    
+
   // }
   // return {} as T;
 
@@ -27,7 +27,7 @@ export function onSubmitForm<T extends {}>(this: IThis): T {
     // const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/137864/2410/${token}`);
     // socket.addEventListener('open', () => {
     //   console.log('Соединение установлено');
-    
+
     //   socket.send(JSON.stringify({
     //     content: 'Моё первое сообщение миру!',
     //     type: 'message',
@@ -42,11 +42,10 @@ export function onSubmitForm<T extends {}>(this: IThis): T {
     //   console.log('Получены данные', event.data);
     // });
     // console.log(socket)
-    return (fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {})) as T;
-    
+    console.log(fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {}));
+    return fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {}) as T;
   }
   return {} as T;
-
 }
 
 export function checkInputValue(this: GeneralInput) {

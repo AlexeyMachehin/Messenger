@@ -68,8 +68,10 @@ export default class Login extends Block<LoginType> {
             [Event],
             { login: string; password: string }
           >(this, [event]);
-          userController.signIn(inputValues).then(() => {
-            router.go(ROUTES.Chats);
+          userController.signIn(inputValues).then((result) => {
+            if (result) {
+              router.go(ROUTES.Chats);
+            }
           });
         },
       },

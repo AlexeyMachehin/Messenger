@@ -3,11 +3,11 @@ import { storeCurrentUser } from "../store/storeCurrentUser";
 import { store } from "./../store/Store";
 
 export class UserController {
-  public signIn(data: { login: string; password: string }): Promise<void> {
+  public signIn(data: { login: string; password: string }): Promise<boolean> {
     return authorization
       .signIn(data)
-      .then(() => store.set("isAuth", true))
-      .catch(() => store.set("isAuth", false));
+      .then(() => {store.set("isAuth", true); return true})
+      .catch(() => {store.set("isAuth", false); return false});
   }
 
   public signUp(data: { login: string; password: string }): Promise<void> {
@@ -18,6 +18,7 @@ export class UserController {
     return authorization
       .getUser()
       .then((data) => {
+        store.set("isAuth", true)
         storeCurrentUser.set("currentUser", data);
         return true;
       })
