@@ -10,4 +10,4 @@ export const ROUTES = {
   Chat: "/messenger/{chatId}",
   ChatById: (chatId: number) => `/messenger/${chatId}`,
   Default: "/",
-};
+} as const;

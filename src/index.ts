@@ -14,8 +14,8 @@ export const router = new Router(".main");
 
 router
   .use(ROUTES.Login, Login, false)
-  .use(ROUTES.SignUp, Registration)
-  .use(ROUTES.Default, Login)
+  .use(ROUTES.SignUp, Registration, false)
+  .use(ROUTES.Default, Login, false)
   .use(ROUTES.ChangeData, ChangeData)
   .use(ROUTES.ChangePassword, ChangePassword)
   .use(ROUTES.Error404, Error404)

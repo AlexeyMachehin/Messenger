@@ -49,23 +49,31 @@ export default class Router {
   }
 
   private _onRoute(pathname: string): void {
-    const pathTemplate = this._checkRoute(pathname);
+    let pathTemplate = this._checkRoute(pathname);
     let route = this.getRoute(pathTemplate);
+    const isAuth = this.pathNamesWithoutAuth.includes(pathname);
     userController.getUser().then((result) => {
       if (!result) {
-        route = this.getRoute(ROUTES.Login)
+        if (!isAuth) {
+          route = this.getRoute(ROUTES.Login);
+          window.history.pushState({}, "", ROUTES.Login);
+        }
+      } else {
+        if (isAuth) {
+          route = this.getRoute(ROUTES.Chats);
+          window.history.pushState({}, "", ROUTES.Chats);
+        }
       }
+      if (this._currentRoute) {
+        this._currentRoute.leave();
+      }
+      this._currentRoute = route;
+      route?.render();
     });
-    if (this._currentRoute) {
-      this._currentRoute.leave();
-    }
-
-    this._currentRoute = route;
-    route?.render();
   }
 
   private _checkRoute(pathname: string): string {
-    let route = "/";
+    let route = pathname;
 
     this.pathNamesWithAuth.forEach((path) => {
       const pathParts = path.split("/");
