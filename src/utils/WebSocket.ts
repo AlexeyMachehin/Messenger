@@ -7,7 +7,7 @@ export class WebSocketService {
   // private token?: number;
   // private userId?: number;
 
-  connect(data: { chatId: number; token: string; userId: number }): void {
+  connect(data: { chatId: number; token: string; userId: number; }): void {
     if (process.env.YANDEXPRAKTIKUMWSS) {
       new Promise((resolve, reject) => {
         this.webSocket = new WebSocket(
@@ -20,7 +20,7 @@ export class WebSocketService {
         });
 
         this.webSocket.addEventListener("close", () => {
-          store.set("isOpenWebSocket", false)
+          store.set("isOpenWebSocket", false);
         }
         );
 
@@ -29,7 +29,7 @@ export class WebSocketService {
           if (Array.isArray(data)) {
             storeChat.setMessages(data);
           } else {
-            if (data.type != 'pong') {
+            if (data.type !== 'pong' || data.type !=="user connected") {
               storeChat.setMessages([data]);
             }
           }
@@ -43,12 +43,14 @@ export class WebSocketService {
   }
 
   sendMessage(message: string): void {
+    const data = {
+      content: message,
+      type: "message",
+    };
     this.webSocket?.send(
-      JSON.stringify({
-        content: message,
-        type: "message",
-      })
+      JSON.stringify(data)
     );
+    storeChat.setMessages([data]);
   }
 
   private sendPing(): void {
