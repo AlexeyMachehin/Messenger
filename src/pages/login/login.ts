@@ -54,7 +54,6 @@ export default class Login extends Block<LoginType> {
       }),
       generalLinkCreateAccount: new GeneralLink({
         text: "Create account",
-        // href: ROUTES.SignUp,
         events: {
           click: () => {
             router.go(ROUTES.SignUp);

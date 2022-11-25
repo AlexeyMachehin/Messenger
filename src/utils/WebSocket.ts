@@ -3,9 +3,6 @@ import { store } from "../store/Store";
 
 export class WebSocketService {
   private webSocket?: WebSocket;
-  // private chatId?: number;
-  // private token?: number;
-  // private userId?: number;
 
   connect(data: { chatId: number; token: string; userId: number; }): void {
     if (process.env.YANDEXPRAKTIKUMWSS) {
@@ -50,7 +47,6 @@ export class WebSocketService {
     this.webSocket?.send(
       JSON.stringify(data)
     );
-    storeChat.setMessages([data]);
   }
 
   private sendPing(): void {

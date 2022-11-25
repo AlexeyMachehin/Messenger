@@ -144,10 +144,6 @@ export default class ChangeData extends Block<ChangeDataType> {
   }
 }
 
-// const changeData = new ChangeData();
-
-// render(".main", changeData);
-
 function handleClick(this: ChangeData) {
   (this.children.uploadAvatarModal as UploadAvatarModal).service?.openDialog();
 }
