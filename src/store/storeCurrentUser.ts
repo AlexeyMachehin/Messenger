@@ -1,5 +1,5 @@
 import { UserDto } from "./../utils/dto/user-dto";
-import { Store } from "./Store";
+import { Store } from "./store";
 
 export enum StoreCurrentUserEvents {
   Updated = "chatUpdated",

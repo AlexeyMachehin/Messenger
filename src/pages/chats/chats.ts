@@ -26,8 +26,6 @@ import Input from "../../components/input/input";
 import "./chats.scss";
 import { router } from "../../index";
 import chatsController from "../../controllers/chats-controller";
-import { connection } from "../../api/connection";
-import { store } from "../../store/Store";
 
 type ChatsType = {
   createChatButton: GeneralButton;
@@ -116,7 +114,10 @@ export default class Chats extends Block<ChatsType> {
               [Event, string],
               { message: string }
             >(this, [event, ".message-form"]);
-            webSocket.sendMessage(values.message);
+            const chatId = storeChat.getSelectedChat()?.id;
+            if (chatId) {
+              webSocket.sendMessage(chatId, values.message);
+            }
           },
         },
       }),
@@ -275,20 +276,15 @@ export default class Chats extends Block<ChatsType> {
           events: {
             click: () => {
               const chatId = chat.id;
-              connection.connect(chatId).then(() => {
-                const currentUser = storeCurrentUser.getState().currentUser;
-                const token = store.getState().token;
-                if (token != null) {
-                  router.go(ROUTES.ChatById(chatId), { chatId });
-                  if (currentUser) {
-                    webSocket.connect({
-                      chatId,
-                      token,
-                      userId: currentUser.id,
-                    });
-                  }
-                }
-              });
+              storeChat.setSelectedChat(chat);
+              const currentUser = storeCurrentUser.getState().currentUser;
+              router.go(ROUTES.ChatById(chatId), { chatId });
+              if (currentUser) {
+                webSocket.connect({
+                  chatId,
+                  userId: currentUser.id,
+                });
+              }
             },
           },
         });
@@ -335,17 +331,13 @@ export default class Chats extends Block<ChatsType> {
 
   connectWebSocket(chatId: number): void {
     if (chatId != null) {
-      connection.connect(chatId).then(() => {
-        const token = store.getState().token;
-        const user = store.getState().currentUser;
-        if (token && user) {
-          webSocket.connect({
-            chatId,
-            token,
-            userId: user.id,
-          });
-        }
-      });
+      const user = storeCurrentUser.getCurrentUser();
+      if (user) {
+        webSocket.connect({
+          chatId,
+          userId: user.id,
+        });
+      }
     }
   }
 

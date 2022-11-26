@@ -1,58 +1,84 @@
 import { storeChat } from "../store/storeChat";
-import { store } from "../store/Store";
+import { store } from "../store/store";
+import { connection } from "../api/connection";
 
 export class WebSocketService {
-  private webSocket?: WebSocket;
+  private webSocketMap: Map<
+    number,
+    { webSocket: WebSocket; allMessages: any[] }
+  > = new Map();
 
-  connect(data: { chatId: number; token: string; userId: number; }): void {
-    if (process.env.YANDEXPRAKTIKUMWSS) {
-      new Promise((resolve, reject) => {
-        this.webSocket = new WebSocket(
-          `${process.env.YANDEXPRAKTIKUMWSS}/ws/chats/${data.userId}/${data.chatId}/${data.token}`
-        );
-        this.webSocket.addEventListener("open", () => {
-          store.set("isOpenWebSocket", true);
-          this.sendPing();
-          resolve(true);
-        });
+  connect(data: { chatId: number; userId: number }): void {
+    if (process.env.YANDEXPRAKTIKUMWSS && !this.webSocketMap.has(data.chatId)) {
+      connection.connect(data.chatId).then((token) => {
+        new Promise<WebSocket>((res) => {
+          const webSocket = new WebSocket(
+            `${process.env.YANDEXPRAKTIKUMWSS}/ws/chats/${data.userId}/${data.chatId}/${token}`
+          );
+          webSocket.addEventListener("open", () => {
+            store.set("isOpenWebSocket", true);
+            this.sendPing(webSocket);
+            res(webSocket);
+          });
 
-        this.webSocket.addEventListener("close", () => {
-          store.set("isOpenWebSocket", false);
-        }
-        );
+          webSocket.addEventListener("close", () => {
+            store.set("isOpenWebSocket", false);
+          });
 
-        this.webSocket.addEventListener("message", (event) => {
-          const data = JSON.parse(event.data);
-          if (Array.isArray(data)) {
-            storeChat.setMessages(data);
-          } else {
-            if (data.type !== 'pong' && data.type !=="user connected") {
-              storeChat.setMessages([data]);
+          webSocket.addEventListener("message", (event) => {
+            const data = JSON.parse(event.data);
+            const oldMessages =
+              this.webSocketMap.get(data.chatId)?.allMessages ?? [];
+            if (Array.isArray(data)) {
+              this.webSocketMap.set(2409, {
+                webSocket,
+                allMessages: [...oldMessages, ...data].sort(
+                  (a: any, b: any) =>
+                    new Date(a.time).valueOf() - new Date(b.time).valueOf()
+                ),
+              });
+              storeChat.setMessages(
+                2409,
+                this.webSocketMap.get(2409)?.allMessages ?? []
+              );
+            } else {
+              if (data.type !== "pong" && data.type !== "user connected") {
+                this.webSocketMap.set(data.chatId, {
+                  webSocket,
+                  allMessages: [...oldMessages, data].sort(
+                    (a: any, b: any) =>
+                      new Date(a.time).valueOf() - new Date(b.time).valueOf()
+                  ),
+                });
+                storeChat.setMessages(
+                  data.chatId,
+                  this.webSocketMap.get(data.chatId)?.allMessages ?? []
+                );
+              }
             }
-          }
-        });
+          });
 
-        this.webSocket.addEventListener("error", () => {
-          reject(false);
+          webSocket.addEventListener("error", () => {});
+        }).then((webSocket) => {
+          this.webSocketMap.set(data.chatId, { webSocket, allMessages: [] });
+          this.getMessageList(data.chatId);
         });
-      }).then(() => this.getMessageList());
+      });
     }
   }
 
-  sendMessage(message: string): void {
+  sendMessage(chatId: number, message: string): void {
     const data = {
       content: message,
       type: "message",
     };
-    this.webSocket?.send(
-      JSON.stringify(data)
-    );
+    this.webSocketMap.get(chatId)?.webSocket.send(JSON.stringify(data));
   }
 
-  private sendPing(): void {
+  private sendPing(webSocket: WebSocket): void {
     setInterval(
       () =>
-        this.webSocket?.send(
+        webSocket.send(
           JSON.stringify({
             type: "ping",
           })
@@ -61,12 +87,14 @@ export class WebSocketService {
     );
   }
 
-  getMessageList(countMessage: number = 0) {
-    this.webSocket?.send(
+  getMessageList(chatId: number, countMessage: number = 0) {
+    this.webSocketMap.get(chatId)?.webSocket.send(
       JSON.stringify({
         content: countMessage,
         type: "get old",
       })
     );
   }
+
+  
 }
