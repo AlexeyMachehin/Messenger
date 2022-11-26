@@ -1,3 +1,4 @@
+import { MessageDto } from "./../../utils/dto/message-dto";
 import { storeCurrentUser } from "./../../store/storeCurrentUser";
 import { ROUTES } from "./../../utils/router/routes";
 import { storeChat, StoreChatEvents } from "../../store/storeChat";
@@ -29,6 +30,7 @@ import { connection } from "../../api/connection";
 import { store } from "../../store/Store";
 
 type ChatsType = {
+  createChatButton: GeneralButton;
   chatPageInput: ChatPageInput;
   chats: Chat[];
   generalLink: GeneralLink;
@@ -44,6 +46,7 @@ type ChatsType = {
   deleteUserDialog: ManageUserModal;
   addUserDialog: ManageUserModal;
   manageChatModal: ManageChatModal;
+  createChatInput: ChatPageInput;
   getSelectedChat: () => number | null;
 } & Props;
 
@@ -52,6 +55,24 @@ const webSocket = new WebSocketService();
 export default class Chats extends Block<ChatsType> {
   constructor() {
     super("div", {
+      createChatInput: new ChatPageInput({
+        name: "title",
+        type: "text",
+        placeholder: "Enter name of new chat",
+      }),
+      createChatButton: new GeneralButton({
+        buttonText: "Create new chat",
+        events: {
+          click: (event) => {
+            const values = onSubmitForm.apply<
+              Chats,
+              [Event, string],
+              { title: string }
+            >(this, [event, ".create-chat-form"]);
+            chatsController.createChat(values);
+          },
+        },
+      }),
       chatPageInput: new ChatPageInput({
         class: ["input-wrapper"],
         placeholder: "search",
@@ -92,9 +113,9 @@ export default class Chats extends Block<ChatsType> {
           click: (event) => {
             const values = onSubmitForm.apply<
               Chats,
-              [Event],
-              { message: string; }
-            >(this, [event]);
+              [Event, string],
+              { message: string }
+            >(this, [event, ".message-form"]);
             webSocket.sendMessage(values.message);
           },
         },
@@ -234,7 +255,6 @@ export default class Chats extends Block<ChatsType> {
     if (chatId) {
       this.connectWebSocket(chatId);
     }
-
   }
 
   subscribeToChangeChats(): void {
@@ -256,14 +276,17 @@ export default class Chats extends Block<ChatsType> {
             click: () => {
               const chatId = chat.id;
               connection.connect(chatId).then(() => {
+                const currentUser = storeCurrentUser.getState().currentUser;
                 const token = store.getState().token;
                 if (token != null) {
                   router.go(ROUTES.ChatById(chatId), { chatId });
-                  webSocket.connect({
-                    chatId,
-                    token,
-                    userId: storeCurrentUser.getState().currentUser.id,
-                  });
+                  if (currentUser) {
+                    webSocket.connect({
+                      chatId,
+                      token,
+                      userId: currentUser.id,
+                    });
+                  }
                 }
               });
             },
@@ -275,7 +298,6 @@ export default class Chats extends Block<ChatsType> {
     });
   }
 
-
   subscribeToChangeMessages(): void {
     storeChat.on(StoreChatEvents.UpdatedMessages, (state) => {
       const messages = state
@@ -283,7 +305,7 @@ export default class Chats extends Block<ChatsType> {
           (a: any, b: any) =>
             new Date(a.time).valueOf() - new Date(b.time).valueOf()
         )
-        .map((message: any) => {
+        .map((message: MessageDto) => {
           return new Message({
             message: message.content,
             time: new Date(message.time).toLocaleTimeString(),
@@ -303,7 +325,7 @@ export default class Chats extends Block<ChatsType> {
   }
 
   private _isMyMessage(id: number) {
-    const storeId = storeCurrentUser.getCurrentUser().id;
+    const storeId = storeCurrentUser.getCurrentUser()?.id;
     if (id === storeId) {
       return "my-message";
     } else {
@@ -315,11 +337,14 @@ export default class Chats extends Block<ChatsType> {
     if (chatId != null) {
       connection.connect(chatId).then(() => {
         const token = store.getState().token;
-        webSocket.connect({
-          chatId,
-          token,
-          userId: store.getState().currentUser.id,
-        });
+        const user = store.getState().currentUser;
+        if (token && user) {
+          webSocket.connect({
+            chatId,
+            token,
+            userId: user.id,
+          });
+        }
       });
     }
   }

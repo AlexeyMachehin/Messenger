@@ -14,7 +14,7 @@ import { changeDataTemplate } from "./changeDataTemplate";
 import { user } from "../../utils/mockData";
 import { Props } from "../../utils/models/props";
 import "./changeData.scss";
-import { router } from '../../index';
+import { router } from "../../index";
 
 type ChangeDataType = {
   avatarURL: string;
@@ -38,9 +38,8 @@ export default class ChangeData extends Block<ChangeDataType> {
       displayName: user.display_name,
       goBackAside: new GoBackAside({
         events: {
-          click: () => router.back()
+          click: () => router.back(),
         },
-
       }),
       uploadAvatarModal: new UploadAvatarModal({
         avatarURL: user.avatarURL,
@@ -134,7 +133,11 @@ export default class ChangeData extends Block<ChangeDataType> {
         buttonText: "Save",
       }),
       events: {
-        submit: (event) => onSubmitForm.apply<ChangeData, [Event], void>(this, [event]),
+        submit: (event) =>
+          onSubmitForm.apply<ChangeData, [Event, string], void>(this, [
+            event,
+            ".change-data-form",
+          ]),
       },
     });
   }

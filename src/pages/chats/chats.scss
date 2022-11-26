@@ -192,3 +192,11 @@
     box-shadow: $goBackAsideShadow;
     border-radius: 4px;
 }
+
+.create-chat-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 10px 0;
+   
+}

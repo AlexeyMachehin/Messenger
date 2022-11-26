@@ -64,9 +64,9 @@ export default class Login extends Block<LoginType> {
         submit: (event) => {
           const inputValues = onSubmitForm.apply<
             Login,
-            [Event],
+            [Event, string],
             { login: string; password: string }
-          >(this, [event]);
+          >(this, [event, ".login-form"]);
           userController.signIn(inputValues).then((result) => {
             if (result) {
               router.go(ROUTES.Chats);

@@ -6,7 +6,7 @@ import { AvatarType } from "./../avatar/avatar";
 type MessageType = {
   message: string;
   time: string;
-  name: string;
+  name: string | number;
   className: string;
   avatar: Block<AvatarType>;
 } & Props;
