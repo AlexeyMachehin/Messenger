@@ -14,19 +14,21 @@ export class StoreChat extends Store {
   }
 
   setMessages(chatId: number, messages: MessageDto[] | null) {
-    const container = this.getState().chatMessages;
-    const oldMessage = container ? container[chatId] : [];
     if (messages) {
-      this.set(`chatMessages.${chatId}`, [
-        ...(oldMessage ? oldMessage : []),
-        ...messages,
-      ]);
+      this.set(`chatMessages.${chatId}`, messages);
     }
-    this.emit(StoreChatEvents.UpdatedMessages, this.state.chatMessages ? this.state.chatMessages[chatId] : []);
+    this.emit(
+      StoreChatEvents.UpdatedMessages,
+      this.state.chatMessages ? this.state.chatMessages[chatId] : []
+    );
   }
 
   setSelectedChat(chat: ChatDto) {
     this.set("selectedChat", chat);
+  }
+
+  setSelectedChatId(chat: number) {
+    this.set("selectedChatId", chat);
   }
 
   getChats(): ChatDto[] | null {
@@ -35,6 +37,15 @@ export class StoreChat extends Store {
 
   getSelectedChat(): ChatDto | null {
     return this.getState().selectedChat;
+  }
+
+  getSelectedChatId(): number | null {
+    return this.getState().selectedChatId;
+  }
+
+  getMessages(chatId: number): MessageDto[] | null {
+    const chatMessages = this.getState().chatMessages;
+    return chatMessages ? chatMessages[chatId] : null;
   }
 }
 

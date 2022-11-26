@@ -114,7 +114,7 @@ export default class Chats extends Block<ChatsType> {
               [Event, string],
               { message: string }
             >(this, [event, ".message-form"]);
-            const chatId = storeChat.getSelectedChat()?.id;
+            const chatId = storeChat.getSelectedChatId();
             if (chatId) {
               webSocket.sendMessage(chatId, values.message);
             }
@@ -250,12 +250,7 @@ export default class Chats extends Block<ChatsType> {
     this.subscribeToChangeChats();
     this.subscribeToChangeMessages();
 
-    chatsController.getChats();
-
-    const chatId = router.getParams()?.chatId;
-    if (chatId) {
-      this.connectWebSocket(chatId);
-    }
+    this.initValue();
   }
 
   subscribeToChangeChats(): void {
@@ -276,14 +271,19 @@ export default class Chats extends Block<ChatsType> {
           events: {
             click: () => {
               const chatId = chat.id;
+              const messages = storeChat.getMessages(chatId);
               storeChat.setSelectedChat(chat);
-              const currentUser = storeCurrentUser.getState().currentUser;
               router.go(ROUTES.ChatById(chatId), { chatId });
-              if (currentUser) {
-                webSocket.connect({
-                  chatId,
-                  userId: currentUser.id,
-                });
+              if (messages) {
+                this.createMessageComponent(messages)
+              } else {
+                const currentUser = storeCurrentUser.getState().currentUser;
+                if (currentUser) {
+                  webSocket.connect({
+                    chatId,
+                    userId: currentUser.id,
+                  });
+                }
               }
             },
           },
@@ -295,8 +295,30 @@ export default class Chats extends Block<ChatsType> {
   }
 
   subscribeToChangeMessages(): void {
-    storeChat.on(StoreChatEvents.UpdatedMessages, (state) => {
-      const messages = state
+    storeChat.on(StoreChatEvents.UpdatedMessages, (state) => this.createMessageComponent(state));
+  }
+
+  private _isMyMessage(id: number) {
+    const storeId = storeCurrentUser.getCurrentUser()?.id;
+    if (id === storeId) {
+      return "my-message";
+    } else {
+      return "user-message";
+    }
+  }
+
+  private initValue(): void {
+    chatsController.getChats();
+    const chatId = router.getParams()?.chatId;
+    if (chatId) {
+      storeChat.setSelectedChatId(chatId);
+      this.connectWebSocket(chatId);
+      this.createMessageComponent(storeChat.getMessages(chatId) ?? [])
+    }
+  }
+
+  private createMessageComponent(state: MessageDto[]): void {
+    const messages = state
         .sort(
           (a: any, b: any) =>
             new Date(a.time).valueOf() - new Date(b.time).valueOf()
@@ -317,16 +339,6 @@ export default class Chats extends Block<ChatsType> {
       if (!Array.isArray(this.children.messagesList)) {
         this.children.messagesList.setProps({ messages });
       }
-    });
-  }
-
-  private _isMyMessage(id: number) {
-    const storeId = storeCurrentUser.getCurrentUser()?.id;
-    if (id === storeId) {
-      return "my-message";
-    } else {
-      return "user-message";
-    }
   }
 
   connectWebSocket(chatId: number): void {

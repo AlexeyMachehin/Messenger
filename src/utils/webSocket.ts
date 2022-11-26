@@ -25,38 +25,9 @@ export class WebSocketService {
             store.set("isOpenWebSocket", false);
           });
 
-          webSocket.addEventListener("message", (event) => {
-            const data = JSON.parse(event.data);
-            const oldMessages =
-              this.webSocketMap.get(data.chatId)?.allMessages ?? [];
-            if (Array.isArray(data)) {
-              this.webSocketMap.set(2409, {
-                webSocket,
-                allMessages: [...oldMessages, ...data].sort(
-                  (a: any, b: any) =>
-                    new Date(a.time).valueOf() - new Date(b.time).valueOf()
-                ),
-              });
-              storeChat.setMessages(
-                2409,
-                this.webSocketMap.get(2409)?.allMessages ?? []
-              );
-            } else {
-              if (data.type !== "pong" && data.type !== "user connected") {
-                this.webSocketMap.set(data.chatId, {
-                  webSocket,
-                  allMessages: [...oldMessages, data].sort(
-                    (a: any, b: any) =>
-                      new Date(a.time).valueOf() - new Date(b.time).valueOf()
-                  ),
-                });
-                storeChat.setMessages(
-                  data.chatId,
-                  this.webSocketMap.get(data.chatId)?.allMessages ?? []
-                );
-              }
-            }
-          });
+          webSocket.addEventListener("message", (event) =>
+            this.setMessage(webSocket, data.chatId, event)
+          );
 
           webSocket.addEventListener("error", () => {});
         }).then((webSocket) => {
@@ -96,5 +67,40 @@ export class WebSocketService {
     );
   }
 
-  
+  private setMessage(
+    webSocket: WebSocket,
+    chatId: number,
+    event: MessageEvent
+  ): void {
+    const data = JSON.parse(event.data);
+    if (Array.isArray(data)) {
+      const oldMessages = this.webSocketMap.get(chatId)?.allMessages ?? [];
+      this.webSocketMap.set(chatId, {
+        webSocket,
+        allMessages: [...oldMessages, ...data].sort(
+          (a: any, b: any) =>
+            new Date(a.time).valueOf() - new Date(b.time).valueOf()
+        ),
+      });
+      storeChat.setMessages(
+        chatId,
+        this.webSocketMap.get(chatId)?.allMessages ?? []
+      );
+    } else {
+      if (data.type !== "pong" && data.type !== "user connected") {
+        const oldMessages = this.webSocketMap.get(chatId)?.allMessages ?? [];
+        this.webSocketMap.set(chatId, {
+          webSocket,
+          allMessages: [...oldMessages, data].sort(
+            (a: any, b: any) =>
+              new Date(a.time).valueOf() - new Date(b.time).valueOf()
+          ),
+        });
+        storeChat.setMessages(
+          chatId,
+          this.webSocketMap.get(chatId)?.allMessages ?? []
+        );
+      }
+    }
+  }
 }
