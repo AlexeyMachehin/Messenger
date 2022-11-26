@@ -1,46 +1,78 @@
-import { HTTPOptions } from "./models/httpOptions";
+import { HTTPOptions, HTTPOptionsPost } from "./models/httpOptions";
 import { METHODS } from "./models/httpMethod";
 import { queryStringify } from "./queryStringify";
 
-class HTTPTransport {
-  get(url: string, options: HTTPOptions) {
-    return this.request(url, {
-      ...options,
-      data: queryStringify(options.data),
+export default class HTTPTransport {
+  protected get<T>(url: string, options?: HTTPOptionsPost) {
+    if (options && options.data) {
+      url = url + queryStringify(options.data);
+    }
+    return this.request<T>(process.env.YANDEXPRAKTIKUMAPI + url, {
       method: METHODS.GET,
     });
   }
-  post(url: string, options: HTTPOptions) {
-    return this.request(url, { ...options, method: METHODS.POST });
+  protected post<T>(url: string, options: HTTPOptionsPost): Promise<T> {
+    return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
+      ...options,
+      method: METHODS.POST,
+    });
   }
-  put(url: string, options: HTTPOptions) {
-    return this.request(url, { ...options, method: METHODS.PUT });
+  protected put(url: string, options: HTTPOptions) {
+    return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
+      ...options,
+      method: METHODS.PUT,
+    });
   }
-  patch(url: string, options: HTTPOptions) {
-    return this.request(url, { ...options, method: METHODS.PATCH });
+  protected patch(url: string, options: HTTPOptions) {
+    return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
+      ...options,
+      method: METHODS.PATCH,
+    });
   }
-  delete(url: string, options: HTTPOptions) {
-    return this.request(url, { ...options, method: METHODS.DELETE });
+  protected delete(url: string, options: HTTPOptions) {
+    return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
+      ...options,
+      method: METHODS.DELETE,
+    });
   }
 
-  request(url: string, options: HTTPOptions) {
-    const { method, data, headers = {}, timeout = 5000 } = options;
+  private request<F>(url: string, options: HTTPOptions): Promise<F> {
+    const {
+      method,
+      data,
+      headers = { "content-type": "application/json" },
+      withCredentials = true,
+    } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url + data);
-      xhr.onload = () => resolve(xhr);
-      if (xhr.status === 200) {
-        console.log(xhr.responseText);
-      } else {
-        console.log(`Ответ от сервера: ${xhr.status} | ${xhr.statusText}`);
+      xhr.open(method, url);
+      xhr.responseType = "json";
+      Object.entries(headers).forEach(([key, value]) => {
+        return xhr.setRequestHeader(key, value);
+      });
+
+      if (withCredentials) {
+        xhr.withCredentials = true;
       }
+
+      xhr.onload = function () {
+        let resp: any = "";
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.response);
+        } else {
+          reject(resp);
+        }
+
+        resolve(xhr.response);
+      };
 
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
-      if (method === METHODS.GET || !data) {
+      if (method === METHODS.GET) {
         xhr.send();
       } else {
         xhr.send(data);

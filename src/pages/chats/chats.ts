@@ -1,8 +1,12 @@
+import { storeCurrentUser } from "./../../store/storeCurrentUser";
+import { ROUTES } from "./../../utils/router/routes";
+import { storeChat, StoreChatEvents } from "../../store/storeChat";
+import { WebSocketService } from "../../utils/webSocket";
+import { ChatDto } from "./../../utils/dto/chat-dto";
 import Block from "../../utils/block";
 import { chatsTemplate } from "./chatsTemplate";
 import { Props } from "./../../utils/models/props";
 import { chats as mockChats } from "../../utils/mockData";
-import { render } from "../../utils/renderDOM";
 import { onSubmitForm } from "../../utils/form/form";
 import Avatar from "../../components/avatar/avatar";
 import GeneralLink from "../../components/generalLink/generalLink";
@@ -18,6 +22,11 @@ import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralButton from "../../components/generalButton/generalButton";
 import ManageChatModal from "../../components/manageChatModal/manageChatModal";
 import Input from "../../components/input/input";
+import "./chats.scss";
+import { router } from "../../index";
+import chatsController from "../../controllers/chats-controller";
+import { connection } from "../../api/connection";
+import { store } from "../../store/Store";
 
 type ChatsType = {
   chatPageInput: ChatPageInput;
@@ -35,22 +44,31 @@ type ChatsType = {
   deleteUserDialog: ManageUserModal;
   addUserDialog: ManageUserModal;
   manageChatModal: ManageChatModal;
+  getSelectedChat: () => number | null;
 } & Props;
 
-class Chats extends Block<ChatsType> {
+const webSocket = new WebSocketService();
+
+export default class Chats extends Block<ChatsType> {
   constructor() {
     super("div", {
       chatPageInput: new ChatPageInput({
         class: ["input-wrapper"],
         placeholder: "search",
         type: "search",
+        events: {
+          change: (event) =>
+            chatsController.findChat((event.target as HTMLInputElement).value),
+        },
       }),
       class: ["chats-container"],
-      chats: chatsArray,
+      chats: [],
       generalLink: new GeneralLink({
         text: "Profile",
         class: ["profile-link-container"],
-        href: "../../pages/profile/profile.html",
+        events: {
+          click: () => router.go(ROUTES.Profile),
+        },
       }),
       avatarHeader: new Avatar({
         avatarURL: mockChats[0].avatarURL,
@@ -60,25 +78,35 @@ class Chats extends Block<ChatsType> {
       userName: mockChats[0].display_name,
       messagesList: new MessagesList({
         timeHeader: mockChats[0].time,
-        messages: messagesArray,
+        messages: [],
       }),
       inputFooter: new ChatPageInput({
         class: ["input-wrapper"],
         type: "text",
         placeholder: "message",
         name: "message",
-       
       }),
       messageButton: new IconButton({
         class: ["message-form__button"],
         events: {
-          click: (event) => onSubmitForm.apply(this, [event]),
+          click: (event) => {
+            const values = onSubmitForm.apply<
+              Chats,
+              [Event],
+              { message: string; }
+            >(this, [event]);
+            webSocket.sendMessage(values.message);
+          },
         },
       }),
       manageFileButton: new IconButton({
         class: ["manage-file__button"],
         events: {
-          click: (event) => openSelect.apply(this, [event, "selectFooter"]),
+          click: (event) =>
+            openSelect.apply<Chats, [Event, string], void>(this, [
+              event,
+              "selectFooter",
+            ]),
         },
       }),
       selectFooter: new Select({
@@ -101,7 +129,11 @@ class Chats extends Block<ChatsType> {
       manageUserButton: new IconButton({
         class: ["manage-user__button"],
         events: {
-          click: (event) => openSelect.apply(this, [event, "selectHeader"]),
+          click: (event) =>
+            openSelect.apply<Chats, [Event, string], void>(this, [
+              event,
+              "selectHeader",
+            ]),
         },
       }),
       selectHeader: new Select({
@@ -111,21 +143,30 @@ class Chats extends Block<ChatsType> {
             text: "Add user",
             classIcon: "add-icon",
             events: {
-              click: () => openDialog.apply(this, ["addUserDialog"]),
+              click: () =>
+                openDialog.apply<Chats, [string], void>(this, [
+                  "addUserDialog",
+                ]),
             },
           }),
           new SelectItem({
             text: "Delete user",
             classIcon: "delete-icon",
             events: {
-              click: () => openDialog.apply(this, ["deleteUserDialog"]),
+              click: () =>
+                openDialog.apply<Chats, [string], void>(this, [
+                  "deleteUserDialog",
+                ]),
             },
           }),
           new SelectItem({
             text: "Delete chat",
             classIcon: "delete-icon",
             events: {
-              click: () => openDialog.apply(this, ["manageChatModal"]),
+              click: () =>
+                openDialog.apply<Chats, [string], void>(this, [
+                  "manageChatModal",
+                ]),
             },
           }),
         ],
@@ -175,7 +216,112 @@ class Chats extends Block<ChatsType> {
           buttonText: "Delete",
         }),
       }),
+      getSelectedChat: () => {
+        const param = router.getParams();
+        if (param != null && param.chatId) {
+          return param.chatId;
+        }
+        return null;
+      },
     });
+
+    this.subscribeToChangeChats();
+    this.subscribeToChangeMessages();
+
+    chatsController.getChats();
+
+    const chatId = router.getParams()?.chatId;
+    if (chatId) {
+      this.connectWebSocket(chatId);
+    }
+
+  }
+
+  subscribeToChangeChats(): void {
+    storeChat.on(StoreChatEvents.Updated, (state) => {
+      const chats = state.map((chat: ChatDto) => {
+        const chatInstance = new Chat({
+          class: ["user"],
+          name: chat.title,
+          message: chat.last_message?.content ?? "",
+          time: chat.last_message?.time ?? "",
+          count: chat.unread_count,
+          avatar: new Avatar({
+            avatarURL: chat.avatar,
+            class: ["avatar-container"],
+            classImg: "avatar-container_avatar",
+          }),
+          id: chat.id,
+          events: {
+            click: () => {
+              const chatId = chat.id;
+              connection.connect(chatId).then(() => {
+                const token = store.getState().token;
+                if (token != null) {
+                  router.go(ROUTES.ChatById(chatId), { chatId });
+                  webSocket.connect({
+                    chatId,
+                    token,
+                    userId: storeCurrentUser.getState().currentUser.id,
+                  });
+                }
+              });
+            },
+          },
+        });
+        return chatInstance;
+      });
+      this.setProps({ chats });
+    });
+  }
+
+
+  subscribeToChangeMessages(): void {
+    storeChat.on(StoreChatEvents.UpdatedMessages, (state) => {
+      const messages = state
+        .sort(
+          (a: any, b: any) =>
+            new Date(a.time).valueOf() - new Date(b.time).valueOf()
+        )
+        .map((message: any) => {
+          return new Message({
+            message: message.content,
+            time: new Date(message.time).toLocaleTimeString(),
+            name: message.user_id,
+            className: this._isMyMessage(message.user_id),
+            avatar: new Avatar({
+              avatarURL: mockChats[0].avatarURL,
+              class: ["avatar-container"],
+              classImg: "avatar-container_avatar",
+            }),
+          });
+        });
+      if (!Array.isArray(this.children.messagesList)) {
+        this.children.messagesList.setProps({ messages });
+      }
+    });
+  }
+
+  private _isMyMessage(id: number) {
+    const storeId = storeCurrentUser.getCurrentUser().id;
+    if (id === storeId) {
+      return "my-message";
+    } else {
+      return "user-message";
+    }
+  }
+
+  connectWebSocket(chatId: number): void {
+    if (chatId != null) {
+      connection.connect(chatId).then(() => {
+        const token = store.getState().token;
+        webSocket.connect({
+          chatId,
+          token,
+          userId: store.getState().currentUser.id,
+        });
+      });
+    }
   }
 
   render(): DocumentFragment {
@@ -183,62 +329,16 @@ class Chats extends Block<ChatsType> {
   }
 }
 
-const messagesArray =
-  mockChats[0].messages?.map((message, index) => {
-    if (index % 2 === 0) {
-      return new Message({
-        message,
-        time: mockChats[0].time,
-        name: mockChats[0].display_name,
-        className: "my-message",
-        avatar: new Avatar({
-          avatarURL: mockChats[0].avatarURL,
-          class: ["avatar-container"],
-          classImg: "avatar-container_avatar",
-        }),
-      });
-    }
-    return new Message({
-      message,
-      time: mockChats[0].time,
-      name: mockChats[0].display_name,
-      className: "user-message",
-      avatar: new Avatar({
-        avatarURL: mockChats[0].avatarURL,
-        class: ["avatar-container"],
-        classImg: "avatar-container_avatar",
-      }),
-    });
-  }) ?? [];
-
-const chatsArray = mockChats.map(
-  (chat) =>
-    new Chat({
-      class: ["user"],
-      name: chat.display_name,
-      message: chat.message,
-      time: chat.time,
-      count: chat.countMessages ?? 0,
-      avatar: new Avatar({
-        avatarURL: chat.avatarURL,
-        class: ["avatar-container"],
-        classImg: "avatar-container_avatar",
-      }),
-    })
-);
-
-const chats = new Chats();
-
-render(".main", chats);
-
-function openSelect() {
+function openSelect(this: Chats) {
   const indexOfEvent = 0;
   const indexOfSelect = 1;
-  this.children[arguments[indexOfSelect]].service.open();
+  (this.children[arguments[indexOfSelect]] as Select).service?.open();
   (arguments[indexOfEvent] as PointerEvent).stopPropagation();
 }
 
-function openDialog() {
+function openDialog(this: Chats) {
   const indexOfEvent = 0;
-  this.children[arguments[indexOfEvent]].service.openDialog();
+  (
+    this.children[arguments[indexOfEvent]] as ManageUserModal
+  ).service?.openDialog();
 }

@@ -1,14 +1,17 @@
+import { router } from "./../../index";
 import Block from "../../utils/block";
 import { registrationTemplate } from "./registrationTemplate";
 import { Props } from "./../../utils/models/props";
 import { onSubmitForm } from "../../utils/form/form";
 import { ValidationPattern } from "./../../utils/models/validation";
 import { ValidationError } from "../../utils/models/validation";
-import { render } from "../../utils/renderDOM";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
+import "./registration.scss";
+import { ROUTES } from "../../utils/router/routes";
+import userController from "../../controllers/user-controllers";
 
 type RegistrationType = {
   generalInputEmail: GeneralInput;
@@ -107,10 +110,19 @@ export default class Registration extends Block<RegistrationType> {
       }),
       generalLinkEnter: new GeneralLink({
         text: "Login",
-        href: "../login/login.html",
+        href: ROUTES.Login,
       }),
       events: {
-        submit: (event) => onSubmitForm.apply(this, [event]),
+        submit: (event) => {
+          const inputValues = onSubmitForm.apply<
+            Registration,
+            [Event],
+            { login: string; password: string }
+          >(this, [event]);
+          userController.signUp(inputValues).then(() => {
+            router.go(ROUTES.Chats);
+          });
+        },
       },
       class: ["card"],
     });
@@ -120,7 +132,3 @@ export default class Registration extends Block<RegistrationType> {
     return this.compile(registrationTemplate, this.props);
   }
 }
-
-const registration = new Registration();
-
-render(".main", registration);

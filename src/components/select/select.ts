@@ -10,7 +10,7 @@ type SelectType = {
 } & Props;
 
 export default class Select extends Block<SelectType> {
-  service: SelectService;
+  service: SelectService | null = null;
   constructor(props: SelectType) {
     super("ul", {
       ...props,

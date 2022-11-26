@@ -5,12 +5,13 @@ import {
   ValidationPattern,
   ValidationError,
 } from "./../../utils/models/validation";
-import { render } from "../../utils/renderDOM";
 import { onSubmitForm } from "../../utils/form/form";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
+import "./changePassword.scss"
+import { router } from '../../index';
 
 type ChangePasswordType = {
   avatarURL: string;
@@ -53,9 +54,14 @@ export default class ChangePassword extends Block<ChangePasswordType> {
       generalButtonSave: new GeneralButton({
         buttonText: "Save",
       }),
-      goBackAside: new GoBackAside({}),
+      goBackAside: new GoBackAside({
+        events: {
+          click: () => router.back()
+        },
+
+      }),
       events: {
-        submit: (event) => onSubmitForm.apply(this, [event]),
+        submit: (event) => onSubmitForm.apply<ChangePassword, [Event], void>(this, [event]),
       },
     });
   }
@@ -64,6 +70,3 @@ export default class ChangePassword extends Block<ChangePasswordType> {
     return this.compile(changePasswordTemplate, this.props);
   }
 }
-const changePassword = new ChangePassword();
-
-render(".main", changePassword);

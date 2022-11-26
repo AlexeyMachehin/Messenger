@@ -4,7 +4,7 @@ import { Props } from "../../utils/models/props";
 
 type GeneralLinkType = {
   text: string;
-  href: string;
+  href?: string;
 } & Props;
 
 export default class GeneralLink extends Block<GeneralLinkType> {

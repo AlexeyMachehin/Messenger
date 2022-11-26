@@ -6,11 +6,14 @@ import {
   ValidationError,
 } from "./../../utils/models/validation";
 import { onSubmitForm } from "../../utils/form/form";
-import { render } from "../../utils/renderDOM";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
+import "./login.scss";
+import { router } from "../../index";
+import userController from "../../controllers/user-controllers";
+import { ROUTES } from "../../utils/router/routes";
 
 type LoginType = {
   generalInputLogin: GeneralInput;
@@ -51,10 +54,25 @@ export default class Login extends Block<LoginType> {
       }),
       generalLinkCreateAccount: new GeneralLink({
         text: "Create account",
-        href: "../registration/registration.html",
+        events: {
+          click: () => {
+            router.go(ROUTES.SignUp);
+          },
+        },
       }),
       events: {
-        submit: (event) => onSubmitForm.apply(this, [event]),
+        submit: (event) => {
+          const inputValues = onSubmitForm.apply<
+            Login,
+            [Event],
+            { login: string; password: string }
+          >(this, [event]);
+          userController.signIn(inputValues).then((result) => {
+            if (result) {
+              router.go(ROUTES.Chats);
+            }
+          });
+        },
       },
       class: ["card"],
     });
@@ -64,7 +82,3 @@ export default class Login extends Block<LoginType> {
     return this.compile(loginTemplate, this.props);
   }
 }
-
-const login = new Login();
-
-render(".main", login);

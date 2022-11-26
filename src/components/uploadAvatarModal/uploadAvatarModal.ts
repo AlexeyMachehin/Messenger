@@ -8,7 +8,7 @@ type UploadAvatarModalType = {
 } & Props;
 
 export default class UploadAvatarModal extends Block<UploadAvatarModalType> {
-  service: Dialog;
+  service: Dialog | null = null;
   constructor(props: UploadAvatarModalType) {
     super("dialog", { ...props, class: ["uploadAvatarModal"] });
   }

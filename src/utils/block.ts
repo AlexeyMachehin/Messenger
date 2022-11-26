@@ -4,7 +4,7 @@ import { EventBus } from "./eventBus";
 import { v4 as makeUUID } from "uuid";
 import { compile } from "pug";
 
-type Children = { [key: string]: Block<Props>[] | Block<Props> };
+type Children = { [key: string]: Block<{}> | Block<{}>[] };
 
 class Block<T extends Props> extends EventBus {
   private _element: HTMLElement | null = null;
@@ -29,7 +29,7 @@ class Block<T extends Props> extends EventBus {
       propsAndChildren,
     };
 
-    const { children, props } = this._getChildren(propsAndChildren);
+    const { children } = this._getChildren(propsAndChildren);
 
     this.children = children;
 
@@ -161,11 +161,13 @@ class Block<T extends Props> extends EventBus {
   }
 
   show(): void {
-    (this.getContent() as HTMLElement).style.display = "block";
+    (this.getContent() as HTMLElement).style.display = "flex";
   }
 
   hide(): void {
-    (this.getContent() as HTMLElement).style.display = "none";
+    if(this.element?.parentElement) {
+      this.element.parentElement.innerHTML = '';
+    }
   }
 
   private _addEvents(): void {
@@ -184,7 +186,7 @@ class Block<T extends Props> extends EventBus {
     });
   }
 
-  private _getChildren(propsAndChildren: T): {
+  private _getChildren(propsAndChildren: Props): {
     children: Children;
     props: Props;
   } {
@@ -210,6 +212,7 @@ class Block<T extends Props> extends EventBus {
   }
 
   compile(template: string, props: Props): DocumentFragment {
+    this.children =  this._getChildren(props).children;
     const propsAndStubs = { ...props };
     Object.entries(this.children).forEach(([key, child]) => {
       if (Array.isArray(child)) {

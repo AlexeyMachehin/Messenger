@@ -1,9 +1,9 @@
-type Callback = (value?: any)=>{};
+type Callback = (...value: any) => void;
 
 export class EventBus {
   listeners: {
-    [key: string]: Callback[]
-  }
+    [key: string]: Callback[];
+  };
 
   constructor() {
     this.listeners = {};
