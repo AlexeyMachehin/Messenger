@@ -28,7 +28,7 @@ import { router } from "../../index";
 import chatsController from "../../controllers/chats-controller";
 import { connection } from "../../api/connection";
 import { storeToken } from "../../store/storeToken";
-import { store } from "../../store/Store";
+import { store } from "../../store/store";
 
 type ChatsType = {
   chatPageInput: ChatPageInput;
@@ -97,7 +97,8 @@ export default class Chats extends Block<ChatsType> {
               [Event],
               { message: string; }
             >(this, [event]);
-            webSocket.sendMessage(values.message);
+            const chatId = storeChat.getSelectedChat().id;
+            webSocket.sendMessage(chatId, values.message);
           },
         },
       }),
@@ -257,6 +258,7 @@ export default class Chats extends Block<ChatsType> {
           events: {
             click: () => {
               const chatId = chat.id;
+              storeChat.setSelectedChat(chat);
               connection.connect(chatId).then(() => {
                 const token = store.getState().token;
                 if (token != null) {
@@ -264,7 +266,7 @@ export default class Chats extends Block<ChatsType> {
                   webSocket.connect({
                     chatId,
                     token,
-                    userId: storeCurrentUser.getState().currentUser.id,
+                    userId: storeCurrentUser.getState().id,
                   });
                 }
               });

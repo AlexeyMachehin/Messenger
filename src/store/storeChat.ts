@@ -1,5 +1,5 @@
 import { ChatDto } from "../utils/dto/chat-dto";
-import { Store } from "./Store";
+import { Store } from "./store";
 
 export enum StoreChatEvents {
   Updated = "chatUpdated",
@@ -12,14 +12,21 @@ export class StoreChat extends Store {
     this.emit(StoreChatEvents.Updated, this.state.chats);
   }
 
-  setMessages(messages: any[]) {
-    const oldMessage = this.getState()?.messages;
-    this.set("messages", [...(oldMessage ? oldMessage : []), ...messages]);
-    this.emit(StoreChatEvents.UpdatedMessages, this.state.messages);
+  setSelectedChat(chat: ChatDto) {
+    this.set("selectedChat", chat);
   }
 
-  getMessages(): any[] {
-    return this.getState().messages;
+  setMessages(chatId: number, messages: any[]) {
+    this.set(`chatMessages.${chatId}`, messages);
+    this.emit(StoreChatEvents.UpdatedMessages, this.state.chatMessages[chatId]);
+  }
+
+  getChats(): any[] {
+    return this.getState().chats;
+  }
+
+  getSelectedChat(): any {
+    return this.getState().selectedChat;
   }
 }
 

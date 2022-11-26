@@ -1,58 +1,40 @@
 import { storeChat } from "../store/storeChat";
-import { store } from "../store/Store";
+import { store } from "../store/store";
 
 export class WebSocketService {
-  private webSocket?: WebSocket;
+  private webSocketMap: Map<number, { webSocket: WebSocket, allMessages: any[]; }> = new Map();
 
   connect(data: { chatId: number; token: string; userId: number; }): void {
-    if (process.env.YANDEXPRAKTIKUMWSS) {
-      new Promise((resolve, reject) => {
-        this.webSocket = new WebSocket(
+    if (process.env.YANDEXPRAKTIKUMWSS && !this.webSocketMap.has(data.chatId)) {
+      new Promise<WebSocket>(res => {
+        const webSocket = new WebSocket(
           `${process.env.YANDEXPRAKTIKUMWSS}/ws/chats/${data.userId}/${data.chatId}/${data.token}`
         );
-        this.webSocket.addEventListener("open", () => {
-          store.set("isOpenWebSocket", true);
-          this.sendPing();
-          resolve(true);
-        });
+        res(webSocket);
+      }).then(webSocket => {
+        this.createListeners(webSocket, data.chatId);
 
-        this.webSocket.addEventListener("close", () => {
-          store.set("isOpenWebSocket", false);
-        }
-        );
+        this.webSocketMap.set(data.chatId, { webSocket, allMessages: [] });
+        this.getMessageList(data.chatId);
+      });
 
-        this.webSocket.addEventListener("message", (event) => {
-          const data = JSON.parse(event.data);
-          if (Array.isArray(data)) {
-            storeChat.setMessages(data);
-          } else {
-            if (data.type !== 'pong' || data.type !=="user connected") {
-              storeChat.setMessages([data]);
-            }
-          }
-        });
-
-        this.webSocket.addEventListener("error", () => {
-          reject(false);
-        });
-      }).then(() => this.getMessageList());
     }
   }
 
-  sendMessage(message: string): void {
+  sendMessage(chatId: number, message: string): void {
     const data = {
       content: message,
       type: "message",
     };
-    this.webSocket?.send(
+    this.webSocketMap.get(chatId)?.webSocket.send(
       JSON.stringify(data)
     );
   }
 
-  private sendPing(): void {
+  private sendPing(webSocket: WebSocket): void {
     setInterval(
       () =>
-        this.webSocket?.send(
+        webSocket.send(
           JSON.stringify({
             type: "ping",
           })
@@ -61,12 +43,53 @@ export class WebSocketService {
     );
   }
 
-  getMessageList(countMessage: number = 0) {
-    this.webSocket?.send(
+  getMessageList(chatId: number, countMessage: number = 0) {
+    this.webSocketMap.get(chatId)?.webSocket.send(
       JSON.stringify({
         content: countMessage,
         type: "get old",
       })
     );
+  }
+
+  private createListeners(webSocket: WebSocket, chatId: number): void {
+    webSocket.addEventListener("open", () => {
+      store.set("isOpenWebSocket", true);
+      this.sendPing(webSocket);
+    });
+
+    webSocket.addEventListener("close", () => {
+      store.set("isOpenWebSocket", false);
+    }
+    );
+
+    webSocket.addEventListener("message", (event) => {
+      const data = JSON.parse(event.data);
+      const oldMessages = this.webSocketMap.get(chatId)?.allMessages ?? [];
+      if (Array.isArray(data)) {
+        this.webSocketMap.set(chatId, {
+          webSocket,
+          allMessages: [...oldMessages, ...data].sort(
+            (a: any, b: any) =>
+              new Date(a.time).valueOf() - new Date(b.time).valueOf()
+          )
+        });
+        storeChat.setMessages(chatId, this.webSocketMap.get(chatId)?.allMessages ?? []);
+      } else {
+        if (data.type !== 'pong' || data.type !== "user connected") {
+          this.webSocketMap.set(chatId, {
+            webSocket,
+            allMessages: [...oldMessages, data].sort(
+              (a: any, b: any) =>
+                new Date(a.time).valueOf() - new Date(b.time).valueOf()
+            )
+          });
+          storeChat.setMessages(chatId, this.webSocketMap.get(chatId)?.allMessages ?? []);
+        }
+      }
+    });
+
+    webSocket.addEventListener("error", () => {
+    });
   }
 }

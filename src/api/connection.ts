@@ -1,4 +1,4 @@
-import { store } from "../store/Store";
+import { store } from "../store/store";
 import HTTPTransport from "../utils/httpTransport";
 
 export class Connection extends HTTPTransport {
