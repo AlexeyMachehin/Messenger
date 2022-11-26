@@ -14,7 +14,9 @@ export function onSubmitForm<T extends {}>(this: IThis): T {
     const fields = Array.from(form).filter(
       (el) => el.nodeName === "INPUT"
     ) as HTMLInputElement[];
-    return fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {}) as T;
+    const result = fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {}) as T;
+    form.reset()
+    return result;
   }
   return {} as T;
 }

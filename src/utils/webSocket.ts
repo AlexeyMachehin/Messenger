@@ -19,8 +19,6 @@ export class WebSocketService {
           this.getMessageList(data.chatId);
         });
       });
-
-
     }
   }
 
