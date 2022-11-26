@@ -1,6 +1,6 @@
 import authorization from "../api/auth";
 import { storeCurrentUser } from "../store/storeCurrentUser";
-import { store } from "./../store/Store";
+import { store } from "../store/store";
 
 export class UserController {
   public signIn(data: { login: string; password: string }): Promise<boolean> {

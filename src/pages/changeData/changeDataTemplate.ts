@@ -4,5 +4,5 @@ div !{goBackAside}
     .card
         .container #[h1 Change profile data] !{avatar}
             h3=displayName  
-            form.container !{generalInputEmail} !{generalInputLogin} !{generalInputName} !{generalInputSurname} !{generalInputNickname} !{generalInputPhoneNumber} !{generalButtonSave}
+            form(class="container change-data-form") !{generalInputEmail} !{generalInputLogin} !{generalInputName} !{generalInputSurname} !{generalInputNickname} !{generalInputPhoneNumber} !{generalButtonSave}
 `

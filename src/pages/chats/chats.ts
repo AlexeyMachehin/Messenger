@@ -1,3 +1,4 @@
+import { MessageDto } from "./../../utils/dto/message-dto";
 import { storeCurrentUser } from "./../../store/storeCurrentUser";
 import { ROUTES } from "./../../utils/router/routes";
 import { storeChat, StoreChatEvents } from "../../store/storeChat";
@@ -25,10 +26,9 @@ import Input from "../../components/input/input";
 import "./chats.scss";
 import { router } from "../../index";
 import chatsController from "../../controllers/chats-controller";
-import { connection } from "../../api/connection";
-import { store } from "../../store/Store";
 
 type ChatsType = {
+  createChatButton: GeneralButton;
   chatPageInput: ChatPageInput;
   chats: Chat[];
   generalLink: GeneralLink;
@@ -44,6 +44,7 @@ type ChatsType = {
   deleteUserDialog: ManageUserModal;
   addUserDialog: ManageUserModal;
   manageChatModal: ManageChatModal;
+  createChatInput: ChatPageInput;
   getSelectedChat: () => number | null;
 } & Props;
 
@@ -52,6 +53,24 @@ const webSocket = new WebSocketService();
 export default class Chats extends Block<ChatsType> {
   constructor() {
     super("div", {
+      createChatInput: new ChatPageInput({
+        name: "title",
+        type: "text",
+        placeholder: "Enter name of new chat",
+      }),
+      createChatButton: new GeneralButton({
+        buttonText: "Create new chat",
+        events: {
+          click: (event) => {
+            const values = onSubmitForm.apply<
+              Chats,
+              [Event, string],
+              { title: string }
+            >(this, [event, ".create-chat-form"]);
+            chatsController.createChat(values);
+          },
+        },
+      }),
       chatPageInput: new ChatPageInput({
         class: ["input-wrapper"],
         placeholder: "search",
@@ -92,10 +111,13 @@ export default class Chats extends Block<ChatsType> {
           click: (event) => {
             const values = onSubmitForm.apply<
               Chats,
-              [Event],
-              { message: string; }
-            >(this, [event]);
-            webSocket.sendMessage(values.message);
+              [Event, string],
+              { message: string }
+            >(this, [event, ".message-form"]);
+            const chatId = storeChat.getSelectedChatId();
+            if (chatId) {
+              webSocket.sendMessage(chatId, values.message);
+            }
           },
         },
       }),
@@ -221,20 +243,14 @@ export default class Chats extends Block<ChatsType> {
         if (param != null && param.chatId) {
           return param.chatId;
         }
-        return null;
+        return false;
       },
     });
 
     this.subscribeToChangeChats();
     this.subscribeToChangeMessages();
 
-    chatsController.getChats();
-
-    const chatId = router.getParams()?.chatId;
-    if (chatId) {
-      this.connectWebSocket(chatId);
-    }
-
+    this.initValue();
   }
 
   subscribeToChangeChats(): void {
@@ -255,17 +271,20 @@ export default class Chats extends Block<ChatsType> {
           events: {
             click: () => {
               const chatId = chat.id;
-              connection.connect(chatId).then(() => {
-                const token = store.getState().token;
-                if (token != null) {
-                  router.go(ROUTES.ChatById(chatId), { chatId });
+              const messages = storeChat.getMessages(chatId);
+              storeChat.setSelectedChat(chat);
+              router.go(ROUTES.ChatById(chatId), { chatId });
+              if (messages) {
+                this.createMessageComponent(messages)
+              } else {
+                const currentUser = storeCurrentUser.getState().currentUser;
+                if (currentUser) {
                   webSocket.connect({
                     chatId,
-                    token,
-                    userId: storeCurrentUser.getState().currentUser.id,
+                    userId: currentUser.id,
                   });
                 }
-              });
+              }
             },
           },
         });
@@ -275,15 +294,36 @@ export default class Chats extends Block<ChatsType> {
     });
   }
 
-
   subscribeToChangeMessages(): void {
-    storeChat.on(StoreChatEvents.UpdatedMessages, (state) => {
-      const messages = state
+    storeChat.on(StoreChatEvents.UpdatedMessages, (state) => this.createMessageComponent(state));
+  }
+
+  private _isMyMessage(id: number) {
+    const storeId = storeCurrentUser.getCurrentUser()?.id;
+    if (id === storeId) {
+      return "my-message";
+    } else {
+      return "user-message";
+    }
+  }
+
+  private initValue(): void {
+    chatsController.getChats();
+    const chatId = router.getParams()?.chatId;
+    if (chatId) {
+      storeChat.setSelectedChatId(chatId);
+      this.connectWebSocket(chatId);
+      this.createMessageComponent(storeChat.getMessages(chatId) ?? [])
+    }
+  }
+
+  private createMessageComponent(state: MessageDto[]): void {
+    const messages = state
         .sort(
           (a: any, b: any) =>
             new Date(a.time).valueOf() - new Date(b.time).valueOf()
         )
-        .map((message: any) => {
+        .map((message: MessageDto) => {
           return new Message({
             message: message.content,
             time: new Date(message.time).toLocaleTimeString(),
@@ -299,28 +339,17 @@ export default class Chats extends Block<ChatsType> {
       if (!Array.isArray(this.children.messagesList)) {
         this.children.messagesList.setProps({ messages });
       }
-    });
-  }
-
-  private _isMyMessage(id: number) {
-    const storeId = storeCurrentUser.getCurrentUser().id;
-    if (id === storeId) {
-      return "my-message";
-    } else {
-      return "user-message";
-    }
   }
 
   connectWebSocket(chatId: number): void {
     if (chatId != null) {
-      connection.connect(chatId).then(() => {
-        const token = store.getState().token;
+      const user = storeCurrentUser.getCurrentUser();
+      if (user) {
         webSocket.connect({
           chatId,
-          token,
-          userId: store.getState().currentUser.id,
+          userId: user.id,
         });
-      });
+      }
     }
   }
 

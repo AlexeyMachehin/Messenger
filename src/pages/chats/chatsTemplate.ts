@@ -1,10 +1,10 @@
 export const chatsTemplate = `
 aside.chats !{deleteUserDialog} !{addUserDialog} !{manageChatModal}
-    .chats-list__header !{generalLink} !{chatPageInput}
-
-    ul.chats-list
-        each item in chats
-            li.chat__item !{item}
+    .chats-list__header !{generalLink} !{chatPageInput} 
+        form.create-chat-form !{createChatInput} !{createChatButton}
+        ul.chats-list
+            each item in chats
+                li.chat__item !{item}            
 if getSelectedChat()
     section.chat            
         .chat__header
@@ -14,5 +14,9 @@ if getSelectedChat()
         .messages !{messagesList}
         .chat__footer 
             .chat__footer-container !{manageFileButton} !{selectFooter}
-            form.message-form !{inputFooter} !{messageButton}                          
+            form.message-form !{inputFooter} !{messageButton}
+else
+    section.chat
+        .no-messages
+            p.no-messages__content Select or create a chat to send a message 
 `;

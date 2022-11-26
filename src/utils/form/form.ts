@@ -9,7 +9,7 @@ type IThis = Login | Registration | Chats | ChangePassword | ChangeData;
 
 export function onSubmitForm<T extends {}>(this: IThis): T {
   arguments[0].preventDefault();
-  const form = this.element?.querySelector("form");
+  const form = this.element?.querySelector(arguments[1]) as HTMLFormElement;
   if (form != null) {
     const fields = Array.from(form).filter(
       (el) => el.nodeName === "INPUT"

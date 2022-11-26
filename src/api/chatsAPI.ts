@@ -8,6 +8,9 @@ export class ChatsAPI extends HTTPTransport {
   findChat(value: string): Promise<ChatDto[]> {
     return this.get<ChatDto[]>("/chats", { data: { title: value } });
   }
+  createChat(data: { title: string }): Promise<void> {
+    return this.post<void>("/chats", { data: JSON.stringify(data) });
+  }
 }
 
 export default new ChatsAPI();

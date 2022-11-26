@@ -10,8 +10,8 @@ import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
-import "./changePassword.scss"
-import { router } from '../../index';
+import "./changePassword.scss";
+import { router } from "../../index";
 
 type ChangePasswordType = {
   avatarURL: string;
@@ -56,12 +56,15 @@ export default class ChangePassword extends Block<ChangePasswordType> {
       }),
       goBackAside: new GoBackAside({
         events: {
-          click: () => router.back()
+          click: () => router.back(),
         },
-
       }),
       events: {
-        submit: (event) => onSubmitForm.apply<ChangePassword, [Event], void>(this, [event]),
+        submit: (event) =>
+          onSubmitForm.apply<ChangePassword, [Event, string], void>(this, [
+            event,
+            ".change-password-form",
+          ]),
       },
     });
   }

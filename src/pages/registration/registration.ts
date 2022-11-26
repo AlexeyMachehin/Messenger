@@ -116,9 +116,9 @@ export default class Registration extends Block<RegistrationType> {
         submit: (event) => {
           const inputValues = onSubmitForm.apply<
             Registration,
-            [Event],
+            [Event, string],
             { login: string; password: string }
-          >(this, [event]);
+          >(this, [event, ".registration-form"]);
           userController.signUp(inputValues).then(() => {
             router.go(ROUTES.Chats);
           });
