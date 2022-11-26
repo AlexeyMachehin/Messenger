@@ -221,7 +221,7 @@ export default class Chats extends Block<ChatsType> {
         if (param != null && param.chatId) {
           return param.chatId;
         }
-        return null;
+        return false;
       },
     });
 

@@ -14,5 +14,8 @@ if getSelectedChat()
         .messages !{messagesList}
         .chat__footer 
             .chat__footer-container !{manageFileButton} !{selectFooter}
-            form.message-form !{inputFooter} !{messageButton}                          
+            form.message-form !{inputFooter} !{messageButton}
+else 
+    .no-messages
+        p.no-messages__content Select or create a chat to send a message 
 `;
