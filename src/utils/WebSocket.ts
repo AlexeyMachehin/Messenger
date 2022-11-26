@@ -1,22 +1,25 @@
 import { storeChat } from "../store/storeChat";
 import { store } from "../store/store";
+import { connection } from '../api/connection';
 
 export class WebSocketService {
   private webSocketMap: Map<number, { webSocket: WebSocket, allMessages: any[]; }> = new Map();
 
-  connect(data: { chatId: number; token: string; userId: number; }): void {
+  connect(data: { chatId: number; userId: number; }): void {
     if (process.env.YANDEXPRAKTIKUMWSS && !this.webSocketMap.has(data.chatId)) {
-      new Promise<WebSocket>(res => {
-        const webSocket = new WebSocket(
-          `${process.env.YANDEXPRAKTIKUMWSS}/ws/chats/${data.userId}/${data.chatId}/${data.token}`
-        );
-        res(webSocket);
-      }).then(webSocket => {
-        this.createListeners(webSocket, data.chatId);
-
-        this.webSocketMap.set(data.chatId, { webSocket, allMessages: [] });
-        this.getMessageList(data.chatId);
+      connection.connect(data.chatId).then(token => {
+        new Promise<WebSocket>((res) => {
+          const webSocket = new WebSocket(
+            `${process.env.YANDEXPRAKTIKUMWSS}/ws/chats/${data.userId}/${data.chatId}/${token}`
+          );
+          this.createListeners(webSocket, data.chatId);
+          res(webSocket);
+        }).then(webSocket => {
+          this.webSocketMap.set(data.chatId, { webSocket, allMessages: [] });
+          this.getMessageList(data.chatId);
+        });
       });
+
 
     }
   }

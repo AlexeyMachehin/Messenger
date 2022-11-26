@@ -265,7 +265,6 @@ export default class Chats extends Block<ChatsType> {
                   router.go(ROUTES.ChatById(chatId), { chatId });
                   webSocket.connect({
                     chatId,
-                    token,
                     userId: storeCurrentUser.getState().id,
                   });
                 }
@@ -321,14 +320,10 @@ export default class Chats extends Block<ChatsType> {
   connectWebSocket(): void {
     const chatId = router.getParams().chatId;
     if (chatId != null) {
-      connection.connect(chatId).then(() => {
-        const token = store.getState().token;
         webSocket.connect({
           chatId,
-          token,
-          userId: store.getState().currentUser.id,
+          userId: storeChat.getState().id,
         });
-      });
     }
   }
 
