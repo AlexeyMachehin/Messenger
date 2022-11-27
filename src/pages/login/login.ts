@@ -1,19 +1,19 @@
 import Block from "../../utils/block";
 import { loginTemplate } from "./loginTemplate";
 import { Props } from "./../../utils/models/props";
+import GeneralButton from "../../components/generalButton/generalButton";
+import GeneralInput from "../../components/generalInput/generalInput";
+import GeneralLink from "../../components/generalLink/generalLink";
+import Input from "../../components/input/input";
+import { router } from "../../index";
+import userController from "../../controllers/user-controllers";
 import {
   ValidationPattern,
   ValidationError,
 } from "./../../utils/models/validation";
 import { onSubmitForm } from "../../utils/form/form";
-import GeneralButton from "../../components/generalButton/generalButton";
-import GeneralInput from "../../components/generalInput/generalInput";
-import GeneralLink from "../../components/generalLink/generalLink";
-import Input from "../../components/input/input";
-import "./login.scss";
-import { router } from "../../index";
-import userController from "../../controllers/user-controllers";
 import { ROUTES } from "../../utils/router/routes";
+import "./login.scss";
 
 type LoginType = {
   generalInputLogin: GeneralInput;

@@ -1,6 +1,6 @@
 import Block from "../../utils/block";
 import { avatarTemplate } from "./avatarTemplate";
-import { Props } from './../../utils/models/props';
+import { Props } from "./../../utils/models/props";
 
 export type AvatarType = {
   avatarURL: string;

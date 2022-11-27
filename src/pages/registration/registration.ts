@@ -1,17 +1,17 @@
-import { router } from "./../../index";
 import Block from "../../utils/block";
 import { registrationTemplate } from "./registrationTemplate";
-import { Props } from "./../../utils/models/props";
-import { onSubmitForm } from "../../utils/form/form";
-import { ValidationPattern } from "./../../utils/models/validation";
-import { ValidationError } from "../../utils/models/validation";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
-import "./registration.scss";
-import { ROUTES } from "../../utils/router/routes";
 import userController from "../../controllers/user-controllers";
+import { ROUTES } from "../../utils/router/routes";
+import { router } from "./../../index";
+import { Props } from "./../../utils/models/props";
+import { onSubmitForm } from "../../utils/form/form";
+import { ValidationPattern } from "./../../utils/models/validation";
+import { ValidationError } from "../../utils/models/validation";
+import "./registration.scss";
 
 type RegistrationType = {
   generalInputEmail: GeneralInput;

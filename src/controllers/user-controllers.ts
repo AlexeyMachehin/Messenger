@@ -3,35 +3,37 @@ import { storeCurrentUser } from "../store/storeCurrentUser";
 import { store } from "../store/store";
 
 export class UserController {
-  public signIn(data: { login: string; password: string }): Promise<boolean> {
-    return authorization
-      .signIn(data)
-      .then(() => {store.set("isAuth", true); return true})
-      .catch(() => {store.set("isAuth", false); return false});
+  async signIn(data: { login: string; password: string }): Promise<boolean> {
+    try {
+      await authorization.signIn(data);
+      store.set("isAuth", true);
+      return true;
+    } catch {
+      store.set("isAuth", false);
+      return false;
+    }
   }
 
-  public signUp(data: { login: string; password: string }): Promise<void> {
-    return authorization.signUp(data).then((data) => store.set("isAuth", data));
+  async signUp(data: { login: string; password: string }): Promise<void> {
+    await authorization.signUp(data);
+    return store.set("isAuth", true);
   }
 
-  public getUser(): Promise<boolean> {
-    return authorization
-      .getUser()
-      .then((data) => {
-        store.set("isAuth", true)
-        storeCurrentUser.set("currentUser", data);
-        return true;
-      })
-      .catch(() => false);
+  async getUser(): Promise<boolean> {
+    try {
+      const data = await authorization.getUser();
+      store.set("isAuth", true);
+      storeCurrentUser.set("currentUser", data);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
-  public logout(): Promise<void> {
-    return authorization
-      .logout()
-      .then(() => {
-        store.set("isAuth", false);
-        store.set("currentUser", null);
-      });
+  async logout(): Promise<void> {
+    await authorization.logout();
+    store.set("isAuth", false);
+    store.set("currentUser", null);
   }
 }
 

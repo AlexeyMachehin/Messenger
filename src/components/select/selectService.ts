@@ -3,16 +3,16 @@ export default class SelectService {
   private _body: Element | null;
   constructor(className: string) {
     this._select = document.querySelector(className);
-    this._body = document.querySelector('body');
+    this._body = document.querySelector("body");
     this._subscribeToClickOnCLose();
   }
 
   open() {
-    this._select?.classList.toggle('active');
+    this._select?.classList.toggle("active");
   }
 
   close() {
-    this._select?.classList.remove('active');
+    this._select?.classList.remove("active");
   }
 
   private _subscribeToClickOnCLose() {

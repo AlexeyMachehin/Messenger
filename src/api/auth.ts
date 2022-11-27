@@ -1,4 +1,4 @@
-import { UserDto } from './../utils/dto/user-dto';
+import { UserDto } from "./../utils/dto/user-dto";
 import HTTPTransport from "../utils/httpTransport";
 
 export class AuthorizationAPI extends HTTPTransport {
@@ -13,7 +13,6 @@ export class AuthorizationAPI extends HTTPTransport {
   signUp(value: { login: string; password: string }): Promise<XMLHttpRequest> {
     return this.post("auth/signup", { data: JSON.stringify(value) });
   }
-  
 
   logout(): Promise<void> {
     return this.post("auth/logout", {});

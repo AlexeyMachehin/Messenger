@@ -40,7 +40,10 @@ export default class HTTPTransport {
     const {
       method,
       data,
-      headers = { "content-type": "application/json", "X-XSS-Protection": "1; mode=block" },
+      headers = {
+        "content-type": "application/json",
+        "X-XSS-Protection": "1; mode=block",
+      },
       withCredentials = true,
     } = options;
 

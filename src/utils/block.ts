@@ -165,8 +165,9 @@ class Block<T extends Props> extends EventBus {
   }
 
   hide(): void {
-    if(this.element?.parentElement) {
-      this.element.parentElement.innerHTML = '';
+    if (this.element?.parentElement) {
+      this.element.parentElement.innerHTML = "";
+      this._removeEvents();
     }
   }
 
@@ -212,7 +213,7 @@ class Block<T extends Props> extends EventBus {
   }
 
   compile(template: string, props: Props): DocumentFragment {
-    this.children =  this._getChildren(props).children;
+    this.children = this._getChildren(props).children;
     const propsAndStubs = { ...props };
     Object.entries(this.children).forEach(([key, child]) => {
       if (Array.isArray(child)) {

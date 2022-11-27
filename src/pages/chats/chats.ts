@@ -1,14 +1,6 @@
-import { MessageDto } from "./../../utils/dto/message-dto";
-import { storeCurrentUser } from "./../../store/storeCurrentUser";
-import { ROUTES } from "./../../utils/router/routes";
-import { storeChat, StoreChatEvents } from "../../store/storeChat";
-import { WebSocketService } from "../../utils/webSocket";
-import { ChatDto } from "./../../utils/dto/chat-dto";
 import Block from "../../utils/block";
 import { chatsTemplate } from "./chatsTemplate";
 import { Props } from "./../../utils/models/props";
-import { chats as mockChats } from "../../utils/mockData";
-import { onSubmitForm } from "../../utils/form/form";
 import Avatar from "../../components/avatar/avatar";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Chat from "../../components/chat/chat";
@@ -23,9 +15,17 @@ import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralButton from "../../components/generalButton/generalButton";
 import ManageChatModal from "../../components/manageChatModal/manageChatModal";
 import Input from "../../components/input/input";
-import "./chats.scss";
 import { router } from "../../index";
+import { storeCurrentUser } from "./../../store/storeCurrentUser";
+import { ROUTES } from "./../../utils/router/routes";
+import { storeChat, StoreChatEvents } from "../../store/storeChat";
+import { MessageDto } from "./../../utils/dto/message-dto";
+import { WebSocketService } from "../../utils/webSocket";
+import { ChatDto } from "./../../utils/dto/chat-dto";
+import { chats as mockChats } from "../../utils/mockData";
+import { onSubmitForm } from "../../utils/form/form";
 import chatsController from "../../controllers/chats-controller";
+import "./chats.scss";
 
 type ChatsType = {
   createChatButton: GeneralButton;
@@ -73,7 +73,7 @@ export default class Chats extends Block<ChatsType> {
       }),
       chatPageInput: new ChatPageInput({
         class: ["input-wrapper"],
-        placeholder: "search",
+        placeholder: "Search chat",
         type: "search",
         events: {
           change: (event) =>
@@ -275,7 +275,7 @@ export default class Chats extends Block<ChatsType> {
               storeChat.setSelectedChat(chat);
               router.go(ROUTES.ChatById(chatId), { chatId });
               if (messages) {
-                this.createMessageComponent(messages)
+                this.createMessageComponent(messages);
               } else {
                 const currentUser = storeCurrentUser.getState().currentUser;
                 if (currentUser) {
@@ -295,7 +295,9 @@ export default class Chats extends Block<ChatsType> {
   }
 
   subscribeToChangeMessages(): void {
-    storeChat.on(StoreChatEvents.UpdatedMessages, (state) => this.createMessageComponent(state));
+    storeChat.on(StoreChatEvents.UpdatedMessages, (state) =>
+      this.createMessageComponent(state)
+    );
   }
 
   private _isMyMessage(id: number) {
@@ -313,32 +315,32 @@ export default class Chats extends Block<ChatsType> {
     if (chatId) {
       storeChat.setSelectedChatId(chatId);
       this.connectWebSocket(chatId);
-      this.createMessageComponent(storeChat.getMessages(chatId) ?? [])
+      this.createMessageComponent(storeChat.getMessages(chatId) ?? []);
     }
   }
 
   private createMessageComponent(state: MessageDto[]): void {
     const messages = state
-        .sort(
-          (a: any, b: any) =>
-            new Date(a.time).valueOf() - new Date(b.time).valueOf()
-        )
-        .map((message: MessageDto) => {
-          return new Message({
-            message: message.content,
-            time: new Date(message.time).toLocaleTimeString(),
-            name: message.user_id,
-            className: this._isMyMessage(message.user_id),
-            avatar: new Avatar({
-              avatarURL: mockChats[0].avatarURL,
-              class: ["avatar-container"],
-              classImg: "avatar-container_avatar",
-            }),
-          });
+      .sort(
+        (a: any, b: any) =>
+          new Date(a.time).valueOf() - new Date(b.time).valueOf()
+      )
+      .map((message: MessageDto) => {
+        return new Message({
+          message: message.content,
+          time: new Date(message.time).toLocaleTimeString(),
+          name: message.user_id,
+          className: this._isMyMessage(message.user_id),
+          avatar: new Avatar({
+            avatarURL: mockChats[0].avatarURL,
+            class: ["avatar-container"],
+            classImg: "avatar-container_avatar",
+          }),
         });
-      if (!Array.isArray(this.children.messagesList)) {
-        this.children.messagesList.setProps({ messages });
-      }
+      });
+    if (!Array.isArray(this.children.messagesList)) {
+      this.children.messagesList.setProps({ messages });
+    }
   }
 
   connectWebSocket(chatId: number): void {

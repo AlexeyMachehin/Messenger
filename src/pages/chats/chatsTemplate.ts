@@ -1,10 +1,12 @@
 export const chatsTemplate = `
 aside.chats !{deleteUserDialog} !{addUserDialog} !{manageChatModal}
-    .chats-list__header !{generalLink} !{chatPageInput} 
+    .chats-list__header 
+        .general-link-container !{generalLink} 
+        .chat-page-input-container !{chatPageInput} 
         form.create-chat-form !{createChatInput} !{createChatButton}
-        ul.chats-list
-            each item in chats
-                li.chat__item !{item}            
+    ul.chats-list
+        each item in chats
+            li.chat__item !{item}            
 if getSelectedChat()
     section.chat            
         .chat__header

@@ -1,5 +1,5 @@
-import Block from '../block';
+import Block from "../block";
 
 export interface BlockConstructor<Props extends Record<string, any>> {
-    new(props: Props): Block<Props>;
+  new (props: Props): Block<Props>;
 }
