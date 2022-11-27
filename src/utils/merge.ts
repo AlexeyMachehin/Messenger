@@ -51,7 +51,7 @@ function deepMergeObjects<T>(obj1: any, obj2: any): T {
     if (isArray(obj2[key])) {
       result[key] = obj2[key];
     } else {
-        result[key] = merge(result[key], obj2[key]);
+      result[key] = merge(result[key], obj2[key]);
     }
   }
   return result;

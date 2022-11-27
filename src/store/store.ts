@@ -31,11 +31,11 @@ const initialState = {
 export class Store extends EventBus {
   state: State = initialState;
 
-  public getState() {
+  getState() {
     return this.state;
   }
 
-  public set(pathName: string, newState: any): void {
+  set(pathName: string, newState: any): void {
     const pathArray = pathName.split(".");
     const newValue = pathArray.reduceRight(
       (acc, item) => ({ [item]: acc }),

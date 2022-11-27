@@ -6,7 +6,7 @@ type ChatPageInputType = {
   type: string;
   placeholder: string;
   name?: string;
-  change?: (event: Event) => void
+  change?: (event: Event) => void;
 } & Props;
 
 export default class ChatPageInput extends Block<ChatPageInputType> {
@@ -17,8 +17,8 @@ export default class ChatPageInput extends Block<ChatPageInputType> {
   componentDidMount(): void {
     const change = this.props.change;
     if (change) {
-      const input = this.element?.querySelector('input');
-      input?.addEventListener('input', (event) => change(event))
+      const input = this.element?.querySelector("input");
+      input?.addEventListener("input", (event) => change(event));
     }
   }
 

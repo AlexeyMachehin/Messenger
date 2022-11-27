@@ -8,6 +8,6 @@ export type Props = {
   attr?: {
     [key: string]: string | number | boolean;
   };
-  class?: string[],
-  [key: string | symbol]: unknown
+  class?: string[];
+  [key: string | symbol]: unknown;
 };

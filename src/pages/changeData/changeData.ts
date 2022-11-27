@@ -1,20 +1,20 @@
-import {
-  ValidationPattern,
-  ValidationError,
-} from "./../../utils/models/validation";
+import Block from "../../utils/block";
+import { changeDataTemplate } from "./changeDataTemplate";
+import { router } from "../../index";
 import Avatar from "../../components/avatar/avatar";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
 import UploadAvatarModal from "../../components/uploadAvatarModal/uploadAvatarModal";
-import Block from "../../utils/block";
-import { onSubmitForm } from "../../utils/form/form";
-import { changeDataTemplate } from "./changeDataTemplate";
 import { user } from "../../utils/mockData";
+import { onSubmitForm } from "../../utils/form/form";
 import { Props } from "../../utils/models/props";
+import {
+  ValidationPattern,
+  ValidationError,
+} from "./../../utils/models/validation";
 import "./changeData.scss";
-import { router } from "../../index";
 
 type ChangeDataType = {
   avatarURL: string;

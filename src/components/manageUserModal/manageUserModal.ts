@@ -1,10 +1,10 @@
 import Block from "../../utils/block";
 import { manageUserModalTemplate } from "./manageUserModalTemplate";
 import { Props } from "../../utils/models/props";
-import { Dialog } from "../../utils/service/dialogService";
-import { fromStringToClassName } from "../../utils/fromStringToClassName";
 import GeneralInput from "../generalInput/generalInput";
 import GeneralButton from "../generalButton/generalButton";
+import { Dialog } from "../../utils/service/dialogService";
+import { fromStringToClassName } from "../../utils/fromStringToClassName";
 
 type ManageUserModalType = {
   title: string;

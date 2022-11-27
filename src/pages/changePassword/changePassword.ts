@@ -1,17 +1,17 @@
 import Block from "../../utils/block";
 import { changePasswordTemplate } from "./changePasswordTemplate";
-import { Props } from "./../../utils/models/props";
-import {
-  ValidationPattern,
-  ValidationError,
-} from "./../../utils/models/validation";
-import { onSubmitForm } from "../../utils/form/form";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
-import "./changePassword.scss";
 import { router } from "../../index";
+import {
+  ValidationPattern,
+  ValidationError,
+} from "./../../utils/models/validation";
+import { Props } from "./../../utils/models/props";
+import { onSubmitForm } from "../../utils/form/form";
+import "./changePassword.scss";
 
 type ChangePasswordType = {
   avatarURL: string;

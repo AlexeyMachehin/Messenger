@@ -1,15 +1,15 @@
 import Block from "../../utils/block";
 import { profileTemplate } from "./profileTemplate";
-import { Props } from "./../../utils/models/props";
-import { user } from "../../utils/mockData";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
-import "./profile.scss";
 import { router } from "../../index";
-import { ROUTES } from "../../utils/router/routes";
 import userControllers from "../../controllers/user-controllers";
+import { Props } from "./../../utils/models/props";
+import { user } from "../../utils/mockData";
+import { ROUTES } from "../../utils/router/routes";
+import "./profile.scss";
 
 type ProfileType = {
   avatarURL: string;
