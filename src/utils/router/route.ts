@@ -1,16 +1,16 @@
 import Block from "../block";
 import { BlockConstructor } from "../models/class-type";
-import { Props } from "../models/props";
+import { CommonProps } from "../models/props";
 import { render } from "../renderDOM";
 
 export default class Route {
   private _pathname: string;
-  private _blockClass: BlockConstructor<Props>;
-  private _block: Block<Props> | null;
+  private _blockClass: BlockConstructor<CommonProps>;
+  private _block: Block<CommonProps> | null;
   private _props: { rootQuery: string };
   constructor(
     pathname: string,
-    view: BlockConstructor<Props>,
+    view: BlockConstructor<CommonProps>,
     props: { rootQuery: string }
   ) {
     this._pathname = pathname;

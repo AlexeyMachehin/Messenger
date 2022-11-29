@@ -1,11 +1,13 @@
-import authorization from "../api/auth";
+import {AuthorizationAPI} from "../api/auth";
 import { storeCurrentUser } from "../store/storeCurrentUser";
 import { store } from "../store/store";
 
-export class UserController {
+const authorizationAPI = new AuthorizationAPI();
+
+export default class UserController {
   async signIn(data: { login: string; password: string }): Promise<boolean> {
     try {
-      await authorization.signIn(data);
+      await authorizationAPI.signIn(data);
       store.set("isAuth", true);
       return true;
     } catch {
@@ -14,14 +16,21 @@ export class UserController {
     }
   }
 
-  async signUp(data: { login: string; password: string }): Promise<void> {
-    await authorization.signUp(data);
-    return store.set("isAuth", true);
+  async signUp(data: { login: string; password: string }): Promise<boolean> {
+    try {
+      await authorizationAPI.signUp(data);
+      store.set("isAuth", true);
+      return true;
+    } catch (error) {
+      alert(`Server error ${error}`);
+      store.set("isAuth", false);
+      return false;
+    }
   }
 
   async getUser(): Promise<boolean> {
     try {
-      const data = await authorization.getUser();
+      const data = await authorizationAPI.getUser();
       store.set("isAuth", true);
       storeCurrentUser.set("currentUser", data);
       return true;
@@ -31,10 +40,8 @@ export class UserController {
   }
 
   async logout(): Promise<void> {
-    await authorization.logout();
+    await authorizationAPI.logout();
     store.set("isAuth", false);
     store.set("currentUser", null);
   }
 }
-
-export default new UserController();

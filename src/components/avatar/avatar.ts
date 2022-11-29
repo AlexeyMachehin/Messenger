@@ -1,11 +1,11 @@
 import Block from "../../utils/block";
 import { avatarTemplate } from "./avatarTemplate";
-import { Props } from "./../../utils/models/props";
+import { CommonProps } from "./../../utils/models/props";
 
 export type AvatarType = {
   avatarURL: string;
   classImg: string;
-} & Props;
+} & CommonProps;
 
 export default class Avatar extends Block<AvatarType> {
   constructor(props: AvatarType) {

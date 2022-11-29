@@ -1,6 +1,6 @@
 import Block from "../../utils/block";
 import { messageTemplate } from "./messageTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 import { AvatarType } from "./../avatar/avatar";
 
 type MessageType = {
@@ -9,7 +9,7 @@ type MessageType = {
   name: string | number;
   className: string;
   avatar: Block<AvatarType>;
-} & Props;
+} & CommonProps;
 
 export default class Message extends Block<MessageType> {
   constructor(props: MessageType) {

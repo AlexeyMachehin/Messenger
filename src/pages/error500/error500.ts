@@ -2,13 +2,13 @@ import Block from "../../utils/block";
 import { error500Template } from "./error500Template";
 import GeneralLink from "../../components/generalLink/generalLink";
 import { router } from "../../index";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 import { ROUTES } from "../../utils/router/routes";
 import "./error500.scss";
 
 type Error500Type = {
   generalLink: GeneralLink;
-} & Props;
+} & CommonProps;
 
 export default class Error500 extends Block<Error500Type> {
   constructor() {

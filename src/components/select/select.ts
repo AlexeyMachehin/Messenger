@@ -1,13 +1,13 @@
 import Block from "../../utils/block";
 import { selectTemplate } from "./selectTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 import { fromStringToClassName } from "../../utils/fromStringToClassName";
 import SelectItem from "../selectItem/selectItem";
 import SelectService from "./selectService";
 
 type SelectType = {
   items: SelectItem[];
-} & Props;
+} & CommonProps;
 
 export default class Select extends Block<SelectType> {
   service: SelectService | null = null;

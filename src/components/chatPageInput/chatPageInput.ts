@@ -1,13 +1,13 @@
 import Block from "../../utils/block";
 import { chatPageInputTemplate } from "./chatPageInputTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 
 type ChatPageInputType = {
   type: string;
   placeholder: string;
   name?: string;
   change?: (event: Event) => void;
-} & Props;
+} & CommonProps;
 
 export default class ChatPageInput extends Block<ChatPageInputType> {
   constructor(props: ChatPageInputType) {

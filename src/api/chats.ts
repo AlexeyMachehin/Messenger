@@ -1,4 +1,4 @@
-import { ChatDto } from "./../utils/dto/chat-dto";
+import { ChatDto } from "../utils/dto/chat-dto";
 import HTTPTransport from "../utils/httpTransport";
 
 export class ChatsAPI extends HTTPTransport {
@@ -13,4 +13,4 @@ export class ChatsAPI extends HTTPTransport {
   }
 }
 
-export default new ChatsAPI();
+

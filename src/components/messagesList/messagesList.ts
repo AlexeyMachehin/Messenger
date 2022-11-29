@@ -1,12 +1,12 @@
 import Block from "../../utils/block";
 import { messagesListTemplate } from "./messagesListTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 import Message from "../message/message";
 
 type MessagesListType = {
   timeHeader: string;
   messages: Message[];
-} & Props;
+} & CommonProps;
 
 export default class MessagesList extends Block<MessagesListType> {
   constructor(props: MessagesListType) {

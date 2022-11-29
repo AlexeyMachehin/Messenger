@@ -1,7 +1,7 @@
-import { Props } from "./models/props";
+import { CommonProps } from "./models/props";
 import Block from "./block";
 
-export function render(query: string, block: Block<Props>) {
+export function render(query: string, block: Block<CommonProps>) {
   const root = document.querySelector(query);
   const content = block.getContent();
   if (content != null) {

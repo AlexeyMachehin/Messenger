@@ -1,5 +1,5 @@
 export function queryStringify(data: {}) {
-  let urlParameters =
+  const urlParameters =
     "?" +
     Object.entries(data)
       .map((e) => e.join("="))

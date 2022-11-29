@@ -1,10 +1,10 @@
 import Block from "../../utils/block";
 import { generalButtonTemplate } from "./generalButtonTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 
 type GeneralButtonType = {
   buttonText: string;
-} & Props;
+} & CommonProps;
 
 export default class GeneralButton extends Block<GeneralButtonType> {
   constructor(props: GeneralButtonType) {

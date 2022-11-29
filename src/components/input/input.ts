@@ -1,9 +1,9 @@
 import Block from "../../utils/block";
 import { inputTemplate } from "./inputTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 
-export default class Input extends Block<Props> {
-  constructor(props: Props) {
+export default class Input extends Block<CommonProps> {
+  constructor(props: CommonProps) {
     super("input", {
       ...props,
       class: ["general-input"],

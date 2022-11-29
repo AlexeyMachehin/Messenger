@@ -1,4 +1,4 @@
-import { Props } from "./models/props";
+import { CommonProps } from "./models/props";
 import { Events } from "./models/events";
 import { EventBus } from "./eventBus";
 import { v4 as makeUUID } from "uuid";
@@ -6,7 +6,7 @@ import { compile } from "pug";
 
 type Children = { [key: string]: Block<{}> | Block<{}>[] };
 
-class Block<T extends Props> extends EventBus {
+class Block<T extends CommonProps> extends EventBus {
   private _element: HTMLElement | null = null;
 
   private _meta: {
@@ -80,18 +80,18 @@ class Block<T extends Props> extends EventBus {
     this.emit(Events.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: Props, newProps: Props): void {
+  private _componentDidUpdate(oldProps: CommonProps, newProps: CommonProps): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {
       this.emit(Events.FLOW_RENDER);
     }
   }
 
-  componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+  componentDidUpdate(oldProps: CommonProps, newProps: CommonProps): boolean {
     return oldProps !== newProps;
   }
 
-  setProps = (nextProps: Props): void => {
+  setProps = (nextProps: CommonProps): void => {
     if (!nextProps) {
       return;
     }
@@ -187,9 +187,9 @@ class Block<T extends Props> extends EventBus {
     });
   }
 
-  private _getChildren(propsAndChildren: Props): {
+  private _getChildren(propsAndChildren: CommonProps): {
     children: Children;
-    props: Props;
+    props: CommonProps;
   } {
     const children: Children = {};
     const props = {} as Record<string, any>;
@@ -212,7 +212,7 @@ class Block<T extends Props> extends EventBus {
     return { children, props };
   }
 
-  compile(template: string, props: Props): DocumentFragment {
+  compile(template: string, props: CommonProps): DocumentFragment {
     this.children = this._getChildren(props).children;
     const propsAndStubs = { ...props };
     Object.entries(this.children).forEach(([key, child]) => {

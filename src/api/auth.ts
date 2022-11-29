@@ -1,4 +1,4 @@
-import { UserDto } from "./../utils/dto/user-dto";
+import { UserDto } from "../utils/dto/user-dto";
 import HTTPTransport from "../utils/httpTransport";
 
 export class AuthorizationAPI extends HTTPTransport {
@@ -19,4 +19,4 @@ export class AuthorizationAPI extends HTTPTransport {
   }
 }
 
-export default new AuthorizationAPI();
+
