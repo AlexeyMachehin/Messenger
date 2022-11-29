@@ -1,0 +1,29 @@
+.uploadAvatarModal__card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    .uploadAvatarModal__label {
+        color: $appColor;
+        cursor: pointer;
+    }
+}
+
+.uploadAvatarModal {
+    border-radius: 4px;
+}
+
+.close-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.close-modal-button {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../static/images/closeCross.svg);
+    background-color: inherit;
+}
