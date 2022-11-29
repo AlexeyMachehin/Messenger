@@ -1,6 +1,6 @@
 import { storeChat } from "../store/storeChat";
 import { store } from "../store/store";
-import { ConnectionAPI } from "../api/connection";
+import { ConnectionAPI } from "../api/Connection";
 
 const connectionAPI = new ConnectionAPI();
 

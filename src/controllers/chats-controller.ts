@@ -1,4 +1,4 @@
-import { ChatsAPI } from "../api/chats";
+import { ChatsAPI } from "../api/Chats";
 import { storeChat } from "../store/storeChat";
 
 const chatsAPI = new ChatsAPI();

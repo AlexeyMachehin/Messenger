@@ -1,4 +1,4 @@
-import {AuthorizationAPI} from "../api/auth";
+import {AuthorizationAPI} from "../api/Auth";
 import { storeCurrentUser } from "../store/storeCurrentUser";
 import { store } from "../store/store";
 
