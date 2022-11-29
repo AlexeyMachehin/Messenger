@@ -1,12 +1,12 @@
-import UserController from "./../../controllers/user-controllers";
-import { BlockConstructor } from "../models/class-type";
+import UserController from "../../controllers/User";
+import { BlockConstructor } from "../models/classType";
 import { CommonProps } from "../models/props";
-import Route from "./route";
+import {Route} from "./route";
 import { ROUTES } from "./routes";
 
 const userController = new UserController();
 
-export default class Router {
+export class Router {
   static __instance: Router;
   routes: Route[] = [];
   history: History = window.history;

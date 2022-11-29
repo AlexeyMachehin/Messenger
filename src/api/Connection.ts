@@ -1,5 +1,5 @@
-import { store } from "../store/store";
-import HTTPTransport from "../utils/httpTransport";
+import { store } from "../store/Store";
+import HTTPTransport from "../utils/HttpTransport";
 
 export class ConnectionAPI extends HTTPTransport {
   async connect(id: number): Promise<string> {

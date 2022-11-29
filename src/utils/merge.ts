@@ -2,8 +2,7 @@ function isObject(obj: any) {
   return typeof obj === "object";
 }
 
-
-function merge<T>(lhs: unknown, rhs: unknown): T {
+export function merge<T>(lhs: unknown, rhs: unknown): T {
   if (!isObject(lhs) && !Array.isArray(lhs)) {
     if (Array.isArray(rhs) || isObject(rhs)) {
       return deepCopy(rhs);
@@ -55,4 +54,4 @@ function deepMergeObjects<T>(obj1: any, obj2: any): T {
   return result;
 }
 
-export default merge;
+

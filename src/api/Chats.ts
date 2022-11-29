@@ -1,5 +1,5 @@
-import { ChatDto } from "../utils/dto/chat-dto";
-import HTTPTransport from "../utils/httpTransport";
+import { ChatDto } from "../utils/dto/chat";
+import HTTPTransport from "../utils/HttpTransport";
 
 export class ChatsAPI extends HTTPTransport {
   getChats(): Promise<ChatDto[]> {

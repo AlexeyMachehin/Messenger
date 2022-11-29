@@ -1,9 +1,9 @@
-import Block from "../block";
-import { BlockConstructor } from "../models/class-type";
+import Block from "../Block";
+import { BlockConstructor } from "../models/classType";
 import { CommonProps } from "../models/props";
 import { render } from "../renderDOM";
 
-export default class Route {
+export class Route {
   private _pathname: string;
   private _blockClass: BlockConstructor<CommonProps>;
   private _block: Block<CommonProps> | null;

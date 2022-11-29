@@ -1,5 +1,5 @@
-import { storeChat } from "../store/storeChat";
-import { store } from "../store/store";
+import { storeChat } from "../store/StoreChat";
+import { store } from "../store/Store";
 import { ConnectionAPI } from "../api/Connection";
 
 const connectionAPI = new ConnectionAPI();
