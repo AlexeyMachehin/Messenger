@@ -11,6 +11,6 @@
    
   },
   "exclude": [
-    "src/utils/httpTransport.ts"
+    "src/utils/HttpTransport.ts"
   ]
 }
