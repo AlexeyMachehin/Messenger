@@ -8,7 +8,9 @@ import {Registration} from "../../pages/registration/Registration";
 type IThis = Login | Registration | Chats | ChangePassword | ChangeData;
 
 export function onSubmitForm<T extends {}>(this: IThis): T {
+  /** Event of submit. */
   const event = arguments[0];
+  /** Class name form. */
   const className = arguments[1];
 
   event.preventDefault();
@@ -28,7 +30,9 @@ export function onSubmitForm<T extends {}>(this: IThis): T {
 }
 
 export function checkInputValue(this: GeneralInput) {
+  /** HTML input element. */
   const element = arguments[0];
+  /** Event of input/focus/blur. */
   const event = arguments[1];
 
   if (!element.validity.valid) {

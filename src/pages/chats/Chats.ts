@@ -363,14 +363,18 @@ export class Chats extends Block<ChatsType> {
   }
 }
 
-function openSelect(this: Chats) {
+function openSelect(this: Chats): void {
+  /** Event of click. */
   const indexOfEvent = 0;
+  /** Component Select. */
   const indexOfSelect = 1;
+
   (this.children[arguments[indexOfSelect]] as Select).service?.open();
   (arguments[indexOfEvent] as PointerEvent).stopPropagation();
 }
 
 function openDialog(this: Chats) {
+  /** Event of click. */
   const indexOfEvent = 0;
   (
     this.children[arguments[indexOfEvent]] as ManageUserModal
