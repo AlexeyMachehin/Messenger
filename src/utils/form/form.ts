@@ -1,11 +1,13 @@
 import {GeneralInput} from "../../components/generalInput/GeneralInput";
 import {ChangeData} from "../../pages/changeData/ChangeData";
 import {ChangePassword} from "../../pages/changePassword/ChangePassword";
-import {Chats} from "../../pages/chats/Chats";
+import { Chats } from "../../pages/chats/Chats";
+import { AsidePanel } from "../../pages/chats/components/asidePanel/AsidePanel";
+import { ChatPanel } from "../../pages/chats/components/chatPanel/CHatPanel";
 import {Login} from "../../pages/login/Login";
 import {Registration} from "../../pages/registration/Registration";
 
-type IThis = Login | Registration | Chats | ChangePassword | ChangeData;
+type IThis = Login | Registration | AsidePanel | ChatPanel | Chats | ChangePassword | ChangeData;
 
 export function onSubmitForm<T extends {}>(this: IThis): T {
   /** Event of submit. */
