@@ -1,0 +1,15 @@
+@import "../../../styles.scss";
+@import "../../layouts/main/main.scss";
+@import "../../components/generalButton/generalButton.scss";
+@import "../../components/generalInput/generalInput.scss";
+@import "../../components/generalLink/generalLink.scss";
+
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 320px;
+    min-height: 320px;
+}

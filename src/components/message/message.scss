@@ -1,0 +1,36 @@
+.message-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    .message-text {
+        display: flex;
+        align-items: center;
+        max-width: 500px;
+        overflow-wrap: anywhere;
+        border-radius: 16px;
+        padding: 10px;
+    }
+
+    .message-time {
+        color: $secondaryColor;
+        font-size: 12px;
+    }
+
+    .user-message {
+        background-color: $userMessage;
+    }
+
+    .message-content__header {
+        display: flex;
+        align-items: center;
+    }
+
+    .message-name {
+        margin-right: 10px;
+    }
+
+    .my-message {
+        background-color: $myMessage;
+    }
+}
