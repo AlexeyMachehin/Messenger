@@ -1,4 +1,4 @@
-import { ChatsController } from "./../../controllers/chats-controller";
+import { ChatsController } from "../../controllers/ChatsController";
 import Block from "../../utils/block";
 import { chatsTemplate } from "./chatsTemplate";
 import { CommonProps } from "./../../utils/models/props";
