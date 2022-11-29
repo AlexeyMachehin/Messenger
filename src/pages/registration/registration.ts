@@ -1,4 +1,4 @@
-import UserController from "./../../controllers/user-controllers";
+import UserController from "../../controllers/UserController";
 import Block from "../../utils/block";
 import { registrationTemplate } from "./registrationTemplate";
 import GeneralButton from "../../components/generalButton/generalButton";

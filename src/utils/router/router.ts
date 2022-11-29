@@ -1,4 +1,4 @@
-import UserController from "./../../controllers/user-controllers";
+import UserController from "../../controllers/UserController";
 import { BlockConstructor } from "../models/class-type";
 import { CommonProps } from "../models/props";
 import Route from "./route";

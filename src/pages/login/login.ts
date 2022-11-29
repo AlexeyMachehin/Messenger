@@ -1,4 +1,4 @@
-import  UserController  from './../../controllers/user-controllers';
+import  UserController  from '../../controllers/UserController';
 import Block from "../../utils/block";
 import { loginTemplate } from "./loginTemplate";
 import { CommonProps } from "./../../utils/models/props";
