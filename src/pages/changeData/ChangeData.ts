@@ -1,12 +1,12 @@
 import Block from "../../utils/Block";
 import { changeDataTemplate } from "./changeDataTemplate";
 import { router } from "../../index";
-import {Avatar} from "../../components/Avatar/Avatar";
-import {GeneralButton} from "../../components/GeneralButton/GeneralButton";
-import {GeneralInput} from "../../components/GeneralInput/GeneralInput";
-import {GoBackAside} from "../../components/GoBackAside/GoBackAside";
-import {Input} from "../../components/Input/Input";
-import {UploadAvatarModal} from "../../components/UploadAvatarModal/UploadAvatarModal";
+import {Avatar} from "../../components/avatar/Avatar";
+import {GeneralButton} from "../../components/generalButton/GeneralButton";
+import {GeneralInput} from "../../components/generalInput/GeneralInput";
+import {GoBackAside} from "../../components/goBackAside/GoBackAside";
+import {Input} from "../../components/input/Input";
+import {UploadAvatarModal} from "../../components/uploadAvatarModal/UploadAvatarModal";
 import { user } from "../../utils/mockData";
 import { onSubmitForm } from "../../utils/form/form";
 import { CommonProps } from "../../utils/models/props";

@@ -1,7 +1,7 @@
 import Block from "../../utils/Block";
 import { messagesListTemplate } from "./messagesListTemplate";
 import { CommonProps } from "../../utils/models/props";
-import {Message} from "../Message/Message";
+import {Message} from "../message/Message";
 
 type MessagesListType = {
   timeHeader: string;

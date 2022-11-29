@@ -1,8 +1,8 @@
 import Block from "../../utils/Block";
 import { manageUserModalTemplate } from "./manageUserModalTemplate";
 import { CommonProps } from "../../utils/models/props";
-import {GeneralInput} from "../GeneralInput/GeneralInput";
-import {GeneralButton} from "../GeneralButton/GeneralButton";
+import {GeneralInput} from "../generalInput/GeneralInput";
+import {GeneralButton} from "../generalButton/GeneralButton";
 import { Dialog } from "../../utils/service/dialogService";
 import { fromStringToClassName } from "../../utils/fromStringToClassName";
 

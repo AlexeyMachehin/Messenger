@@ -1,7 +1,7 @@
 import Block from "../../utils/Block";
 import { generalInputTemplate } from "./generalInputTemplate";
 import { CommonProps } from "../../utils/models/props";
-import {Input} from "../Input/Input";
+import {Input} from "../input/Input";
 import { checkInputValue } from "../../utils/form/form";
 
 type GeneralInputType = {

@@ -2,10 +2,10 @@ import  UserController  from '../../controllers/User';
 import Block from "../../utils/Block";
 import { loginTemplate } from "./loginTemplate";
 import { CommonProps } from "../../utils/models/props";
-import {GeneralButton} from "../../components/GeneralButton/GeneralButton";
-import {GeneralInput} from "../../components/GeneralInput/GeneralInput";
-import {GeneralLink} from "../../components/GeneralLink/GeneralLink";
-import {Input} from "../../components/Input/Input";
+import {GeneralButton} from "../../components/generalButton/GeneralButton";
+import {GeneralInput} from "../../components/generalInput/GeneralInput";
+import {GeneralLink} from "../../components/generalLink/GeneralLink";
+import {Input} from "../../components/input/Input";
 import { router } from "../../index";
 import {
   ValidationPattern,

@@ -1,9 +1,9 @@
-import {GeneralInput} from "../../components/GeneralInput/GeneralInput";
-import {ChangeData} from "../../pages/ChangeData/ChangeData";
-import {ChangePassword} from "../../pages/ChangePassword/ChangePassword";
-import {Chats} from "../../pages/Chats/Chats";
-import {Login} from "../../pages/Login/Login";
-import {Registration} from "../../pages/Registration/Registration";
+import {GeneralInput} from "../../components/generalInput/GeneralInput";
+import {ChangeData} from "../../pages/changeData/ChangeData";
+import {ChangePassword} from "../../pages/changePassword/ChangePassword";
+import {Chats} from "../../pages/chats/Chats";
+import {Login} from "../../pages/login/Login";
+import {Registration} from "../../pages/registration/Registration";
 
 type IThis = Login | Registration | Chats | ChangePassword | ChangeData;
 

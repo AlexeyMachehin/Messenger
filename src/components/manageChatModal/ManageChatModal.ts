@@ -3,7 +3,7 @@ import { manageChatModalTemplate } from "./manageChatModalTemplate";
 import { CommonProps } from "../../utils/models/props";
 import { Dialog } from "../../utils/service/dialogService";
 import { fromStringToClassName } from "../../utils/fromStringToClassName";
-import {GeneralButton} from "../GeneralButton/GeneralButton";
+import {GeneralButton} from "../generalButton/GeneralButton";
 
 type ManageChatModalType = {
   generalButton: GeneralButton;

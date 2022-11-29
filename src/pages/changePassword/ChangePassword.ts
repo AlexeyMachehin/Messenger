@@ -1,9 +1,9 @@
 import Block from "../../utils/Block";
 import { changePasswordTemplate } from "./changePasswordTemplate";
-import {GeneralButton} from "../../components/GeneralButton/GeneralButton";
-import {GeneralInput} from "../../components/GeneralInput/GeneralInput";
-import {GoBackAside} from "../../components/GoBackAside/GoBackAside";
-import {Input} from "../../components/Input/Input";
+import {GeneralButton} from "../../components/generalButton/GeneralButton";
+import {GeneralInput} from "../../components/generalInput/GeneralInput";
+import {GoBackAside} from "../../components/goBackAside/GoBackAside";
+import {Input} from "../../components/input/Input";
 import { router } from "../../index";
 import {
   ValidationPattern,

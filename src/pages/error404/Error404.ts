@@ -1,6 +1,6 @@
 import Block from "../../utils/Block";
 import { error404Template } from "./error404Template";
-import {GeneralLink} from "../../components/GeneralLink/GeneralLink";
+import {GeneralLink} from "../../components/generalLink/GeneralLink";
 import { router } from "../../index";
 import { CommonProps } from "../../utils/models/props";
 import { ROUTES } from "../../utils/router/routes";

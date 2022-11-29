@@ -1,7 +1,7 @@
 import Block from "../../utils/Block";
 import { chatTemplate } from "./chatTemplate";
 import { CommonProps } from "../../utils/models/props";
-import {Avatar} from "../Avatar/Avatar";
+import {Avatar} from "../avatar/Avatar";
 
 type ChatType = {
   name: string;

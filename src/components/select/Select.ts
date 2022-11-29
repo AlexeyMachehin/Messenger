@@ -2,7 +2,7 @@ import Block from "../../utils/Block";
 import { selectTemplate } from "./selectTemplate";
 import { CommonProps } from "../../utils/models/props";
 import { fromStringToClassName } from "../../utils/fromStringToClassName";
-import {SelectItem} from "../SelectItem/SelectItem";
+import {SelectItem} from "../selectItem/SelectItem";
 import {SelectService} from "./SelectService";
 
 type SelectType = {
