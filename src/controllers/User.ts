@@ -1,4 +1,4 @@
-import {AuthorizationAPI} from "../api/Auth";
+import { AuthorizationAPI } from "../api/Auth";
 import { storeCurrentUser } from "../store/StoreCurrentUser";
 import { store } from "../store/Store";
 
@@ -10,8 +10,9 @@ export class UserController {
       await authorizationAPI.signIn(data);
       store.set("isAuth", true);
       return true;
-    } catch {
+    } catch (error) {
       store.set("isAuth", false);
+      alert(`Server error: ${(error as any).reason}. Try again`);
       return false;
     }
   }
@@ -22,8 +23,8 @@ export class UserController {
       store.set("isAuth", true);
       return true;
     } catch (error) {
-      alert(`Server error ${error}`);
       store.set("isAuth", false);
+      alert(`Server error: ${(error as any).reason}. Try again`);
       return false;
     }
   }
@@ -40,8 +41,12 @@ export class UserController {
   }
 
   async logout(): Promise<void> {
-    await authorizationAPI.logout();
-    store.set("isAuth", false);
-    store.set("currentUser", null);
+    try {
+      await authorizationAPI.logout();
+      store.set("isAuth", false);
+      store.set("currentUser", null);
+    } catch (error) {
+      alert(`Server error: ${(error as any).reason}. Try again`);
+    }
   }
 }

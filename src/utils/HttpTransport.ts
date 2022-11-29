@@ -29,7 +29,7 @@ export class HTTPTransport {
       method: METHODS.PATCH,
     });
   }
-  protected delete(url: string, options: HTTPOptions) {
+  public delete(url: string, options: HTTPOptions) {
     return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
       ...options,
       method: METHODS.DELETE,
@@ -60,12 +60,10 @@ export class HTTPTransport {
       }
 
       xhr.onload = function () {
-        const resp: any = "";
-
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(xhr.response);
         } else {
-          reject(resp);
+          reject(xhr.response);
         }
 
         resolve(xhr.response);

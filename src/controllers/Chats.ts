@@ -4,19 +4,28 @@ import { storeChat } from "../store/StoreChat";
 const chatsAPI = new ChatsAPI();
 
 export class ChatsController {
-  getChats(): void {
-    chatsAPI.getChats().then((data) => {
+  async getChats(): Promise<void> {
+    try {
+      const data = await chatsAPI.getChats();
       storeChat.setChats(data);
-    });
+    } catch (error) {
+      alert(`Server error: ${(error as any).reason}. Try again`);
+    }
   }
-  findChat(value: string) {
-    chatsAPI.findChat(value).then((data) => {
+  async findChat(value: string): Promise<void> {
+    try {
+      const data = await chatsAPI.findChat(value);
       storeChat.setChats(data);
-    });
+    } catch (error) {
+      alert(`Server error: ${(error as any).reason}. Try again`);
+    }
   }
-  createChat(data: { title: string }) {
-    chatsAPI.createChat(data).then(() => {
+  async createChat(data: { title: string }): Promise<void> {
+    try {
+      await chatsAPI.createChat(data);
       this.getChats();
-    });
+    } catch (error) {
+      alert(`Server error: ${(error as any).reason}. Try again`);
+    }
   }
 }
