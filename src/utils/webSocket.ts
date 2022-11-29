@@ -1,6 +1,8 @@
 import { storeChat } from "../store/storeChat";
 import { store } from "../store/store";
-import { connection } from "../api/connection";
+import { ConnectionAPI } from "../api/Connection";
+
+const connectionAPI = new ConnectionAPI();
 
 export class WebSocketService {
   private webSocketMap: Map<
@@ -9,11 +11,14 @@ export class WebSocketService {
   > = new Map();
 
   connect(data: { chatId: number; userId: number }): void {
-    if (process.env.YANDEXPRAKTIKUMWSS && !this.webSocketMap.has(data.chatId)) {
-      connection.connect(data.chatId).then((token) => {
+    if (
+      process.env.YANDEX_PRAKTIKUM_WSS &&
+      !this.webSocketMap.has(data.chatId)
+    ) {
+      connectionAPI.connect(data.chatId).then((token) => {
         new Promise<WebSocket>((res) => {
           const webSocket = new WebSocket(
-            `${process.env.YANDEXPRAKTIKUMWSS}/ws/chats/${data.userId}/${data.chatId}/${token}`
+            `${process.env.YANDEX_PRAKTIKUM_WSS}/ws/chats/${data.userId}/${data.chatId}/${token}`
           );
           webSocket.addEventListener("open", () => {
             store.set("isOpenWebSocket", true);

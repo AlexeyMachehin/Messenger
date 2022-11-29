@@ -1,6 +1,6 @@
 import Block from "../../utils/block";
 import { chatTemplate } from "./chatTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 import Avatar from "../avatar/avatar";
 
 type ChatType = {
@@ -10,7 +10,7 @@ type ChatType = {
   count: number;
   avatar: Avatar;
   id: number;
-} & Props;
+} & CommonProps;
 
 export default class Chat extends Block<ChatType> {
   constructor(props: ChatType) {

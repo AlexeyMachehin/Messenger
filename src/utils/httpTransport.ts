@@ -7,30 +7,30 @@ export default class HTTPTransport {
     if (options && options.data) {
       url = url + queryStringify(options.data);
     }
-    return this.request<T>(process.env.YANDEXPRAKTIKUMAPI + url, {
+    return this.request<T>(process.env.YANDEX_PRAKTIKUM_API + url, {
       method: METHODS.GET,
     });
   }
   protected post<T>(url: string, options: HTTPOptionsPost): Promise<T> {
-    return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
+    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
       ...options,
       method: METHODS.POST,
     });
   }
   protected put(url: string, options: HTTPOptions) {
-    return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
+    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
       ...options,
       method: METHODS.PUT,
     });
   }
   protected patch(url: string, options: HTTPOptions) {
-    return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
+    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
       ...options,
       method: METHODS.PATCH,
     });
   }
   protected delete(url: string, options: HTTPOptions) {
-    return this.request(process.env.YANDEXPRAKTIKUMAPI + url, {
+    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
       ...options,
       method: METHODS.DELETE,
     });
@@ -60,7 +60,7 @@ export default class HTTPTransport {
       }
 
       xhr.onload = function () {
-        let resp: any = "";
+        const resp: any = "";
 
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(xhr.response);

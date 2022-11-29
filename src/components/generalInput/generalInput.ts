@@ -1,6 +1,6 @@
 import Block from "../../utils/block";
 import { generalInputTemplate } from "./generalInputTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 import Input from "../input/input";
 import { checkInputValue } from "../../utils/form/form";
 
@@ -9,7 +9,7 @@ type GeneralInputType = {
   input: Input;
   errorText?: string;
   isValid?: boolean;
-} & Props;
+} & CommonProps;
 
 export default class GeneralInput extends Block<GeneralInputType> {
   constructor(props: GeneralInputType) {

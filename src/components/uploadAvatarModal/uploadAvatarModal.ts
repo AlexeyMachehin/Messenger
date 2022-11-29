@@ -1,11 +1,11 @@
 import Block from "../../utils/block";
 import { uploadAvatarModalTemplate } from "./uploadAvatarModalTemplate";
 import { Dialog } from "../../utils/service/dialogService";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 
 type UploadAvatarModalType = {
   avatarURL: string;
-} & Props;
+} & CommonProps;
 
 export default class UploadAvatarModal extends Block<UploadAvatarModalType> {
   service: Dialog | null = null;

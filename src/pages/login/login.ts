@@ -1,12 +1,12 @@
+import  UserController  from './../../controllers/user-controllers';
 import Block from "../../utils/block";
 import { loginTemplate } from "./loginTemplate";
-import { Props } from "./../../utils/models/props";
+import { CommonProps } from "./../../utils/models/props";
 import GeneralButton from "../../components/generalButton/generalButton";
 import GeneralInput from "../../components/generalInput/generalInput";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Input from "../../components/input/input";
 import { router } from "../../index";
-import userController from "../../controllers/user-controllers";
 import {
   ValidationPattern,
   ValidationError,
@@ -20,7 +20,9 @@ type LoginType = {
   generalInputPassword: GeneralInput;
   generalButtonEnter: GeneralButton;
   generalLinkCreateAccount: GeneralLink;
-} & Props;
+} & CommonProps;
+
+const userController = new UserController();
 
 export default class Login extends Block<LoginType> {
   constructor() {

@@ -1,8 +1,10 @@
+import UserController from "./../../controllers/user-controllers";
 import { BlockConstructor } from "../models/class-type";
-import { Props } from "../models/props";
+import { CommonProps } from "../models/props";
 import Route from "./route";
-import userController from "../../controllers/user-controllers";
 import { ROUTES } from "./routes";
+
+const userController = new UserController();
 
 export default class Router {
   static __instance: Router;
@@ -24,7 +26,7 @@ export default class Router {
 
   use(
     pathname: string,
-    block: BlockConstructor<Props>,
+    block: BlockConstructor<CommonProps>,
     isAuth: boolean = true
   ): Router {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
@@ -49,7 +51,7 @@ export default class Router {
   }
 
   private _onRoute(pathname: string): void {
-    let pathTemplate = this._checkRoute(pathname);
+    const pathTemplate = this._checkRoute(pathname);
     let route = this.getRoute(pathTemplate);
     const isAuth = this.pathNamesWithoutAuth.includes(pathname);
     userController.getUser().then((result) => {

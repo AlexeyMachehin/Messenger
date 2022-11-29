@@ -1,3 +1,4 @@
+import UserController from "./../../controllers/user-controllers";
 import Block from "../../utils/block";
 import { profileTemplate } from "./profileTemplate";
 import GeneralInput from "../../components/generalInput/generalInput";
@@ -5,8 +6,7 @@ import GeneralLink from "../../components/generalLink/generalLink";
 import GoBackAside from "../../components/goBackAside/goBackAside";
 import Input from "../../components/input/input";
 import { router } from "../../index";
-import userControllers from "../../controllers/user-controllers";
-import { Props } from "./../../utils/models/props";
+import { CommonProps } from "./../../utils/models/props";
 import { user } from "../../utils/mockData";
 import { ROUTES } from "../../utils/router/routes";
 import "./profile.scss";
@@ -24,7 +24,9 @@ type ProfileType = {
   generalLinkChangeData: GeneralLink;
   generalLinkChangePassword: GeneralLink;
   logout: GeneralLink;
-} & Props;
+} & CommonProps;
+
+const userController = new UserController();
 
 export default class Profile extends Block<ProfileType> {
   constructor() {
@@ -125,7 +127,7 @@ export default class Profile extends Block<ProfileType> {
         text: "Exit",
         events: {
           click: () => {
-            userControllers.logout().then(() => router.go(ROUTES.Login));
+            userController.logout().then(() => router.go(ROUTES.Login));
           },
         },
       }),

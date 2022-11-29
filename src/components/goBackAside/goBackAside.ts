@@ -1,9 +1,9 @@
 import Block from "../../utils/block";
 import { goBackAsideTemplate } from "./goBackAsideTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 
-export default class GoBackAside extends Block<Props> {
-  constructor(props?: Props) {
+export default class GoBackAside extends Block<CommonProps> {
+  constructor(props?: CommonProps) {
     super("div", { ...props, class: ["goBackAside"] });
   }
 

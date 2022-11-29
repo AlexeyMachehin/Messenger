@@ -1,6 +1,6 @@
 import Block from "../../utils/block";
 import { manageChatModalTemplate } from "./manageChatModalTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 import { Dialog } from "../../utils/service/dialogService";
 import { fromStringToClassName } from "../../utils/fromStringToClassName";
 import GeneralButton from "../generalButton/generalButton";
@@ -8,7 +8,7 @@ import GeneralButton from "../generalButton/generalButton";
 type ManageChatModalType = {
   generalButton: GeneralButton;
   title: string;
-} & Props;
+} & CommonProps;
 
 export default class ManageChatModal extends Block<ManageChatModalType> {
   service: Dialog | null = null;

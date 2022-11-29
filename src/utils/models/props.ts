@@ -1,4 +1,4 @@
-export type Props = {
+export type CommonProps = {
   settings?: {
     withInternalID: boolean;
   };

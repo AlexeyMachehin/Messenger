@@ -1,6 +1,7 @@
+import { ChatsController } from "./../../controllers/chats-controller";
 import Block from "../../utils/block";
 import { chatsTemplate } from "./chatsTemplate";
-import { Props } from "./../../utils/models/props";
+import { CommonProps } from "./../../utils/models/props";
 import Avatar from "../../components/avatar/avatar";
 import GeneralLink from "../../components/generalLink/generalLink";
 import Chat from "../../components/chat/chat";
@@ -24,7 +25,6 @@ import { WebSocketService } from "../../utils/webSocket";
 import { ChatDto } from "./../../utils/dto/chat-dto";
 import { chats as mockChats } from "../../utils/mockData";
 import { onSubmitForm } from "../../utils/form/form";
-import chatsController from "../../controllers/chats-controller";
 import "./chats.scss";
 
 type ChatsType = {
@@ -46,9 +46,12 @@ type ChatsType = {
   manageChatModal: ManageChatModal;
   createChatInput: ChatPageInput;
   getSelectedChat: () => number | null;
-} & Props;
+} & CommonProps;
 
+const chatsController = new ChatsController();
 const webSocket = new WebSocketService();
+const DEFAULT_AVATAR_URL =
+  "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1";
 
 export default class Chats extends Block<ChatsType> {
   constructor() {
@@ -263,7 +266,7 @@ export default class Chats extends Block<ChatsType> {
           time: chat.last_message?.time ?? "",
           count: chat.unread_count,
           avatar: new Avatar({
-            avatarURL: chat.avatar,
+            avatarURL: chat.avatar ?? DEFAULT_AVATAR_URL,
             class: ["avatar-container"],
             classImg: "avatar-container_avatar",
           }),

@@ -9,7 +9,7 @@ import Input from "../../components/input/input";
 import UploadAvatarModal from "../../components/uploadAvatarModal/uploadAvatarModal";
 import { user } from "../../utils/mockData";
 import { onSubmitForm } from "../../utils/form/form";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 import {
   ValidationPattern,
   ValidationError,
@@ -29,7 +29,7 @@ type ChangeDataType = {
   generalInputNickname: GeneralInput;
   generalInputPhoneNumber: GeneralInput;
   generalButtonSave: GeneralButton;
-} & Props;
+} & CommonProps;
 
 export default class ChangeData extends Block<ChangeDataType> {
   constructor() {

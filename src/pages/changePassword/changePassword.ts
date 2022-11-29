@@ -9,7 +9,7 @@ import {
   ValidationPattern,
   ValidationError,
 } from "./../../utils/models/validation";
-import { Props } from "./../../utils/models/props";
+import { CommonProps } from "./../../utils/models/props";
 import { onSubmitForm } from "../../utils/form/form";
 import "./changePassword.scss";
 
@@ -19,7 +19,7 @@ type ChangePasswordType = {
   generalInputNewPassword: GeneralInput;
   generalButtonSave: GeneralButton;
   goBackAside: GoBackAside;
-} & Props;
+} & CommonProps;
 
 export default class ChangePassword extends Block<ChangePasswordType> {
   constructor() {

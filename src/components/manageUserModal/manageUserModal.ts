@@ -1,6 +1,6 @@
 import Block from "../../utils/block";
 import { manageUserModalTemplate } from "./manageUserModalTemplate";
-import { Props } from "../../utils/models/props";
+import { CommonProps } from "../../utils/models/props";
 import GeneralInput from "../generalInput/generalInput";
 import GeneralButton from "../generalButton/generalButton";
 import { Dialog } from "../../utils/service/dialogService";
@@ -10,7 +10,7 @@ type ManageUserModalType = {
   title: string;
   generalInput: GeneralInput;
   generalButton: GeneralButton;
-} & Props;
+} & CommonProps;
 
 export default class ManageUserModal extends Block<ManageUserModalType> {
   service: Dialog | null = null;
