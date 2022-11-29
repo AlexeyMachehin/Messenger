@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { avatarTemplate } from "./avatarTemplate";
 import { CommonProps } from "../../utils/models/props";
 

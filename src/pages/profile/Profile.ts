@@ -1,10 +1,10 @@
-import UserController from "../../controllers/User";
-import Block from "../../utils/Block";
+import { UserController } from "../../controllers/User";
+import { Block } from "../../utils/Block";
 import { profileTemplate } from "./profileTemplate";
-import {GeneralInput} from "../../components/generalInput/GeneralInput";
-import {GeneralLink} from "../../components/generalLink/GeneralLink";
-import {GoBackAside} from "../../components/goBackAside/GoBackAside";
-import {Input} from "../../components/input/Input";
+import { GeneralInput } from "../../components/generalInput/GeneralInput";
+import { GeneralLink } from "../../components/generalLink/GeneralLink";
+import { GoBackAside } from "../../components/goBackAside/GoBackAside";
+import { Input } from "../../components/input/Input";
 import { router } from "../../index";
 import { CommonProps } from "../../utils/models/props";
 import { user } from "../../utils/mockData";

@@ -1,11 +1,11 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { registrationTemplate } from "./registrationTemplate";
-import {GeneralButton} from "../../components/generalButton/GeneralButton";
-import {GeneralInput} from "../../components/generalInput/GeneralInput";
-import {GeneralLink} from "../../components/generalLink/GeneralLink";
-import {Input} from "../../components/input/Input";
+import { GeneralButton } from "../../components/generalButton/GeneralButton";
+import { GeneralInput } from "../../components/generalInput/GeneralInput";
+import { GeneralLink } from "../../components/generalLink/GeneralLink";
+import { Input } from "../../components/input/Input";
 import { onSubmitForm } from "../../utils/form/form";
-import UserController from "../../controllers/User";
+import { UserController } from "../../controllers/User";
 import { ROUTES } from "../../utils/router/routes";
 import { router } from "../../index";
 import { CommonProps } from "../../utils/models/props";

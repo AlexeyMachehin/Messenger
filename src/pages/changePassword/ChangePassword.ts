@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { changePasswordTemplate } from "./changePasswordTemplate";
 import {GeneralButton} from "../../components/generalButton/GeneralButton";
 import {GeneralInput} from "../../components/generalInput/GeneralInput";

@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { changeDataTemplate } from "./changeDataTemplate";
 import { router } from "../../index";
 import {Avatar} from "../../components/avatar/Avatar";

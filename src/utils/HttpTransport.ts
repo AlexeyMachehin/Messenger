@@ -2,7 +2,7 @@ import { HTTPOptions, HTTPOptionsPost } from "./models/httpOptions";
 import { METHODS } from "./models/httpMethod";
 import { queryStringify } from "./queryStringify";
 
-export default class HTTPTransport {
+export class HTTPTransport {
   protected get<T>(url: string, options?: HTTPOptionsPost) {
     if (options && options.data) {
       url = url + queryStringify(options.data);

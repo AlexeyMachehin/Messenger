@@ -1,5 +1,5 @@
 import { UserDto } from "../utils/dto/user";
-import HTTPTransport from "../utils/HttpTransport";
+import { HTTPTransport } from "../utils/HttpTransport";
 
 export class AuthorizationAPI extends HTTPTransport {
   signIn(value: { login: string; password: string }): Promise<void> {
@@ -18,5 +18,3 @@ export class AuthorizationAPI extends HTTPTransport {
     return this.post("auth/logout", {});
   }
 }
-
-

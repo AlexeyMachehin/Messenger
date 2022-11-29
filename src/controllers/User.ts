@@ -4,7 +4,7 @@ import { store } from "../store/Store";
 
 const authorizationAPI = new AuthorizationAPI();
 
-export default class UserController {
+export class UserController {
   async signIn(data: { login: string; password: string }): Promise<boolean> {
     try {
       await authorizationAPI.signIn(data);

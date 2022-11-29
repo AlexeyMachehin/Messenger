@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { generalInputTemplate } from "./generalInputTemplate";
 import { CommonProps } from "../../utils/models/props";
 import {Input} from "../input/Input";

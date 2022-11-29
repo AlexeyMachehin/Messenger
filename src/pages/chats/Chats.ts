@@ -1,5 +1,5 @@
 import { ChatsController } from "../../controllers/Chats";
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { chatsTemplate } from "./chatsTemplate";
 import { CommonProps } from "../../utils/models/props";
 import {Avatar} from "../../components/avatar/Avatar";

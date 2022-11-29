@@ -1,7 +1,7 @@
-import UserController from "../../controllers/User";
+import { UserController } from "../../controllers/User";
 import { BlockConstructor } from "../models/classType";
 import { CommonProps } from "../models/props";
-import {Route} from "./route";
+import { Route } from "./route";
 import { ROUTES } from "./routes";
 
 const userController = new UserController();

@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { manageUserModalTemplate } from "./manageUserModalTemplate";
 import { CommonProps } from "../../utils/models/props";
 import {GeneralInput} from "../generalInput/GeneralInput";
