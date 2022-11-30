@@ -1,6 +1,4 @@
-import { UserDto } from "./../../utils/dto/user";
 import { router } from "./../../index";
-import { storeCurrentUser } from "./../../store/StoreCurrentUser";
 import { UserController } from "../../controllers/User";
 import { Block } from "../../utils/Block";
 import { profileTemplate } from "./profileTemplate";
@@ -11,6 +9,8 @@ import { Input } from "../../components/input/Input";
 import { CommonProps } from "../../utils/models/props";
 import { ROUTES } from "../../utils/router/routes";
 import "./profile.scss";
+import { getUserInfo } from "../../utils/getUserInfo";
+import { getUserResources } from "../../utils/getUserResources";
 
 type ProfileType = {
   avatarURL: string;
@@ -28,15 +28,15 @@ type ProfileType = {
 } & CommonProps;
 
 const userController = new UserController();
-const DEFAULT_VALUE = "";
+
 const DEFAULT_AVATAR_URL =
   "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1";
 
 export class Profile extends Block<ProfileType> {
   constructor() {
     super("div", {
-      avatarURL: new URL('resources' + getUserInfo('avatar'), process.env.YANDEX_PRAKTIKUM_API).toString() ?? DEFAULT_AVATAR_URL,
-      displayName: getUserInfo("display_name"),
+      avatarURL: getUserResources("avatar") ?? DEFAULT_AVATAR_URL,
+      displayName: getUserInfo("first_name"),
       goBackAside: new GoBackAside({
         events: {
           click: () => router.back(),
@@ -141,17 +141,4 @@ export class Profile extends Block<ProfileType> {
   render(): DocumentFragment {
     return this.compile(profileTemplate, this.props);
   }
-}
-
-function getUserInfo<T extends keyof UserDto>(
-  value: T
-): NonNullable<UserDto[T]> | string {
-  const user = storeCurrentUser.getCurrentUser();
-  if (user && user[value]) {
-    const userInfo = user[value];
-    if (userInfo) {
-      return userInfo;
-    }
-  }
-  return DEFAULT_VALUE;
 }

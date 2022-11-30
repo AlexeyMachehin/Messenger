@@ -1,7 +1,8 @@
 export const chatPanelTemplate = `
 if getSelectedChat()
     section.chat !{deleteUserDialog} !{addUserDialog} !{manageChatModal} !{chatHeader}
-        .messages !{messagesList} !{chatFooter}
+        .messages !{messagesList} 
+        .chat-footer-wrapper !{chatFooter}
 else
     section.chat
         .no-messages
