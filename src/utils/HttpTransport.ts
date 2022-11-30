@@ -31,7 +31,7 @@ export class HTTPTransport {
       method: METHODS.PATCH,
     });
   }
-  public delete(url: string, options: HTTPOptions) {
+  protected delete<T>(url: string, options: HTTPOptionsPost): Promise<T> {
     return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.DELETE,

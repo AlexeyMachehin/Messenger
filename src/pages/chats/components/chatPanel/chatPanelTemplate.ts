@@ -1,6 +1,6 @@
 export const chatPanelTemplate = `
 if getSelectedChat()
-    section.chat !{deleteUserDialog} !{addUserDialog} !{manageChatModal} !{chatHeader}
+    section.chat !{chatHeader}
         .messages !{messagesList} !{chatFooter}
 else
     section.chat
