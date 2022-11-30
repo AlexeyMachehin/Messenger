@@ -40,6 +40,17 @@ export class UserController {
     }
   }
 
+  async getUserById(id): Promise<boolean> {
+    try {
+      const data = await authorizationAPI.getUser();
+      store.set("isAuth", true);
+      storeCurrentUser.setUser(data);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   async logout(): Promise<void> {
     try {
       await authorizationAPI.logout();
