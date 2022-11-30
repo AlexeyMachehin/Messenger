@@ -8,7 +8,6 @@ export enum StoreCurrentUserEvents {
 export class StoreCurrentUser extends Store {
   setUser(user: UserDto) {
     this.set("currentUser", user);
-    this.emit(StoreCurrentUserEvents.Updated, this.state.currentUser);
   }
   getCurrentUser(): UserDto | null {
     return this.getState().currentUser;

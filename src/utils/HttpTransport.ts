@@ -3,34 +3,36 @@ import { METHODS } from "./models/httpMethod";
 import { queryStringify } from "./queryStringify";
 
 export class HTTPTransport {
+  mainUrl = new URL('/api/v2/', process.env.YANDEX_PRAKTIKUM_API);
+
   protected get<T>(url: string, options?: HTTPOptionsPost) {
     if (options && options.data) {
       url = url + queryStringify(options.data);
     }
-    return this.request<T>(process.env.YANDEX_PRAKTIKUM_API + url, {
+    return this.request<T>(this.mainUrl.toString() + url, {
       method: METHODS.GET,
     });
   }
   protected post<T>(url: string, options: HTTPOptionsPost): Promise<T> {
-    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
+    return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.POST,
     });
   }
   protected put(url: string, options: HTTPOptions) {
-    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
+    return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.PUT,
     });
   }
   protected patch(url: string, options: HTTPOptions) {
-    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
+    return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.PATCH,
     });
   }
   public delete(url: string, options: HTTPOptions) {
-    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
+    return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.DELETE,
     });

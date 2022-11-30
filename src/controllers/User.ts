@@ -1,6 +1,6 @@
 import { AuthorizationAPI } from "../api/Auth";
-import { storeCurrentUser } from "../store/StoreCurrentUser";
 import { store } from "../store/Store";
+import { storeCurrentUser } from "../store/StoreCurrentUser";
 
 const authorizationAPI = new AuthorizationAPI();
 
@@ -33,7 +33,7 @@ export class UserController {
     try {
       const data = await authorizationAPI.getUser();
       store.set("isAuth", true);
-      storeCurrentUser.set("currentUser", data);
+      storeCurrentUser.setUser(data);
       return true;
     } catch {
       return false;
