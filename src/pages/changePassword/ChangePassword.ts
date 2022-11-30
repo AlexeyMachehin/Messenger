@@ -1,9 +1,9 @@
 import { Block } from "../../utils/Block";
 import { changePasswordTemplate } from "./changePasswordTemplate";
-import {GeneralButton} from "../../components/generalButton/GeneralButton";
-import {GeneralInput} from "../../components/generalInput/GeneralInput";
-import {GoBackAside} from "../../components/goBackAside/GoBackAside";
-import {Input} from "../../components/input/Input";
+import { GeneralButton } from "../../components/generalButton/GeneralButton";
+import { GeneralInput } from "../../components/generalInput/GeneralInput";
+import { GoBackAside } from "../../components/goBackAside/GoBackAside";
+import { Input } from "../../components/input/Input";
 import { router } from "../../index";
 import {
   ValidationPattern,
@@ -12,6 +12,8 @@ import {
 import { CommonProps } from "../../utils/models/props";
 import { onSubmitForm } from "../../utils/form/form";
 import "./changePassword.scss";
+import { UserController } from '../../controllers/User';
+import { ROUTES } from '../../utils/router/routes';
 
 type ChangePasswordType = {
   avatarURL: string;
@@ -20,6 +22,8 @@ type ChangePasswordType = {
   generalButtonSave: GeneralButton;
   goBackAside: GoBackAside;
 } & CommonProps;
+
+const userCOntroller = new UserController();
 
 export class ChangePassword extends Block<ChangePasswordType> {
   constructor() {
@@ -30,7 +34,7 @@ export class ChangePassword extends Block<ChangePasswordType> {
         input: new Input({
           attr: {
             type: "password",
-            name: "old-password",
+            name: "oldPassword",
             required: true,
             pattern: ValidationPattern.Password,
           },
@@ -42,7 +46,7 @@ export class ChangePassword extends Block<ChangePasswordType> {
         input: new Input({
           attr: {
             type: "password",
-            name: "password",
+            name: "newPassword",
             required: true,
             pattern: ValidationPattern.Password,
           },
@@ -60,11 +64,17 @@ export class ChangePassword extends Block<ChangePasswordType> {
         },
       }),
       events: {
-        submit: (event) =>
-          onSubmitForm.apply<ChangePassword, [Event, string], void>(this, [
+        submit: (event) => {
+          const value = onSubmitForm.apply<
+            ChangePassword,
+            [Event, string],
+            { oldPassword: string, newPassword: string; }
+          >(this, [
             event,
             ".change-password-form",
-          ]),
+          ]);
+          userCOntroller.changePassword(value).then(() => router.go(ROUTES.Profile));
+        }
       },
     });
   }

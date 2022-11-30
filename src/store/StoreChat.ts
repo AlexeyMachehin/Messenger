@@ -24,11 +24,11 @@ export class StoreChat extends Store {
     );
   }
 
-  setSelectedChat(chat: ChatDto) {
+  setSelectedChat(chat: ChatDto | null) {
     this.set("selectedChat", chat);
   }
 
-  setSelectedChatId(chat: number) {
+  setSelectedChatId(chat: number | null) {
     this.set("selectedChatId", chat);
     this.emit(StoreChatEvents.UpdatedSelectedChatId, this.state.selectedChatId);
   }

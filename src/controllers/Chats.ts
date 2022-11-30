@@ -28,4 +28,12 @@ export class ChatsController {
       alert(`Server error: ${(error as any).reason}. Try again`);
     }
   }
+  async deleteChat(data: { chatId: number; }): Promise<void> {
+    try {
+      await chatsAPI.deleteChat(data);
+      this.getChats();
+    } catch (error) {
+      alert(`Server error: ${(error as any).reason}. Try again`);
+    }
+  }
 }

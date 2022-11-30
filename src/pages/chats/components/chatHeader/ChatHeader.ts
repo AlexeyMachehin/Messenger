@@ -13,7 +13,11 @@ import { openDialog } from "../../../../utils/openDialog";
 import { GeneralInput } from '../../../../components/generalInput/GeneralInput';
 import { Input } from '../../../../components/input/Input';
 import { GeneralButton } from '../../../../components/generalButton/GeneralButton';
-import "./chatHeader.scss"
+import "./chatHeader.scss";
+import { ChatsController } from '../../../../controllers/Chats';
+import { storeChat } from '../../../../store/StoreChat';
+import { router } from '../../../../index';
+import { ROUTES } from '../../../../utils/router/routes';
 
 type ChatHeaderType = {
   avatarHeader: Avatar;
@@ -24,6 +28,7 @@ type ChatHeaderType = {
   manageChatModal: ManageChatModal;
 } & CommonProps;
 
+const chatsController = new ChatsController();
 export class ChatHeader extends Block<ChatHeaderType> {
   constructor() {
     super("div", {
@@ -77,7 +82,25 @@ export class ChatHeader extends Block<ChatHeaderType> {
         title: "Are you sure you want to delete the chat?",
         generalButton: new GeneralButton({
           buttonText: "Delete",
+          attr: {
+            type: 'submit'
+          }
         }),
+        handleOnSubmit: () => {
+          const chatId = storeChat.getSelectedChatId();
+          if (chatId != null) {
+            chatsController.deleteChat({ chatId })
+              .then(() => {
+                const dialog = this.children.manageChatModal;
+                if (!Array.isArray(dialog)) {
+                  (dialog as ManageChatModal).service?.closeDialog();
+                }
+                router.go(ROUTES.Chats);
+                storeChat.setSelectedChat(null);
+                storeChat.setSelectedChatId(null);
+              });
+          }
+        }
       }),
       manageUserButton: new IconButton({
         class: ["manage-user__button"],
