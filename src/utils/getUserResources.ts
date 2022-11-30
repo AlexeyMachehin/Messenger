@@ -3,12 +3,12 @@ import { getUserInfo } from "./getUserInfo";
 
 export function getUserResources<T extends keyof UserDto>(
   value: T
-): NonNullable<UserDto[T]> | string {
+): string | null {
   if (getUserInfo(value)) {
     return new URL(
       "resources" + getUserInfo(value),
       process.env.YANDEX_PRAKTIKUM_API
     ).toString();
   }
-  return "";
+  return null;
 }
