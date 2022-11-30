@@ -14,6 +14,8 @@ import { ChatsController } from "../../../../controllers/Chats";
 import { router } from "../../../../index";
 import "./asidePanel.scss";
 import { DEFAULT_AVATAR_URL } from "../../../../utils/constants";
+import { storeCurrentUser } from "../../../../store/StoreCurrentUser";
+import { WebSocketService } from "../../../../utils/webSocket";
 
 type AsidePanelType = {
   createChatButton: GeneralButton;
@@ -25,6 +27,7 @@ type AsidePanelType = {
 } & CommonProps;
 
 const chatsController = new ChatsController();
+const webSocket = new WebSocketService();
 
 export class AsidePanel extends Block<AsidePanelType> {
   constructor() {
@@ -106,6 +109,24 @@ export class AsidePanel extends Block<AsidePanelType> {
       });
       this.setProps({ chats });
     });
+  }
+
+  subscribeToChangeSelectedChatId(): void {
+    storeChat.on(StoreChatEvents.UpdatedSelectedChatId, (state) => {
+      if (state != null) {
+        this.connectWebSocket(state);
+      }
+    });
+  }
+
+  connectWebSocket(chatId: number): void {
+    const user = storeCurrentUser.getCurrentUser();
+    if (user) {
+      webSocket.connect({
+        chatId,
+        userId: user.id,
+      });
+    }
   }
 
   render(): DocumentFragment {

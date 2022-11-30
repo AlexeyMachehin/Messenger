@@ -5,6 +5,7 @@ import { Store } from "./Store";
 export enum StoreChatEvents {
   Updated = "chatUpdated",
   UpdatedMessages = "messagesUpdated",
+  UpdatedSelectedChatId = "selectedChatIdUpdated",
 }
 
 export class StoreChat extends Store {
@@ -29,6 +30,7 @@ export class StoreChat extends Store {
 
   setSelectedChatId(chat: number) {
     this.set("selectedChatId", chat);
+    this.emit(StoreChatEvents.UpdatedSelectedChatId, this.state.selectedChatId);
   }
 
   getChats(): ChatDto[] | null {

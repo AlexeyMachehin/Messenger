@@ -23,7 +23,7 @@ export class Chats extends Block<ChatsType> {
     super("div", {
       class: ["chats-container"],
       asidePanel: new AsidePanel(),
-      chatPanel: new ChatPanel(),
+      chatPanel: new ChatPanel(webSocket),
     });
 
     this.initValue();
