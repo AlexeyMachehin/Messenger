@@ -19,7 +19,7 @@ export class HTTPTransport {
       method: METHODS.POST,
     });
   }
-  protected put(url: string, options: HTTPOptions) {
+  protected put<T>(url: string, options: HTTPOptionsPost): Promise<T> {
     return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.PUT,

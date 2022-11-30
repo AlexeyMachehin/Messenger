@@ -5,7 +5,7 @@ import { storeCurrentUser } from "../store/StoreCurrentUser";
 const authorizationAPI = new AuthorizationAPI();
 
 export class UserController {
-  async signIn(data: { login: string; password: string }): Promise<boolean> {
+  async signIn(data: { login: string; password: string; }): Promise<boolean> {
     try {
       await authorizationAPI.signIn(data);
       store.set("isAuth", true);
@@ -17,7 +17,7 @@ export class UserController {
     }
   }
 
-  async signUp(data: { login: string; password: string }): Promise<boolean> {
+  async signUp(data: { login: string; password: string; }): Promise<boolean> {
     try {
       await authorizationAPI.signUp(data);
       store.set("isAuth", true);
@@ -45,6 +45,17 @@ export class UserController {
       await authorizationAPI.logout();
       store.set("isAuth", false);
       store.set("currentUser", null);
+    } catch (error) {
+      alert(`Server error: ${(error as any).reason}. Try again`);
+    }
+  }
+
+  async changePassword(value: {
+    oldPassword: string,
+    newPassword: string;
+  }) {
+    try {
+      await authorizationAPI.changePassword(value);
     } catch (error) {
       alert(`Server error: ${(error as any).reason}. Try again`);
     }
