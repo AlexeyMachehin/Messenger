@@ -7,7 +7,7 @@ import { ChatPanel } from "../../pages/chats/components/chatPanel/CHatPanel";
 import {Login} from "../../pages/login/Login";
 import {Registration} from "../../pages/registration/Registration";
 
-type IThis = Login | Registration | AsidePanel | ChatPanel | Chats | ChangePassword | ChangeData;
+type IThis = Login | Registration | AsidePanel | ChatPanel | Chats | ChangePassword | ChangeData ;
 
 export function onSubmitForm<T extends {}>(this: IThis): T {
   /** Event of submit. */

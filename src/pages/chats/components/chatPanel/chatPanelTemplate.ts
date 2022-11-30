@@ -1,10 +1,6 @@
 export const chatPanelTemplate = `
 if getSelectedChat()
-    section.chat !{deleteUserDialog} !{addUserDialog} !{manageChatModal}           
-        .chat__header
-            .chat-name !{avatarHeader}
-                h3=userName
-            .chat__header-container !{manageUserButton} !{selectHeader}
+    section.chat !{deleteUserDialog} !{addUserDialog} !{manageChatModal} !{chatHeader}
         .messages !{messagesList}
         .chat__footer 
             .chat__footer-container !{manageFileButton} !{selectFooter}

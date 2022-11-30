@@ -1,15 +1,11 @@
+import { ChatHeader } from "./../chatHeader/ChatHeader";
 import { Block } from "./../../../../utils/Block";
 import { chatPanelTemplate } from "./chatPanelTemplate";
 import { Avatar } from "../../../../components/avatar/Avatar";
 import { ChatPageInput } from "../../../../components/chatPageInput/ChatPageInput";
 import { IconButton } from "../../../../components/iconButton/IconButton";
-import { ManageChatModal } from "../../../../components/manageChatModal/ManageChatModal";
-import { ManageUserModal } from "../../../../components/manageUserModal/ManageUserModal";
 import { MessagesList } from "../../../../components/messagesList/MessagesList";
 import { Select } from "../../../../components/select/Select";
-import { GeneralButton } from "../../../../components/generalButton/GeneralButton";
-import { GeneralInput } from "../../../../components/generalInput/GeneralInput";
-import { Input } from "../../../../components/input/Input";
 import { SelectItem } from "../../../../components/selectItem/SelectItem";
 import { Message } from "../../../../components/message/Message";
 import { chats as mockChats } from "../../../../utils/mockData";
@@ -20,21 +16,17 @@ import { MessageDto } from "../../../../utils/dto/message";
 import { storeChat, StoreChatEvents } from "../../../../store/StoreChat";
 import { storeCurrentUser } from "../../../../store/StoreCurrentUser";
 import { router } from "../../../../index";
-import './chatPanel.scss'
+import "./chatPanel.scss";
+import { openSelect } from "../../../../utils/openSelect";
 
 type ChatPanelType = {
-  avatarHeader: Avatar;
+  chatHeader: ChatHeader;
   userName: string;
   messagesList: MessagesList;
   inputFooter: ChatPageInput;
   messageButton: IconButton;
   manageFileButton: IconButton;
   selectFooter: Select;
-  manageUserButton: IconButton;
-  selectHeader: Select;
-  deleteUserDialog: ManageUserModal;
-  addUserDialog: ManageUserModal;
-  manageChatModal: ManageChatModal;
   getSelectedChat: () => number | null;
 } & CommonProps;
 
@@ -44,11 +36,6 @@ export class ChatPanel extends Block<ChatPanelType> {
   constructor() {
     super("div", {
       class: ["chat-panel__container"],
-      avatarHeader: new Avatar({
-        avatarURL: mockChats[0].avatarURL,
-        class: ["avatar-container"],
-        classImg: "avatar-container_avatar",
-      }),
       userName: mockChats[0].display_name,
       messagesList: new MessagesList({
         timeHeader: mockChats[0].time,
@@ -103,96 +90,8 @@ export class ChatPanel extends Block<ChatPanelType> {
           }),
         ],
       }),
-      manageUserButton: new IconButton({
-        class: ["manage-user__button"],
-        events: {
-          click: (event) =>
-            openSelect.apply<ChatPanel, [Event, string], void>(this, [
-              event,
-              "selectHeader",
-            ]),
-        },
-      }),
-      selectHeader: new Select({
-        class: ["select-list-header"],
-        items: [
-          new SelectItem({
-            text: "Add user",
-            classIcon: "add-icon",
-            events: {
-              click: () =>
-                openDialog.apply<ChatPanel, [string], void>(this, [
-                  "addUserDialog",
-                ]),
-            },
-          }),
-          new SelectItem({
-            text: "Delete user",
-            classIcon: "delete-icon",
-            events: {
-              click: () =>
-                openDialog.apply<ChatPanel, [string], void>(this, [
-                  "deleteUserDialog",
-                ]),
-            },
-          }),
-          new SelectItem({
-            text: "Delete chat",
-            classIcon: "delete-icon",
-            events: {
-              click: () =>
-                openDialog.apply<ChatPanel, [string], void>(this, [
-                  "manageChatModal",
-                ]),
-            },
-          }),
-        ],
-      }),
-      deleteUserDialog: new ManageUserModal({
-        class: ["deleteUserModal"],
-        title: "Delete user",
-        generalInput: new GeneralInput({
-          label: "login",
-          input: new Input({
-            attr: {
-              type: "login",
-              name: "login",
-              required: true,
-            },
-          }),
-          errorText: "",
-        }),
-        generalButton: new GeneralButton({
-          buttonText: "Delete user",
-        }),
-      }),
-      addUserDialog: new ManageUserModal({
-        class: ["addUserModal"],
-        title: "Add user",
-        generalInput: new GeneralInput({
-          label: "login",
-          input: new Input({
-            attr: {
-              type: "login",
-              name: "login",
-              maxLength: 20,
-              minLength: 3,
-              required: true,
-            },
-          }),
-          errorText: "Invalid login",
-        }),
-        generalButton: new GeneralButton({
-          buttonText: "Add user",
-        }),
-      }),
-      manageChatModal: new ManageChatModal({
-        class: ["deleteChatModal"],
-        title: "Are you sure you want to delete the chat?",
-        generalButton: new GeneralButton({
-          buttonText: "Delete",
-        }),
-      }),
+      chatHeader: new ChatHeader(),
+
       getSelectedChat: () => {
         const param = router.getParams();
         if (param != null && param.chatId) {
@@ -247,22 +146,4 @@ export class ChatPanel extends Block<ChatPanelType> {
   render(): DocumentFragment {
     return this.compile(chatPanelTemplate, this.props);
   }
-}
-
-function openSelect(this: ChatPanel): void {
-  /** Event of click. */
-  const indexOfEvent = 0;
-  /** Component Select. */
-  const indexOfSelect = 1;
-
-  (this.children[arguments[indexOfSelect]] as Select).service?.open();
-  (arguments[indexOfEvent] as PointerEvent).stopPropagation();
-}
-
-function openDialog(this: ChatPanel) {
-  /** Event of click. */
-  const indexOfEvent = 0;
-  (
-    this.children[arguments[indexOfEvent]] as ManageUserModal
-  ).service?.openDialog();
 }

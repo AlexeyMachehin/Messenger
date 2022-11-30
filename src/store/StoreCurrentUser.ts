@@ -2,7 +2,7 @@ import { UserDto } from "../utils/dto/user";
 import { Store } from "./Store";
 
 export enum StoreCurrentUserEvents {
-  Updated = "chatUpdated",
+  Updated = "userUpdated",
 }
 
 export class StoreCurrentUser extends Store {
