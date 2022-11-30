@@ -1,8 +1,9 @@
+import { ChatFooter } from './../pages/chats/chatFooter/ChatFooter';
 import { ChatPanel } from "./../pages/chats/components/chatPanel/ChatPanel";
 import { ChatHeader } from "./../pages/chats/components/chatHeader/ChatHeader";
 import { Select } from "./../components/Select/Select";
 
-type IThis = ChatHeader | ChatPanel;
+type IThis = ChatHeader | ChatPanel | ChatFooter;
 
 export function openSelect(this: IThis): void {
   /** Event of click. */
