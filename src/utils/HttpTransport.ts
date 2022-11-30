@@ -3,7 +3,7 @@ import { METHODS } from "./models/httpMethod";
 import { queryStringify } from "./queryStringify";
 
 export class HTTPTransport {
-  mainUrl = new URL('/api/v2/', process.env.YANDEX_PRAKTIKUM_API);
+  mainUrl = new URL('', process.env.YANDEX_PRAKTIKUM_API);
 
   protected get<T>(url: string, options?: HTTPOptionsPost) {
     if (options && options.data) {

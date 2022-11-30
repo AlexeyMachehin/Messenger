@@ -11,6 +11,7 @@ import { ROUTES } from "../../utils/router/routes";
 import "./profile.scss";
 import { getUserInfo } from "../../utils/getUserInfo";
 import { getUserResources } from "../../utils/getUserResources";
+import { DEFAULT_AVATAR_URL } from "../../utils/constants";
 
 type ProfileType = {
   avatarURL: string;
@@ -29,8 +30,6 @@ type ProfileType = {
 
 const userController = new UserController();
 
-const DEFAULT_AVATAR_URL =
-  "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1";
 
 export class Profile extends Block<ProfileType> {
   constructor() {
