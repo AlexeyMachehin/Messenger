@@ -12,7 +12,8 @@ import { ChatDto } from "../../../../utils/dto/chat";
 import { storeChat, StoreChatEvents } from "../../../../store/StoreChat";
 import { ChatsController } from "../../../../controllers/Chats";
 import { router } from "../../../../index";
-import './asidePanel.scss';
+import "./asidePanel.scss";
+import { DEFAULT_AVATAR_URL } from "../../../../utils/constants";
 
 type AsidePanelType = {
   createChatButton: GeneralButton;
@@ -24,8 +25,6 @@ type AsidePanelType = {
 } & CommonProps;
 
 const chatsController = new ChatsController();
-const DEFAULT_AVATAR_URL =
-  "https://avatars.mds.yandex.net/i?id=90a14aacfb5159c04fc902bad5bbd095-5232129-images-thumbs&n=13&exp=1";
 
 export class AsidePanel extends Block<AsidePanelType> {
   constructor() {
@@ -88,7 +87,9 @@ export class AsidePanel extends Block<AsidePanelType> {
           time: chat.last_message?.time ?? "",
           count: chat.unread_count,
           avatar: new Avatar({
-            avatarURL: chat.avatar ?? DEFAULT_AVATAR_URL,
+            avatarURL: chat.avatar
+              ? process.env.YANDEX_PRAKTIKUM_API + "resources" + chat.avatar
+              : DEFAULT_AVATAR_URL,
             class: ["avatar-container"],
             classImg: "avatar-container_avatar",
           }),
