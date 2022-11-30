@@ -18,10 +18,8 @@ type ChatFooterType = {
   messageButton: IconButton;
 } & CommonProps;
 
-const webSocket = new WebSocketService();
-
 export class ChatFooter extends Block<ChatFooterType> {
-  constructor() {
+  constructor(webSocket: WebSocketService) {
     super("div", {
       class: ["chat__footer"],
       manageFileButton: new IconButton({

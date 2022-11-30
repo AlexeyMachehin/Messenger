@@ -1,3 +1,4 @@
+import { WebSocketService } from './../../../../utils/webSocket';
 import { ChatFooter } from "./../../chatFooter/ChatFooter";
 import { ChatHeader } from "./../chatHeader/ChatHeader";
 import { Block } from "./../../../../utils/Block";
@@ -22,7 +23,7 @@ type ChatPanelType = {
 } & CommonProps;
 
 export class ChatPanel extends Block<ChatPanelType> {
-  constructor() {
+  constructor(webSocket: WebSocketService) {
     super("div", {
       class: ["chat-panel__container"],
       userName: mockChats[0].display_name,
@@ -38,7 +39,7 @@ export class ChatPanel extends Block<ChatPanelType> {
         }
         return false;
       },
-      chatFooter: new ChatFooter(),
+      chatFooter: new ChatFooter(webSocket),
     });
 
     this.subscribeToChangeMessages();
