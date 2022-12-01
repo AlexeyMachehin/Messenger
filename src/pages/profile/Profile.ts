@@ -1,15 +1,17 @@
-import UserController from "../../controllers/User";
-import Block from "../../utils/Block";
+import { router } from "./../../index";
+import { UserController } from "../../controllers/User";
+import { Block } from "../../utils/Block";
 import { profileTemplate } from "./profileTemplate";
-import {GeneralInput} from "../../components/generalInput/GeneralInput";
-import {GeneralLink} from "../../components/generalLink/GeneralLink";
-import {GoBackAside} from "../../components/goBackAside/GoBackAside";
-import {Input} from "../../components/input/Input";
-import { router } from "../../index";
+import { GeneralInput } from "../../components/generalInput/GeneralInput";
+import { GeneralLink } from "../../components/generalLink/GeneralLink";
+import { GoBackAside } from "../../components/goBackAside/GoBackAside";
+import { Input } from "../../components/input/Input";
 import { CommonProps } from "../../utils/models/props";
-import { user } from "../../utils/mockData";
 import { ROUTES } from "../../utils/router/routes";
 import "./profile.scss";
+import { getUserInfo } from "../../utils/getUserInfo";
+import { getUserResources } from "../../utils/getUserResources";
+import { DEFAULT_AVATAR_URL } from "../../utils/constants";
 
 type ProfileType = {
   avatarURL: string;
@@ -28,11 +30,12 @@ type ProfileType = {
 
 const userController = new UserController();
 
+
 export class Profile extends Block<ProfileType> {
   constructor() {
     super("div", {
-      avatarURL: user.avatarURL,
-      displayName: user.display_name,
+      avatarURL: getUserResources("avatar") ?? DEFAULT_AVATAR_URL,
+      displayName: getUserInfo("first_name"),
       goBackAside: new GoBackAside({
         events: {
           click: () => router.back(),
@@ -45,7 +48,7 @@ export class Profile extends Block<ProfileType> {
             type: "email",
             name: "email",
             disabled: true,
-            value: user.email,
+            value: getUserInfo("email"),
           },
         }),
         label: "email",
@@ -57,7 +60,7 @@ export class Profile extends Block<ProfileType> {
             type: "login",
             name: "login",
             disabled: true,
-            value: user.login,
+            value: getUserInfo("login"),
           },
         }),
         label: "login",
@@ -69,7 +72,7 @@ export class Profile extends Block<ProfileType> {
             type: "text",
             name: "name",
             disabled: true,
-            value: user.first_name,
+            value: getUserInfo("first_name"),
           },
         }),
         label: "name",
@@ -81,7 +84,7 @@ export class Profile extends Block<ProfileType> {
             type: "text",
             name: "second_name",
             disabled: true,
-            value: user.second_name,
+            value: getUserInfo("second_name"),
           },
         }),
         label: "surname",
@@ -93,7 +96,7 @@ export class Profile extends Block<ProfileType> {
             type: "text",
             name: "display_name",
             disabled: true,
-            value: user.display_name,
+            value: getUserInfo("display_name"),
           },
         }),
         label: "nickname",
@@ -105,7 +108,7 @@ export class Profile extends Block<ProfileType> {
             type: "tel",
             name: "phone",
             disabled: true,
-            value: user.phone,
+            value: getUserInfo("phone"),
           },
         }),
         label: "phone number",

@@ -1,5 +1,5 @@
 import { ChatDto } from "../utils/dto/chat";
-import HTTPTransport from "../utils/HttpTransport";
+import { HTTPTransport } from "../utils/HttpTransport";
 
 export class ChatsAPI extends HTTPTransport {
   getChats(): Promise<ChatDto[]> {
@@ -11,6 +11,8 @@ export class ChatsAPI extends HTTPTransport {
   createChat(data: { title: string }): Promise<void> {
     return this.post<void>("/chats", { data: JSON.stringify(data) });
   }
+
+  deleteChat(data: { chatId: number; }): Promise<void> {
+    return this.delete<void>("/chats", { data: JSON.stringify(data) });
+  }
 }
-
-

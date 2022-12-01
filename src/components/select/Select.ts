@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { selectTemplate } from "./selectTemplate";
 import { CommonProps } from "../../utils/models/props";
 import { fromStringToClassName } from "../../utils/fromStringToClassName";

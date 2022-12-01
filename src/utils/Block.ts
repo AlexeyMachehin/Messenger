@@ -4,17 +4,17 @@ import { EventBus } from "./EventBus";
 import { v4 as makeUUID } from "uuid";
 import { compile } from "pug";
 
-type Children = { [key: string]: Block<{}> | Block<{}>[] };
+type Children = { [key: string]: Block<{}> | Block<{}>[]; };
 
-class Block<T extends CommonProps> extends EventBus {
+export class Block<T extends CommonProps> extends EventBus {
   private _element: HTMLElement | null = null;
 
   private _meta: {
     tagName: keyof HTMLElementTagNameMap | null;
     propsAndChildren?: T;
   } = {
-    tagName: null,
-  };
+      tagName: null,
+    };
   children: Children;
   private _id;
   props: T;
@@ -80,7 +80,10 @@ class Block<T extends CommonProps> extends EventBus {
     this.emit(Events.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: CommonProps, newProps: CommonProps): void {
+  private _componentDidUpdate(
+    oldProps: CommonProps,
+    newProps: CommonProps
+  ): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {
       this.emit(Events.FLOW_RENDER);
@@ -104,6 +107,7 @@ class Block<T extends CommonProps> extends EventBus {
   }
 
   private _render(): void {
+    this.addAttribute();
     const block = this.render();
     this._removeEvents();
 
@@ -253,5 +257,3 @@ class Block<T extends CommonProps> extends EventBus {
     });
   }
 }
-
-export default Block;

@@ -1,4 +1,4 @@
-import Block from "../Block";
+import { Block } from "../Block";
 import { BlockConstructor } from "../models/classType";
 import { CommonProps } from "../models/props";
 import { render } from "../renderDOM";

@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { messagesListTemplate } from "./messagesListTemplate";
 import { CommonProps } from "../../utils/models/props";
 import {Message} from "../message/Message";

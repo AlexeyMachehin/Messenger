@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { error404Template } from "./error404Template";
 import {GeneralLink} from "../../components/generalLink/GeneralLink";
 import { router } from "../../index";

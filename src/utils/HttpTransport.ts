@@ -2,35 +2,37 @@ import { HTTPOptions, HTTPOptionsPost } from "./models/httpOptions";
 import { METHODS } from "./models/httpMethod";
 import { queryStringify } from "./queryStringify";
 
-export default class HTTPTransport {
+export class HTTPTransport {
+  mainUrl = new URL('', process.env.YANDEX_PRAKTIKUM_API);
+
   protected get<T>(url: string, options?: HTTPOptionsPost) {
     if (options && options.data) {
       url = url + queryStringify(options.data);
     }
-    return this.request<T>(process.env.YANDEX_PRAKTIKUM_API + url, {
+    return this.request<T>(this.mainUrl.toString() + url, {
       method: METHODS.GET,
     });
   }
   protected post<T>(url: string, options: HTTPOptionsPost): Promise<T> {
-    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
+    return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.POST,
     });
   }
-  protected put(url: string, options: HTTPOptions) {
-    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
+  protected put<T>(url: string, options: HTTPOptionsPost): Promise<T> {
+    return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.PUT,
     });
   }
   protected patch(url: string, options: HTTPOptions) {
-    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
+    return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.PATCH,
     });
   }
-  protected delete(url: string, options: HTTPOptions) {
-    return this.request(process.env.YANDEX_PRAKTIKUM_API + url, {
+  protected delete<T>(url: string, options: HTTPOptionsPost): Promise<T> {
+    return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.DELETE,
     });
@@ -60,12 +62,10 @@ export default class HTTPTransport {
       }
 
       xhr.onload = function () {
-        const resp: any = "";
-
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(xhr.response);
         } else {
-          reject(resp);
+          reject(xhr.response);
         }
 
         resolve(xhr.response);

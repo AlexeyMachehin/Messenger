@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import { Block } from "../../utils/Block";
 import { iconButtonTemplate } from "./iconButtonTemplate";
 import { CommonProps } from "../../utils/models/props";
 

@@ -1,14 +1,19 @@
+import { ChatFooter } from './../../pages/chats/chatFooter/ChatFooter';
 import {GeneralInput} from "../../components/generalInput/GeneralInput";
 import {ChangeData} from "../../pages/changeData/ChangeData";
 import {ChangePassword} from "../../pages/changePassword/ChangePassword";
-import {Chats} from "../../pages/chats/Chats";
+import { Chats } from "../../pages/chats/Chats";
+import { AsidePanel } from "../../pages/chats/components/asidePanel/AsidePanel";
+import { ChatPanel } from "../../pages/chats/components/chatPanel/CHatPanel";
 import {Login} from "../../pages/login/Login";
 import {Registration} from "../../pages/registration/Registration";
 
-type IThis = Login | Registration | Chats | ChangePassword | ChangeData;
+type IThis = Login | Registration | AsidePanel | ChatPanel | Chats | ChangePassword | ChangeData | ChatFooter ;
 
 export function onSubmitForm<T extends {}>(this: IThis): T {
+  /** Event of submit. */
   const event = arguments[0];
+  /** Class name form. */
   const className = arguments[1];
 
   event.preventDefault();
@@ -28,7 +33,9 @@ export function onSubmitForm<T extends {}>(this: IThis): T {
 }
 
 export function checkInputValue(this: GeneralInput) {
+  /** HTML input element. */
   const element = arguments[0];
+  /** Event of input/focus/blur. */
   const event = arguments[1];
 
   if (!element.validity.valid) {
