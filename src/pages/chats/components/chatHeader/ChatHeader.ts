@@ -16,6 +16,9 @@ import { SelectItem } from '../../../../components/selectItem/SelectItem';
 import { Block } from '../../../../utils/Block';
 import { CommonProps } from '../../../../utils/models/props';
 import { openSelect } from '../../../../utils/openSelect';
+import { chatHeaderTemplate } from './chatHeaderTemplate';
+import { DEFAULT_AVATAR_URL } from '../../../../utils/constants';
+import { openDialog } from '../../../../utils/openDialog';
 
 type ChatHeaderType = {
   avatarHeader: Avatar;
@@ -33,7 +36,7 @@ export class ChatHeader extends Block<ChatHeaderType> {
       class: ["chat__header"],
 
       avatarHeader: new Avatar({
-        avatarURL: mockChats[0].avatarURL,
+        avatarURL: DEFAULT_AVATAR_URL,
         class: ["avatar-container"],
         classImg: "avatar-container_avatar",
       }),
