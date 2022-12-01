@@ -34,6 +34,13 @@ export class StoreChat extends Store {
     );
   }
 
+  triggerMessages(chatId: number): void {
+    this.emit(
+      StoreChatEvents.UpdatedMessages,
+      this.state.chatMessages ? this.state.chatMessages[chatId] : []
+    );
+  }
+
   setSelectedChat(chat: ChatDto | null) {
     this.set("selectedChat", chat);
   }

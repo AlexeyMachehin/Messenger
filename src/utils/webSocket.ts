@@ -41,6 +41,8 @@ export class WebSocketService {
           this.getMessageList(data.chatId);
         });
       });
+    } else {
+      storeChat.triggerMessages(data.chatId);
     }
   }
 
