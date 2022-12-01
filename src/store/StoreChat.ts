@@ -1,6 +1,7 @@
 import { MessageDto } from "../utils/dto/message";
 import { ChatDto } from "../utils/dto/chat";
 import { Store } from "./Store";
+import { UserDto } from '../utils/dto/user';
 
 export enum StoreChatEvents {
   Updated = "chatUpdated",
@@ -9,6 +10,15 @@ export enum StoreChatEvents {
 }
 
 export class StoreChat extends Store {
+  chatUsers = new Map<number, UserDto>();
+
+  setChatUser(user: UserDto) {
+    if (this.chatUsers.has(user.id)) {
+      return;
+    }
+    this.chatUsers.set(user.id, user);
+  }
+
   setChats(chats: ChatDto[]) {
     this.set("chats", chats);
     this.emit(StoreChatEvents.Updated, this.state.chats);
@@ -48,6 +58,10 @@ export class StoreChat extends Store {
   getMessages(chatId: number): MessageDto[] | null {
     const chatMessages = this.getState().chatMessages;
     return chatMessages ? chatMessages[chatId] : null;
+  }
+
+  getChatUser(userId: number): UserDto | undefined {
+    return this.chatUsers.has(userId) ? this.chatUsers.get(userId) : undefined;
   }
 }
 

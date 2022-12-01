@@ -1,6 +1,7 @@
 import { AuthorizationAPI } from "../api/Auth";
 import { UserAPI } from '../api/User';
 import { store } from "../store/Store";
+import { storeChat } from '../store/StoreChat';
 import { storeCurrentUser } from "../store/StoreCurrentUser";
 import { UserDto } from '../utils/dto/user';
 
@@ -42,14 +43,14 @@ export class UserController {
     }
   }
 
-  async getUserById(): Promise<boolean> {
+  async getUserById(id: number): Promise<UserDto | null> {
     try {
-      const data = await authorizationAPI.getUser();
-      store.set("isAuth", true);
-      storeCurrentUser.setUser(data);
-      return true;
-    } catch {
-      return false;
+      const data = await authorizationAPI.getUserById(id);
+      storeChat.setChatUser(data);
+      return data;
+    } catch (error) {
+      alert(`Server error: ${(error as any).reason}. Try again`);
+      return null;
     }
   }
 

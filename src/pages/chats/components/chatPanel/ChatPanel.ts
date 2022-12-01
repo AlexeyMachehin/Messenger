@@ -13,6 +13,7 @@ import { storeChat, StoreChatEvents } from "../../../../store/StoreChat";
 import { storeCurrentUser } from "../../../../store/StoreCurrentUser";
 import { router } from "../../../../index";
 import "./chatPanel.scss";
+import { DEFAULT_AVATAR_URL } from '../../../../utils/constants';
 
 type ChatPanelType = {
   chatHeader: ChatHeader;
@@ -53,18 +54,18 @@ export class ChatPanel extends Block<ChatPanelType> {
 
   createMessageComponent(state: MessageDto[]): void {
     const messages = state
-      .sort(
-        (a: any, b: any) =>
-          new Date(a.time).valueOf() - new Date(b.time).valueOf()
-      )
       .map((message: MessageDto) => {
+        const avatarURL = message.user_avatar ? new URL(
+          'resources' + message.user_avatar,
+          process.env.YANDEX_PRAKTIKUM_API
+        ).toString() : DEFAULT_AVATAR_URL;
         return new Message({
           message: message.content,
           time: new Date(message.time).toLocaleTimeString(),
-          name: message.user_id,
+          name: message.user_name ?? 'No name',
           className: this._isMyMessage(message.user_id),
           avatar: new Avatar({
-            avatarURL: mockChats[0].avatarURL,
+            avatarURL,
             class: ["avatar-container"],
             classImg: "avatar-container_avatar",
           }),

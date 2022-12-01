@@ -4,4 +4,6 @@ export interface MessageDto {
   type: string;
   content: string;
   time: string;
+  user_name: string;
+  user_avatar: string;
 }

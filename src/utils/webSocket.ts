@@ -1,16 +1,17 @@
 import { storeChat } from "../store/StoreChat";
 import { store } from "../store/Store";
 import { ConnectionAPI } from "../api/Connection";
+import { UserController } from '../controllers/User';
 
 const connectionAPI = new ConnectionAPI();
-
+const userController = new UserController();
 export class WebSocketService {
   private webSocketMap: Map<
     number,
-    { webSocket: WebSocket; allMessages: any[] }
+    { webSocket: WebSocket; allMessages: any[]; }
   > = new Map();
 
-  connect(data: { chatId: number; userId: number }): void {
+  connect(data: { chatId: number; userId: number; }): void {
     if (
       process.env.YANDEX_PRAKTIKUM_WSS &&
       !this.webSocketMap.has(data.chatId)
@@ -34,7 +35,7 @@ export class WebSocketService {
             this.setMessage(webSocket, data.chatId, event)
           );
 
-          webSocket.addEventListener("error", () => {});
+          webSocket.addEventListener("error", () => { });
         }).then((webSocket) => {
           this.webSocketMap.set(data.chatId, { webSocket, allMessages: [] });
           this.getMessageList(data.chatId);
@@ -72,17 +73,35 @@ export class WebSocketService {
     );
   }
 
-  private setMessage(
+  private async setMessage(
     webSocket: WebSocket,
     chatId: number,
     event: MessageEvent
-  ): void {
+  ): Promise<void> {
     const data = JSON.parse(event.data);
+    const setData = new Set<number>();
+    let newData: any[] = [];
     if (Array.isArray(data)) {
+      data.forEach(i => setData.add(i.user_id));
+      await Promise.all(Array.from(setData.values()).map(item => userController.getUserById(item))).then(users => {
+        users.forEach(user => {
+          if (user != null) {
+            storeChat.setChatUser(user);
+          }
+        });
+        newData = data.map(item => {
+          const user = users.find(user => user?.id === item.user_id);
+          return {
+            ...item,
+            user_name: user?.first_name,
+            user_avatar: user?.avatar
+          };
+        });
+      });
       const oldMessages = this.webSocketMap.get(chatId)?.allMessages ?? [];
       this.webSocketMap.set(chatId, {
         webSocket,
-        allMessages: [...oldMessages, ...data].sort(
+        allMessages: [...oldMessages, ...newData].sort(
           (a: any, b: any) =>
             new Date(a.time).valueOf() - new Date(b.time).valueOf()
         ),
@@ -93,10 +112,29 @@ export class WebSocketService {
       );
     } else {
       if (data.type !== "pong" && data.type !== "user connected") {
+        let newMessage: any[] = [];
+        let messageUser = storeChat.getChatUser(data.user_id);
+        if (messageUser) {
+          newMessage.push({
+            ...data,
+            user_name: messageUser?.first_name,
+            user_avatar: messageUser?.avatar
+          });
+        } else {
+          await userController.getUserById(data.user_id).then(user => {
+            if (user) {
+              newMessage.push({
+                ...data,
+                user_name: user?.first_name,
+                user_avatar: user?.avatar
+              });
+            }
+          });
+        }
         const oldMessages = this.webSocketMap.get(chatId)?.allMessages ?? [];
         this.webSocketMap.set(chatId, {
           webSocket,
-          allMessages: [...oldMessages, data].sort(
+          allMessages: [...oldMessages, ...newMessage].sort(
             (a: any, b: any) =>
               new Date(a.time).valueOf() - new Date(b.time).valueOf()
           ),
