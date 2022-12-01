@@ -1,14 +1,15 @@
-import { Block } from "../../utils/Block";
-import { chatsTemplate } from "./chatsTemplate";
-import { AsidePanel } from "./components/asidePanel/AsidePanel";
-import { ChatPanel } from "./components/chatPanel/ChatPanel";
-import { CommonProps } from "../../utils/models/props";
-import { WebSocketService } from "../../utils/webSocket";
-import { storeCurrentUser } from "../../store/StoreCurrentUser";
-import { storeChat } from "../../store/StoreChat";
-import { ChatsController } from "../../controllers/Chats";
-import { router } from "../../index";
+
+import { ChatsController } from '../../controllers/Chats';
+import { router } from '../../index';
+import { storeChat } from '../../store/StoreChat';
+import { storeCurrentUser } from '../../store/StoreCurrentUser';
+import { Block } from '../../utils/Block';
+import { CommonProps } from '../../utils/models/props';
+import { WebSocketService } from '../../utils/webSocket';
 import "./chats.scss";
+import { chatsTemplate } from './chatsTemplate';
+import { AsidePanel } from './components/asidePanel/AsidePanel';
+import { ChatPanel } from './components/chatPanel/ChatPanel';
 
 type ChatsType = {
   asidePanel: AsidePanel;

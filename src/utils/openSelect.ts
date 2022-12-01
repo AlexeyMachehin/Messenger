@@ -4,6 +4,7 @@ import { ChatHeader } from '../pages/chats/components/chatHeader/ChatHeader';
 import { ChatPanel } from '../pages/chats/components/chatPanel/ChatPanel';
 
 
+
 type IThis = ChatHeader | ChatPanel | ChatFooter;
 
 export function openSelect(this: IThis): void {
