@@ -12,6 +12,7 @@ import { CommonProps } from "../../utils/models/props";
 import { ValidationPattern } from "../../utils/models/validation";
 import { ValidationError } from "../../utils/models/validation";
 import "./registration.scss";
+import { UserDto } from '../../utils/dto/user';
 
 type RegistrationType = {
   generalInputEmail: GeneralInput;
@@ -119,7 +120,7 @@ export class Registration extends Block<RegistrationType> {
           const inputValues = onSubmitForm.apply<
             Registration,
             [Event, string],
-            { login: string; password: string }
+            UserDto
           >(this, [event, ".registration-form"]);
           userController.signUp(inputValues).then(() => {
             router.go(ROUTES.Chats);
