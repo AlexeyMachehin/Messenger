@@ -1,12 +1,13 @@
-import { ChatFooter } from './../../pages/chats/chatFooter/ChatFooter';
-import {GeneralInput} from "../../components/generalInput/GeneralInput";
-import {ChangeData} from "../../pages/changeData/ChangeData";
-import {ChangePassword} from "../../pages/changePassword/ChangePassword";
-import { Chats } from "../../pages/chats/Chats";
-import { AsidePanel } from "../../pages/chats/components/asidePanel/AsidePanel";
-import { ChatPanel } from "../../pages/chats/components/chatPanel/CHatPanel";
-import {Login} from "../../pages/login/Login";
-import {Registration} from "../../pages/registration/Registration";
+import { GeneralInput } from '../../components/generalInput/GeneralInput';
+import { ChangeData } from '../../pages/changeData/ChangeData';
+import { ChangePassword } from '../../pages/changePassword/ChangePassword';
+import { ChatFooter } from '../../pages/chats/chatFooter/ChatFooter';
+import { Chats } from '../../pages/chats/Chats';
+import { AsidePanel } from '../../pages/chats/components/asidePanel/AsidePanel';
+import { ChatPanel } from '../../pages/chats/components/chatPanel/ChatPanel';
+import { Login } from '../../pages/login/Login';
+import { Registration } from '../../pages/registration/Registration';
+
 
 type IThis = Login | Registration | AsidePanel | ChatPanel | Chats | ChangePassword | ChangeData | ChatFooter ;
 
