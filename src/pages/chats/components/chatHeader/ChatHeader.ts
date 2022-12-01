@@ -1,23 +1,21 @@
-import { ManageChatModal } from './../../../../components/ManageChatModal/ManageChatModal';
-import { ManageUserModal } from './../../../../components/ManageUserModal/ManageUserModal';
-import { chatHeaderTemplate } from './chatHeaderTemplate';
-import { Select } from "./../../../../components/Select/Select";
-import { IconButton } from "./../../../../components/IconButton/IconButton";
-import { Avatar } from "./../../../../components/Avatar/Avatar";
-import { Block } from "./../../../../utils/Block";
-import { CommonProps } from "./../../../../utils/models/props";
-import { SelectItem } from "../../../../components/selectItem/SelectItem";
-import { chats as mockChats } from "../../../../utils/mockData";
-import { openSelect } from "../../../../utils/openSelect";
-import { openDialog } from "../../../../utils/openDialog";
-import { GeneralInput } from '../../../../components/generalInput/GeneralInput';
-import { Input } from '../../../../components/input/Input';
-import { GeneralButton } from '../../../../components/generalButton/GeneralButton';
+
 import "./chatHeader.scss";
 import { ChatsController } from '../../../../controllers/Chats';
 import { storeChat } from '../../../../store/StoreChat';
 import { router } from '../../../../index';
 import { ROUTES } from '../../../../utils/router/routes';
+import { Avatar } from '../../../../components/avatar/Avatar';
+import { GeneralButton } from '../../../../components/generalButton/GeneralButton';
+import { GeneralInput } from '../../../../components/generalInput/GeneralInput';
+import { IconButton } from '../../../../components/iconButton/IconButton';
+import { Input } from '../../../../components/input/Input';
+import { ManageChatModal } from '../../../../components/manageChatModal/ManageChatModal';
+import { ManageUserModal } from '../../../../components/manageUserModal/ManageUserModal';
+import { Select } from '../../../../components/select/Select';
+import { SelectItem } from '../../../../components/selectItem/SelectItem';
+import { Block } from '../../../../utils/Block';
+import { CommonProps } from '../../../../utils/models/props';
+import { openSelect } from '../../../../utils/openSelect';
 
 type ChatHeaderType = {
   avatarHeader: Avatar;
