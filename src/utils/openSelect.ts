@@ -1,7 +1,8 @@
-import { ChatFooter } from './../pages/chats/chatFooter/ChatFooter';
-import { ChatPanel } from "./../pages/chats/components/chatPanel/ChatPanel";
-import { ChatHeader } from "./../pages/chats/components/chatHeader/ChatHeader";
-import { Select } from "./../components/Select/Select";
+import { Select } from '../components/select/Select';
+import { ChatFooter } from '../pages/chats/chatFooter/ChatFooter';
+import { ChatHeader } from '../pages/chats/components/chatHeader/ChatHeader';
+import { ChatPanel } from '../pages/chats/components/chatPanel/ChatPanel';
+
 
 type IThis = ChatHeader | ChatPanel | ChatFooter;
 
