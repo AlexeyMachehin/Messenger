@@ -87,7 +87,10 @@ export class AsidePanel extends Block<AsidePanelType> {
           class: ["user"],
           name: chat.title,
           message: chat.last_message?.content ?? "",
-          time: chat.last_message?.time ?? "",
+          time: chat.last_message?.time ? new Date(chat.last_message.time).toLocaleString('en', {
+            dateStyle: "short",
+            timeStyle: "short"
+          }) : '',
           count: chat.unread_count,
           avatar: new Avatar({
             avatarURL: chat.avatar
