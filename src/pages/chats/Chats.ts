@@ -1,7 +1,7 @@
 import { Block } from "../../utils/Block";
 import { chatsTemplate } from "./chatsTemplate";
 import { AsidePanel } from "./components/asidePanel/AsidePanel";
-import { ChatPanel } from "./components/chatPanel/CHatPanel";
+import { ChatPanel } from "./components/chatPanel/ChatPanel";
 import { CommonProps } from "../../utils/models/props";
 import { WebSocketService } from "../../utils/webSocket";
 import { storeCurrentUser } from "../../store/StoreCurrentUser";
