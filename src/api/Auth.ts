@@ -6,14 +6,6 @@ export class AuthorizationAPI extends HTTPTransport {
     return this.post("auth/signin", { data: JSON.stringify(value) });
   }
 
-  getUser(): Promise<UserDto> {
-    return this.get<UserDto>("auth/user");
-  }
-
-  getUserById(id: number): Promise<UserDto> {
-    return this.get<UserDto>(`user/${id}`);
-  }
-
   signUp(value: UserDto): Promise<XMLHttpRequest> {
     return this.post("auth/signup", { data: JSON.stringify(value) });
   }

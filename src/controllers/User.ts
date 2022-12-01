@@ -34,7 +34,7 @@ export class UserController {
 
   async getUser(): Promise<boolean> {
     try {
-      const data = await authorizationAPI.getUser();
+      const data = await userAPI.getUser();
       store.set("isAuth", true);
       storeCurrentUser.setUser(data);
       return true;
@@ -45,7 +45,7 @@ export class UserController {
 
   async getUserById(id: number): Promise<UserDto | null> {
     try {
-      const data = await authorizationAPI.getUserById(id);
+      const data = await userAPI.getUserById(id);
       storeChat.setChatUser(data);
       return data;
     } catch (error) {
