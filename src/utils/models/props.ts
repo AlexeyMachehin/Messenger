@@ -1,4 +1,4 @@
-export type Props = {
+export type CommonProps = {
   settings?: {
     withInternalID: boolean;
   };
@@ -8,6 +8,6 @@ export type Props = {
   attr?: {
     [key: string]: string | number | boolean;
   };
-  class?: string[],
-  [key: string | symbol]: unknown
+  class?: string[];
+  [key: string | symbol]: unknown;
 };

@@ -1,14 +1,42 @@
-export function onSubmitForm() {
-  arguments[0].preventDefault();
-  const form: HTMLFormElement = this.element?.querySelector("form");
-  const fields = Array.from(form).filter(
-    (el) => el.nodeName === "INPUT"
-  ) as HTMLInputElement[];
-  console.log(fields.reduce((a, v) => ({ ...a, [v.name]: v.value }), {}));
+import { GeneralInput } from '../../components/generalInput/GeneralInput';
+import { ChangeData } from '../../pages/changeData/ChangeData';
+import { ChangePassword } from '../../pages/changePassword/ChangePassword';
+import { ChatFooter } from '../../pages/chats/chatFooter/ChatFooter';
+import { Chats } from '../../pages/chats/Chats';
+import { AsidePanel } from '../../pages/chats/components/asidePanel/AsidePanel';
+import { ChatPanel } from '../../pages/chats/components/chatPanel/ChatPanel';
+import { Login } from '../../pages/login/Login';
+import { Registration } from '../../pages/registration/Registration';
+
+
+type IThis = Login | Registration | AsidePanel | ChatPanel | Chats | ChangePassword | ChangeData | ChatFooter ;
+
+export function onSubmitForm<T extends {}>(this: IThis): T {
+  /** Event of submit. */
+  const event = arguments[0];
+  /** Class name form. */
+  const className = arguments[1];
+
+  event.preventDefault();
+  const form = this.element?.querySelector(className) as HTMLFormElement;
+  if (form != null) {
+    const fields = Array.from(form).filter(
+      (el) => el.nodeName === "INPUT"
+    ) as HTMLInputElement[];
+    const result = fields.reduce(
+      (a, v) => ({ ...a, [v.name]: v.value }),
+      {}
+    ) as T;
+    form.reset();
+    return result;
+  }
+  return {} as T;
 }
 
-export function checkInputValue() {
+export function checkInputValue(this: GeneralInput) {
+  /** HTML input element. */
   const element = arguments[0];
+  /** Event of input/focus/blur. */
   const event = arguments[1];
 
   if (!element.validity.valid) {

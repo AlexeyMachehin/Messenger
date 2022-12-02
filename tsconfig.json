@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2021",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "strictNullChecks": true
-  }
+    "strictNullChecks": true,
+    "strict": true,
+    "types": ["node"]
+   
+  },
+  "exclude": [
+    "src/utils/HttpTransport.ts"
+  ]
 }
