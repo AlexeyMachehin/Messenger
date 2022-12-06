@@ -8,7 +8,7 @@ import { GoBackAside } from "../../components/goBackAside/GoBackAside";
 import { Input } from "../../components/input/Input";
 import { CommonProps } from "../../utils/models/props";
 import { ROUTES } from "../../utils/router/routes";
-import "./profile.scss";
+// import "./profile.scss";
 import { getUserInfo } from "../../utils/getUserInfo";
 import { getUserResources } from "../../utils/getUserResources";
 import { DEFAULT_AVATAR_URL } from "../../utils/constants";

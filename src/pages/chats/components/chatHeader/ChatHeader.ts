@@ -1,5 +1,5 @@
 
-import "./chatHeader.scss";
+// import "./chatHeader.scss";
 import { ChatsController } from '../../../../controllers/Chats';
 import { storeChat } from '../../../../store/StoreChat';
 import { router } from '../../../../index';

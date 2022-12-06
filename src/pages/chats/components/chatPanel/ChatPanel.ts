@@ -12,7 +12,7 @@ import { MessageDto } from "../../../../utils/dto/message";
 import { storeChat, StoreChatEvents } from "../../../../store/StoreChat";
 import { storeCurrentUser } from "../../../../store/StoreCurrentUser";
 import { router } from "../../../../index";
-import "./chatPanel.scss";
+// import "./chatPanel.scss";
 import { DEFAULT_AVATAR_URL } from '../../../../utils/constants';
 
 type ChatPanelType = {

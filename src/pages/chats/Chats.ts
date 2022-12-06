@@ -6,7 +6,7 @@ import { storeCurrentUser } from '../../store/StoreCurrentUser';
 import { Block } from '../../utils/Block';
 import { CommonProps } from '../../utils/models/props';
 import { WebSocketService } from '../../utils/webSocket';
-import "./chats.scss";
+// import "./chats.scss";
 import { chatsTemplate } from './chatsTemplate';
 import { AsidePanel } from './components/asidePanel/AsidePanel';
 import { ChatPanel } from './components/chatPanel/ChatPanel';

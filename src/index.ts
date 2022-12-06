@@ -1,4 +1,3 @@
-import "./layouts/main/main.scss";
 import { ChangeData } from "./pages/changeData/ChangeData";
 import { Login } from "./pages/login/Login";
 import { Registration } from "./pages/registration/Registration";

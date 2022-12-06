@@ -11,7 +11,7 @@ import { router } from "../../index";
 import { CommonProps } from "../../utils/models/props";
 import { ValidationPattern } from "../../utils/models/validation";
 import { ValidationError } from "../../utils/models/validation";
-import "./registration.scss";
+// import "./registration.scss";
 import { UserDto } from '../../utils/dto/user';
 
 type RegistrationType = {

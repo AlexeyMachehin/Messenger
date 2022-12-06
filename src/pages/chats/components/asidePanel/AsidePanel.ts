@@ -12,7 +12,7 @@ import { ChatDto } from "../../../../utils/dto/chat";
 import { storeChat, StoreChatEvents } from "../../../../store/StoreChat";
 import { ChatsController } from "../../../../controllers/Chats";
 import { router } from "../../../../index";
-import "./asidePanel.scss";
+// import "./asidePanel.scss";
 import { DEFAULT_AVATAR_URL } from "../../../../utils/constants";
 import { storeCurrentUser } from "../../../../store/StoreCurrentUser";
 import { WebSocketService } from "../../../../utils/webSocket";

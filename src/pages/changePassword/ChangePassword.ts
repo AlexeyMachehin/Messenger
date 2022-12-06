@@ -11,7 +11,7 @@ import {
 } from "../../utils/models/validation";
 import { CommonProps } from "../../utils/models/props";
 import { onSubmitForm } from "../../utils/form/form";
-import "./changePassword.scss";
+// import "./changePassword.scss";
 import { UserController } from '../../controllers/User';
 import { ROUTES } from '../../utils/router/routes';
 
