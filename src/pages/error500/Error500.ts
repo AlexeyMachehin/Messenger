@@ -4,7 +4,7 @@ import {GeneralLink} from "../../components/generalLink/GeneralLink";
 import { router } from "../../index";
 import { CommonProps } from "../../utils/models/props";
 import { ROUTES } from "../../utils/router/routes";
-// import "./error500.scss";
+import "./error500.scss";
 
 type Error500Type = {
   generalLink: GeneralLink;

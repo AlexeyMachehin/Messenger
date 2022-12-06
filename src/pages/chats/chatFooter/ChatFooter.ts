@@ -9,7 +9,7 @@ import { CommonProps } from "./../../../utils/models/props";
 import { openSelect } from "../../../utils/openSelect";
 import { SelectItem } from "../../../components/selectItem/SelectItem";
 import { onSubmitForm } from "../../../utils/form/form";
-// import "./chatFooter.scss"
+import "./chatFooter.scss"
 
 type ChatFooterType = {
   manageFileButton: IconButton;

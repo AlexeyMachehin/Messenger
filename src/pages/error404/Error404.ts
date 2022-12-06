@@ -4,7 +4,7 @@ import {GeneralLink} from "../../components/generalLink/GeneralLink";
 import { router } from "../../index";
 import { CommonProps } from "../../utils/models/props";
 import { ROUTES } from "../../utils/router/routes";
-// import "./error404.scss";
+import "./error404.scss";
 
 type Error404Type = {
   generalLink: GeneralLink;

@@ -1,64 +1,33 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const path = require("path");
-const Dotenv = require("dotenv-webpack");
-const webpack = require("webpack");
-const PugPlugin = require("pug-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
-
-const pages = [
-  "/change-data",
-  "/login",
-  "/sign-up",
-  "/change-password",
-  "/error404",
-  "/error500",
-  "/settings",
-  "/messenger",
-  "/",
-];
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require('path');
+const Dotenv = require('dotenv-webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.ts",
+  mode: 'development',
+  entry: './src/index.ts',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
   },
   devServer: {
+    historyApiFallback: true,
     port: 3000,
   },
   resolve: {
-    extensions: [".ts", ".js", ".json"],
-    fallback: {
-      fs: false,
-      os: require.resolve("os-browserify/browser"),
-      path: require.resolve("path-browserify"),
-    },
+    extensions: ['.ts', '.js', '.json'],
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: "./style.scss",
-    }),
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, "./src/static/index.html"),
-      filename: "./index.html",
-      inject: true,
+      template: `./src/static/index.html`,
     }),
+    new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
     new Dotenv(),
-    new webpack.ProvidePlugin({
-      process: "process/browser",
-    }),
-    new PugPlugin({
-      pretty: true,
-      extractCss: {
-        filename: "assets/css/[name].[contenthash:8].css",
-      },
-    }),
     new CopyPlugin({
-      patterns: ["./src/static/pug.js", "./src/static/pug-init.js"],
+      patterns: ['./src/static/pug.js', './src/static/pug-init.js'],
     }),
   ],
   module: {
@@ -67,36 +36,17 @@ module.exports = {
         test: /\.ts?$/,
         use: [
           {
-            loader: "ts-loader",
+            loader: 'ts-loader',
             options: {
-              configFile: path.resolve(__dirname, "tsconfig.json"),
+              configFile: path.resolve(__dirname, 'tsconfig.json'),
             },
           },
         ],
         exclude: /(node_modules)/,
       },
       {
-        test: /\.scss$/,
-        use: [
-          { loader: MiniCssExtractPlugin.loader },
-          "css-loader",
-          "sass-loader",
-        ],
-      },
-      {
-        test: /\.pug$/,
-        oneOf: [
-          {
-            issuer: /\.(ts)$/,
-            loader: PugPlugin.loader,
-            options: {
-              method: "compile",
-            },
-          },
-          {
-            loader: PugPlugin.loader,
-          },
-        ],
+        test: /\.s[ac]ss$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },

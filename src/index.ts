@@ -8,6 +8,7 @@ import { Error500 } from "./pages/error500/Error500";
 import { Profile } from "./pages/profile/Profile";
 import { Router } from "./utils/router/router";
 import { ROUTES } from "./utils/router/routes";
+import './static/style.scss';
 
 export const router = new Router(".main");
 

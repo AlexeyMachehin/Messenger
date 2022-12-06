@@ -12,7 +12,7 @@ import {
   ValidationPattern,
   ValidationError,
 } from '../../utils/models/validation';
-// import './changeData.scss';
+import './changeData.scss';
 import { UploadFiles } from '../../controllers/UploadFiles';
 import {
   storeCurrentUser,

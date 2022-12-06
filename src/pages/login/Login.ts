@@ -13,7 +13,7 @@ import {
 } from "../../utils/models/validation";
 import { onSubmitForm } from "../../utils/form/form";
 import { ROUTES } from "../../utils/router/routes";
-// import "./login.scss";
+import "./login.scss";
 
 type LoginType = {
   generalInputLogin: GeneralInput;
