@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
+    "moduleResolution": "node",
     "target": "es2021",
+    "module": "esnext",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
     "strict": true,
-    "types": ["node"]
-   
+    "types": [
+      "node",
+      "mocha"
+    ],
   },
   "exclude": [
-    "src/utils/HttpTransport.ts"
-  ]
+    "./test/",
+    "./node_modules/",
+    "./dist/"
+  ],
 }

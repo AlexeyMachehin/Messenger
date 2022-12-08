@@ -5,7 +5,7 @@ import { queryStringify } from "./queryStringify";
 export class HTTPTransport {
   mainUrl = new URL('', process.env.YANDEX_PRAKTIKUM_API);
 
-  protected get<T>(url: string, options?: HTTPOptionsPost) {
+  get<T>(url: string, options?: HTTPOptionsPost) {
     if (options && options.data) {
       url = url + queryStringify(options.data);
     }
@@ -13,25 +13,25 @@ export class HTTPTransport {
       method: METHODS.GET,
     });
   }
-  protected post<T>(url: string, options: HTTPOptionsPost): Promise<T> {
+  post<T>(url: string, options: HTTPOptionsPost): Promise<T> {
     return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.POST,
     });
   }
-  protected put<T>(url: string, options: HTTPOptionsPost): Promise<T> {
+  put<T>(url: string, options: HTTPOptionsPost): Promise<T> {
     return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.PUT,
     });
   }
-  protected patch(url: string, options: HTTPOptions) {
+  patch(url: string, options: HTTPOptions) {
     return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.PATCH,
     });
   }
-  protected delete<T>(url: string, options: HTTPOptionsPost): Promise<T> {
+  delete<T>(url: string, options: HTTPOptionsPost): Promise<T> {
     return this.request(this.mainUrl.toString() + url, {
       ...options,
       method: METHODS.DELETE,
