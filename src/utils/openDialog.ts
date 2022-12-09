@@ -1,4 +1,4 @@
-import { ManageUserModal } from "../components/manageUserModal/ManageUserModal";
+
 import { ChatHeader } from "./../pages/chats/components/chatHeader/ChatHeader";
 
 
@@ -8,6 +8,6 @@ export function openDialog(this: IThis) {
   /** Event of click. */
   const indexOfEvent = 0;
   (
-    this.children[arguments[indexOfEvent]] as ManageUserModal
+    this.children[arguments[indexOfEvent]] as any
   ).service?.openDialog();
 }
