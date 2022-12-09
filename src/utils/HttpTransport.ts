@@ -3,36 +3,36 @@ import { METHODS } from "./models/httpMethod";
 import { queryStringify } from "./queryStringify";
 
 export class HTTPTransport {
-  mainUrl = new URL('', process.env.YANDEX_PRAKTIKUM_API);
+  mainUrl = process.env.YANDEX_PRAKTIKUM_API;
 
   get<T>(url: string, options?: HTTPOptionsPost) {
     if (options && options.data) {
       url = url + queryStringify(options.data);
     }
-    return this.request<T>(this.mainUrl.toString() + url, {
+    return this.request<T>(this.mainUrl + url, {
       method: METHODS.GET,
     });
   }
   post<T>(url: string, options: HTTPOptionsPost): Promise<T> {
-    return this.request(this.mainUrl.toString() + url, {
+    return this.request(this.mainUrl + url, {
       ...options,
       method: METHODS.POST,
     });
   }
   put<T>(url: string, options: HTTPOptionsPost): Promise<T> {
-    return this.request(this.mainUrl.toString() + url, {
+    return this.request(this.mainUrl + url, {
       ...options,
       method: METHODS.PUT,
     });
   }
   patch(url: string, options: HTTPOptions) {
-    return this.request(this.mainUrl.toString() + url, {
+    return this.request(this.mainUrl + url, {
       ...options,
       method: METHODS.PATCH,
     });
   }
   delete<T>(url: string, options: HTTPOptionsPost): Promise<T> {
-    return this.request(this.mainUrl.toString() + url, {
+    return this.request(this.mainUrl + url, {
       ...options,
       method: METHODS.DELETE,
     });

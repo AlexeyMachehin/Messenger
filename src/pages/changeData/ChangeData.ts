@@ -150,11 +150,9 @@ export class ChangeData extends Block<ChangeDataType> {
       }),
       events: {
         submit: (event) => {
-          const formData = onSubmitForm.apply<
-            ChangeData,
-            [Event, string],
-            UserDto
-          >(this, [event, '.change-data-form']);
+          const formData = onSubmitForm.apply
+            <ChangeData, [Event, string], UserDto>
+            (this, [event, '.change-data-form']);
           user.changeUserData(formData);
         },
       },

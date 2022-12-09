@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "target": "es2021",
-    "module": "esnext",
+    "target": "es2019",
+    "module": "commonjs",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -11,8 +11,12 @@
     "strict": true,
     "types": [
       "node",
-      "mocha"
+      "mocha",
+      "chai"
     ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
   "exclude": [
     "./test/",
