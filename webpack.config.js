@@ -6,15 +6,10 @@ const Dotenv = require('dotenv-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
-  },
-  devServer: {
-    historyApiFallback: true,
-    port: 3000,
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
