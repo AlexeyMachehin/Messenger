@@ -8,7 +8,7 @@ RUN apt update && apt install -y nodejs && apt install -y npm
 
 RUN npm install
 
-RUN npm build
+RUN npm run build
 
 EXPOSE 3000
 
