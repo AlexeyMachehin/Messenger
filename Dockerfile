@@ -4,7 +4,7 @@ WORKDIR /messenger
 
 COPY . .
 
-RUN apt update && apt install -y nodejs && apt install -y npm  
+RUN apt update && apt install -y nodejs && apt install -y npm && apt install cross-env  
 
 RUN npm install
 
