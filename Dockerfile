@@ -6,6 +6,8 @@ COPY . .
 
 RUN apt update && apt install -y nodejs && apt install -y npm 
 
+RUN npm install --global cross-env
+
 RUN npm install
 
 EXPOSE 3000
