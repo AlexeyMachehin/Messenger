@@ -1,12 +1,10 @@
-@import "../../../styles.scss";
-@import "../../layouts/main/main.scss";
+@import "../../styles/variables.scss";
 @import "../../components/chatPageInput/chatPageInput.scss";
 @import "../../components/generalLink/generalLink.scss";
 @import "../../components/chat/chat.scss";
 @import "../../components/select/select.scss";
 @import "../../components/messagesList/messagesList.scss";
 @import "../../components/manageUserModal/manageUserModal.scss";
-@import "../../../variables.scss";
 
 .chat-panel {
     width: 100%;

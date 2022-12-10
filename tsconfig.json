@@ -1,16 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es2021",
+    "moduleResolution": "node",
+    "target": "es2019",
+    "module": "commonjs",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
     "strict": true,
-    "types": ["node"]
-   
+    "types": [
+      "node",
+      "mocha",
+      "chai"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
   "exclude": [
-    "src/utils/HttpTransport.ts"
-  ]
+    "./test/",
+    "./node_modules/",
+    "./dist/"
+  ],
 }

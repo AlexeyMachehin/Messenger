@@ -1,5 +1,6 @@
+import { ManageUserModal } from "../components/manageUserModal/ManageUserModal";
 import { ChatHeader } from "./../pages/chats/components/chatHeader/ChatHeader";
-import { ManageUserModal } from "./../components/ManageUserModal/ManageUserModal";
+
 
 type IThis = ChatHeader;
 

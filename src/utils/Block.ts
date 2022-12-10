@@ -2,7 +2,7 @@ import { CommonProps } from "./models/props";
 import { Events } from "./models/events";
 import { EventBus } from "./EventBus";
 import { v4 as makeUUID } from "uuid";
-import { compile } from "pug";
+import compile from '../static/pug';
 
 type Children = { [key: string]: Block<{}> | Block<{}>[]; };
 

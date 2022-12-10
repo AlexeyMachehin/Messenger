@@ -1,5 +1,8 @@
 @import "./nullstyle.scss";
 @import "./variables.scss";
+body {
+    background-color: aqua;
+}
 
 dialog {
     margin: auto;
