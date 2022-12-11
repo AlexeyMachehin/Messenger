@@ -1,20 +1,19 @@
-import { expect, assert } from 'chai';
-import { compile } from 'pug';
-import { Block } from './Block';
-import { CommonProps } from './models/props';
+import { expect, assert } from "chai";
+import { compile } from "pug";
+import { Block } from "./Block";
+import { CommonProps } from "./models/props";
 
-describe('Block:', () => {
+describe("Block:", () => {
   let isRendered = false;
   let isRenderAfterUpdate = false;
 
   class TestComponent extends Block<CommonProps> {
     constructor(props: any) {
-      super('div', props);
+      super("div", props);
     }
 
     componentDidUpdate(oldProps: CommonProps, newProps: CommonProps): boolean {
-      if (oldProps != newProps)
-        isRenderAfterUpdate = true;
+      if (oldProps != newProps) isRenderAfterUpdate = true;
       return true;
     }
 
@@ -29,23 +28,23 @@ describe('Block:', () => {
     text: "text",
   });
 
-  it('Ready for render', () => {
+  it("Ready for render", () => {
     assert.isNotNull(testComponent.getContent());
   });
 
-  it('Render', () => {
+  it("Render", () => {
     testComponent.renderPug();
     assert.isNotNull(isRendered);
   });
 
-  it('Set props', () => {
+  it("Set props", () => {
     testComponent.setProps({
-      text: 'New value',
+      text: "New value",
     });
-    expect(testComponent.props.text).to.eq('New value');
+    expect(testComponent.props.text).to.eq("New value");
   });
 
-  it('Render after setting props', () => {
+  it("Render after setting props", () => {
     expect(isRenderAfterUpdate).to.eq(true);
   });
 });
