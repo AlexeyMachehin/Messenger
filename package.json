@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "webpack serve --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
-    "start": "node server.js",
+    "start": "npm run build && node ./server.js",
     "stylelint": "stylelint src/**/*.scss",
     "test": "mocha --require ts-node/register -r dotenv/config",
     "prepare": "husky install"
