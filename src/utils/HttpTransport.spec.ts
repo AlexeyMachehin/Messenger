@@ -7,7 +7,7 @@ describe('HTTPTransport', () => {
     it('Sign in', (done) => {
         httpTransport
             .post(`auth/signin`, {
-                data: JSON.stringify({ login: 'TEst', password: 'Qwerty123' }),
+                data: JSON.stringify({ login: 'Lehazzz', password: 'Qwerty123' }),
             })
             .then(() => {
                 done();
