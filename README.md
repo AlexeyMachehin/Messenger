@@ -1,12 +1,11 @@
-Ссылка на netlify: [middle.messenger.praktikum.yandex_Link](https://am-middle-messenger-praktikum-yandex.netlify.app)
+Ссылка на render.com: [middle.messenger.praktikum.yandex_Link](https://messenger-tvcr.onrender.com)
 
 ***
-
-Команда для старта проекта: npm run start
-
-Команда для сборки проекта: npm run build
-
-Команда для старта режима разработчика: npm run dev
+## Команды:
+* Старт проекта: npm run start
+* Сборка проекта: npm run build
+* Старт режима разработчика: npm run dev
+* Запуск тестов: npm run test
 
 ***
 
@@ -34,3 +33,10 @@
 * Неавторизованный пользователь отправляется на страницу логина.
 * Подключен WebSocket для работы с real-time сообщениями. 
 * Чаты добавляются в store.
+
+## Ветка sprint_4:
+* Написаны тесты (Mocha и Chai) для роутера , компонента, модуля отправки запросов.
+* Настроен  Webpack.
+* Настроен precommit.
+* Проект размещен на render.com с Docker-сборкой.
+* Проведен аудит пакетов.
