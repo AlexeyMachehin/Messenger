@@ -1,6 +1,31 @@
+## Чат
+
 Ссылка на render.com: [middle.messenger.praktikum.yandex_Link](https://messenger-tvcr.onrender.com)
 
 ***
+
+## Описание:
+Чат написан на чистом TS без подключения фреймворков. Реактивность реализована с помощью proxy. Соединение настроено через WebSocket.
+
+***
+
+## Стек технологий:
+* Stylelint
+* Docker
+* Express
+* Typescript
+* Webpack
+* Eslint
+* REST-API
+* Proxy
+* WebSocket
+* Pug
+* Parcel
+* Precommit
+* Mocha-Chai
+
+***
+
 ## Команды:
 * Старт проекта: npm run start
 * Сборка проекта: npm run build
@@ -40,3 +65,9 @@
 * Настроен precommit.
 * Проект размещен на render.com с Docker-сборкой.
 * Проведен аудит пакетов.
+
+Превью:
+![image](https://user-images.githubusercontent.com/99137228/222716400-9bd7cbdd-5518-455d-8cf3-bf74eb33001b.png)
+![image](https://user-images.githubusercontent.com/99137228/222716457-c45677e8-5a52-4201-aee8-a0206344a086.png)
+![image](https://user-images.githubusercontent.com/99137228/222716644-ae72a34b-cd3f-42e4-bdf5-e1529ff3edfd.png)
+
