@@ -34,6 +34,14 @@
 
 ***
 
+## Запуск:
+Ввести в терминале команды:
+* git clone https://github.com/AlexeyMachehin/middle.messenger.praktikum.yandex.git
+* npm install
+* npm run start
+
+***
+
 ## Ветка sprint_1:
 * Верстка сайта с использованием шаблонизатора Pug. 
 * Добавлен локальный сервер на Express.
