@@ -75,8 +75,9 @@
 * Проведен аудит пакетов.
 
 Превью:
+![chat](https://user-images.githubusercontent.com/99137228/222951282-5acd1f70-6fd5-4ef4-a947-6d93bc5f08b1.gif)
 ![image](https://user-images.githubusercontent.com/99137228/222716400-9bd7cbdd-5518-455d-8cf3-bf74eb33001b.png)
 ![image](https://user-images.githubusercontent.com/99137228/222716457-c45677e8-5a52-4201-aee8-a0206344a086.png)
-![chat](https://user-images.githubusercontent.com/99137228/222951282-5acd1f70-6fd5-4ef4-a947-6d93bc5f08b1.gif)
+
 
 
